@@ -24,7 +24,7 @@ SCENES = [
     function(){
     },
     function(){
-       console.log("entered first scene");
+        console.log("entered first scene");
     }),
 
     /* next scene */
@@ -34,9 +34,9 @@ SCENES = [
     function(){
     },
     function(){
-       /* camera movement */
-       console.log("entered second scene");
-    }),
+        /* camera movement */
+        console.log("entered second scene");
+    })
 
 ];
 
@@ -206,9 +206,20 @@ function init() {
     fadeStart = 0;
     fadeGoal = 0;
     fadeFn = undefined;
-    fadeIn(100000);
-    /* for good measure */
-    resize();
+    fadeIn(2000);
+
+    var sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(
+            50,
+            16,
+            16
+        ),
+        materials[1]
+    );
+
+    // add the sphere to the scene
+    scene.add(sphere);
+
     setLoadingBar(1, function(){});
 
 }
