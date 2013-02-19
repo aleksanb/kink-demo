@@ -3,12 +3,11 @@ ORIGO = new THREE.Vector3(0, 0, 0);
 cameraMovementDone = true;
 
 TEXTS = [
-        "KINK IS NOT KINECT"
-         ];
+    "KINK IS NOT KINECT"
+];
 
 TIMELINE = [
-    20000,
-    40000
+    20000
 ];
 
 note_midicallback = function(e){};
@@ -17,76 +16,30 @@ active_scene = 0;
 /* please specify these in chrono order! */
 /* yes, because i am lazy */
 SCENES = [
-          /* introduction */
-         new Scene(function(){
-            //given we want to start camera at ORIGO;
-            if(cameratarget != ORIGO) cameratarget = ORIGO;
-         },
-         function(){
-         },
-         function(){
-             console.log("entered first scene");
-         }),
-         
-         /* next scene */
-         new Scene(function(){
-             /*functional code */
-         },
-         function(){
-         },
-         function(){
-             /* camera movement */
-             console.log("entered second scene");
-         }),
-         
-         /* 3d2d3d */
-         new Scene(function(){
-            osd.update();
-         },function(){
-         },function(){
-             cameratarget = ORIGO;
-             osd.show(TEXTS[4]);
-         }),
-         
-         /* more 3d2d3d */
-         new Scene(function(){
-            osd.update();
-            camera.position.x = 440*Math.sin(t/30307);
-            camera.position.y = 440*Math.cos(t/46020);
-            camera.position.z = 440*Math.sin(t/63001);
-         },function(){
-         },function(){
-             cameratarget = ORIGO;
-             osd.show(TEXTS[5]);
-             note_midicallback = function(){};
-         }),
-         
-         
-         /* our names or something */
-        new Scene(function(){
-            camera.position.y-= 0.2;
-            osd.update();
-        },function(){
-            
-        },function(){
-             cameratarget = ORIGO;
-             camera.position.y = 300;
-             osd.show(TEXTS[6]);
-        }),
-        
-        /* fade to black and exit or whatever */
-        new Scene(function(){
-            camera.position.y-= 0.2;
-            osd.update();
-        },function(){
-            
-        },function(){
-            fadeOut(44100*8,function(){
-                now.we.crash.the.demo.because.it.is.the.fastest.way.to.stop(":D");
-            });
-        })
-          ];
-        
+    /* introduction */
+    new Scene(function(){
+        //given we want to start camera at ORIGO;
+        if(cameratarget != ORIGO) cameratarget = ORIGO;
+    },
+    function(){
+    },
+    function(){
+       console.log("entered first scene");
+    }),
+
+    /* next scene */
+    new Scene(function(){
+       /*functional code */
+    },
+    function(){
+    },
+    function(){
+       /* camera movement */
+       console.log("entered second scene");
+    }),
+
+];
+
 
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
 function smoothstep(a, b, t) {
@@ -98,17 +51,17 @@ function lerp(a, b, t) {
     return b * t + a * (1 - t);
 }
 
-function drawImage(img,startx,starty){
+function drawImage(img,startx,starty) {
     var x = startx+1;
     var y = starty;
     var on = false;
     for(var i=0;i<img.data.length;i++){
         var num = img.data.charCodeAt(i)-65;
-        while(num-->0){
+        while(num-->0) {
             if(on) cubes[(side-x-1)*side+y].mesh.position.y = 25+5*Math.sin(x/4+t/4000);
             cubes[(side-x-1)*side+y].mesh.material = materials[+on];
             x++;
-            if(x>startx+img.w){
+            if(x>startx+img.w) {
                 x = startx+1;
                 y++;
             }
@@ -118,7 +71,7 @@ function drawImage(img,startx,starty){
 }
 
 
-function newCameraMovement(movementTime, posx, posy, posz, rotx, roty, rotz, tarx,tary,tarz){
+function newCameraMovement(movementTime, posx, posy, posz, rotx, roty, rotz, tarx,tary,tarz) {
     cameraMovementDone = false;
     deepCopy3DObject(camera, startcamera);
     startcamera.time = t;
@@ -137,10 +90,9 @@ function newCameraMovement(movementTime, posx, posy, posz, rotx, roty, rotz, tar
     
     //var samples_per_quaver = midi.ticks_per_beat / midi.ticks_per_second * 44100;
     goalcamera.time = t+movementTime;
-    
 }
 
-function deepCopy3DObject(from, to){
+function deepCopy3DObject(from, to) {
     to.position.x = from.position.x;
     to.position.y = from.position.y;
     to.position.z = from.position.z;
@@ -151,6 +103,7 @@ function deepCopy3DObject(from, to){
 }
 
 function update() {
+
     /* interpolate camera movement */
     if(!cameraMovementDone){
         var interpolt = (t-startcamera.time)/(goalcamera.time-startcamera.time);
@@ -182,8 +135,7 @@ function update() {
 }
 
 function render() {
-    
-    
+
     /* render the 2d canvas */
     tdx.clearRect(0,0,twoDCanvas.width, twoDCanvas.height);
     osd.render(); //yah, we just always render the osd
@@ -207,10 +159,12 @@ function render() {
     
 }
 
-function Scene(update,render, onenter){
+function Scene(update,render, onenter) {
+
     this.update = update;
     this.render = render;
     this.onenter = onenter;
+
 }
 
 function init() {
@@ -234,10 +188,10 @@ function init() {
     osd = new OSD();
 
     materials = [
-                 new THREE.MeshLambertMaterial({
+    new THREE.MeshLambertMaterial({
         color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:true
     }), 
-                 new THREE.MeshLambertMaterial({
+    new THREE.MeshLambertMaterial({
         color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false})
     ];
 
@@ -256,19 +210,24 @@ function init() {
     /* for good measure */
     resize();
     setLoadingBar(1, function(){});
+
 }
 
-function fadeIn(duration){
+function fadeIn(duration) {
+
     fadeStartTime = t;
     fadeGoalTime = t+duration;
     fadeStart = 1;
     fadeGoal = 0;
+
 }
 
-function fadeOut(duration,fn){
+function fadeOut(duration,fn) {
+
     fadeStartTime = t;
     fadeGoalTime = t+duration;
     fadeStart = 0;
     fadeGoal = 1;
     fadeFn = fn;
+
 }

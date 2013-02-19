@@ -11,8 +11,6 @@ window.requestAnimFrame = (function(){
     };
 })();
 
-var music;
-
 function loop(){
     t = music.currentTime*1000;
     dt = (t-old_time);
