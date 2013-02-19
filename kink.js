@@ -1,12 +1,15 @@
 DEBUG = false;
 ORIGO = new THREE.Vector3(0, 0, 0);
 cameraMovementDone = true;
-t = 0;
 
 TEXTS = [
         "KINK IS NOT KINECT",
          ];
 
+TIMELINE = [
+    20,
+    40
+];
 
 note_midicallback = function(e){};
 
@@ -16,13 +19,13 @@ active_scene = 0;
 SCENES = [
           /* introduction */
          new Scene(function(){
-            console.log("Add update functions");
             //given we want to start camera at ORIGO;
             if(cameratarget != ORIGO) cameratarget = ORIGO;
          },
          function(){
          },
          function(){
+             console.log("entered first scene");
          }),
          
          /* next scene */
@@ -34,6 +37,7 @@ SCENES = [
          },
          function(){
              /* camera movement */
+             console.log("entered second scene");
          }),
          
          /* 3d2d3d */
@@ -170,13 +174,13 @@ function update() {
     light.position.y = camera.position.y;
     light.position.z = -camera.position.z;
 
+    if (t >= TIMELINE[active_scene]) {
+        active_scene++;
+        SCENES[active_scene].onenter();
+    }
     SCENES[active_scene].update();
     
-
 }
-
-
-
 
 function OSD(){
     this.text = "KINK is not Kinect";
@@ -294,6 +298,7 @@ function init() {
     fadeIn(100000);
     /* for good measure */
     resize();
+    setLoadingBar(1, function(){});
 }
 
 function fadeIn(duration){

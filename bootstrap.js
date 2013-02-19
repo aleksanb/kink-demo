@@ -1,4 +1,5 @@
 FRAME_LENGTH = 882;
+t = 0;
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       || 
     window.webkitRequestAnimationFrame || 
@@ -10,9 +11,12 @@ window.requestAnimFrame = (function(){
     };
 })();
 
+var music;
+
 function loop(){
-    dt += (t-old_time);
-    old_time = t;
+    t = music.currentTime*1000;
+    dt = (t-old_time);
+    old_time = music.currentTime;
     while(dt> FRAME_LENGTH){
         update();
         dt-= FRAME_LENGTH;
@@ -23,9 +27,9 @@ function loop(){
 
 
 function start(){
-    time = 0;
-    old_time = time;
+    old_time = 0;
     dt = 0;
+    music.play();
     init();
 }
 
@@ -59,16 +63,10 @@ function bootstrap(){
     twoDCanvas.style.zIndex = "9999";
     twoDCanvas.style.background = "transparent";
     tdx = twoDCanvas.getContext("2d");
-    scanlinecanvas = document.createElement("canvas");
-    scanlinecanvas.style.position = "absolute";
-    scanlinecanvas.style.left = "0";
-    scanlinecanvas.style.zIndex = "999";
-    scanlinecanvas.style.background = "transparent";
-    slx = scanlinecanvas.getContext("2d");
     resize();
     document.body.appendChild(renderer.domElement);
-    document.body.appendChild(scanlinecanvas);
     document.body.appendChild(twoDCanvas);
+    music = new Audio("ramstein.mp3");
     setTimeout(start,0);
 }
 
@@ -86,22 +84,6 @@ function resize(){
     twoDCanvas.style.margin = ((window.innerHeight - 9*GU) /2)+"px 0 0 "+((window.innerWidth-16*GU)/2)+"px";
     tdx.font = (GU/3)+"pt BebasNeue";
     tdx.textBaseline = "top";
-    scanlinecanvas.width = 16*GU;
-    scanlinecanvas.height = 9*GU;
-    scanlinecanvas.style.margin = ((window.innerHeight - 9*GU) /2)+"px 0 0 "+((window.innerWidth-16*GU)/2)+"px";
-    slx.fillStyle = "rgba(0,0,0,0.05)";
-    for(var i=0;i<9;i++){
-        slx.fillRect(0,i*GU+0.0*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.1*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.2*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.3*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.4*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.5*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.6*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.7*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.8*GU,16*GU,0.05*GU);
-        slx.fillRect(0,i*GU+0.9*GU,16*GU,0.05*GU);
-    }
 }
 
 window.onresize = resize;
