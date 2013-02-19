@@ -1,6 +1,7 @@
 DEBUG = false;
 ORIGO = new THREE.Vector3(0, 0, 0);
 cameraMovementDone = true;
+t = 0;
 
 TEXTS = [
         "KINK IS NOT KINECT",
@@ -252,15 +253,7 @@ function Scene(update,render, onenter){
 }
 
 function init() {
-    setLoadingBar(0,function(){
-    
-    setLoadingBar(0.2,function(){
-    mixer = new Mixer();
 
-    setLoadingBar(0.4,function(){
-        
-        
-    setLoadingBar(0.4,function(){
     camera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
     camera.position.y = 200;
     startcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
@@ -269,13 +262,8 @@ function init() {
     goalcamera.time = 0;
     cameratarget = new THREE.Vector3(0,0,0);
 
-    setLoadingBar(0.5,function(){
-        
     scene = new THREE.Scene();
     
-        
-    setLoadingBar(0.6,function(){
-
     scene.add(camera);
     side = 32;
 
@@ -284,9 +272,6 @@ function init() {
     
     osd = new OSD();
 
-
-    setLoadingBar(0.7,function(){
-    
     materials = [
                  new THREE.MeshLambertMaterial({
         color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:true
@@ -298,18 +283,9 @@ function init() {
     light = new THREE.SpotLight();
     light.intensity = 0.5;
     scene.add(light);
+    
+    cameraskip = false;
 
-    setLoadingBar(0.8,function(){
-        
-    
-    setLoadingBar(0.9,function(){
-    skybox = createSkybox("");
-    scene.add(skybox);
-        
-    
-    setLoadingBar(1,function(){
-        cameraskip = false;
-    })
     fadeStartTime = 0;
     fadeGoalTime = 0;
     fadeStart = 0;
@@ -318,8 +294,6 @@ function init() {
     fadeIn(100000);
     /* for good measure */
     resize();
-    mixer.start();
-    })})})})})})})})})});
 }
 
 function fadeIn(duration){
@@ -335,22 +309,4 @@ function fadeOut(duration,fn){
     fadeStart = 0;
     fadeGoal = 1;
     fadeFn = fn;
-}
-
-function createSkybox(url){
-    var urls = [
-                url+"posx.png", url+"posx.png", url+"posx.png",
-                url+"posx.png", url+"posx.png", url+"posx.png"
-                ];
-    var textureCube = THREE.ImageUtils.loadTextureCube(urls);
-    var shader = THREE.ShaderUtils.lib.cube;
-    shader.uniforms.tCube.texture = textureCube;
-    var material = new THREE.ShaderMaterial({
-        fragmentShader : shader.fragmentShader,
-        vertexShader : shader.vertexShader,
-        uniforms: shader.uniforms
-    });
-    var skybox = new THREE.Mesh( new THREE.CubeGeometry(10000, 10000, 10000), material);
-    skybox.flipSided = true;
-    return skybox;
 }
