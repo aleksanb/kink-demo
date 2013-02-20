@@ -37,6 +37,7 @@ function start(){
     old_time = 0;
     dt = 0;
     music.play();
+    music.volume = 0;
     SCENES[0].onenter();
     init();
 }
