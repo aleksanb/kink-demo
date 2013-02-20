@@ -10,6 +10,15 @@ window.requestAnimFrame = (function(){
         window.setTimeout(callback, 0);
     };
 })();
+window.makeFullscreen = function(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    }
+};
 
 function loop(){
     t = music.currentTime*1000;
@@ -28,6 +37,7 @@ function start(){
     old_time = 0;
     dt = 0;
     music.play();
+    music.volume = 0;
     SCENES[0].onenter();
     init();
 }
@@ -48,7 +58,7 @@ function setLoadingBar(completed,fn){
 }
 
 function bootstrap(){
-    document.body.webkitRequestFullScreen();
+    //makeFullscreen(document.body);
     document.addEventListener("keydown",function(e){
         if(e.keyCode == /*ESC*/ 27){
             window.open('', '_self', ''); //bug fix
