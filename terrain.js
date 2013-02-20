@@ -1,12 +1,28 @@
-function Terrain( width, height ) {
+function Terrain( width, depth ) {
 	this.data;
 	this.canvasScaled;
 	this.w = width || 256;
-	this.h = height || 256;
+	this.d = depth || 256;
+
+	this.generateHeight();
+	this.generateTexture();
+
+	this.geometry = new THREE.PlaneGeometry( 7500, 7500, this.w - 1, this.d - 1 );
+	this.geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+
+	for ( var i = 0, l = this.geometry.vertices.length; i < l; i ++ ) {
+		this.geometry.vertices[i].y = this.data[i] * 10;
+	}
+
+	this.texture = new THREE.Texture( this.canvasScaled, new THREE.UVMapping(), THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping );
+	this.texture.needsUpdate = true;
+
+	this.mesh = new THREE.Mesh( this.geometry, new THREE.MeshBasicMaterial( { map: this.texture } ) );
+
 }
 
 Terrain.prototype.generateHeight = function() {
-	var size = this.w * this.h;
+	var size = this.w * this.d;
 	this.data = new Float32Array( size );
 	var perlin = new ImprovedNoise();
 	var quality = 1;
@@ -28,7 +44,7 @@ Terrain.prototype.generateHeight = function() {
 					x / quality,
 					y / quality, 
 					z
-				) * quality * 1.75
+				) * quality
 			)
 		}
 
@@ -49,11 +65,11 @@ Terrain.prototype.generateTexture = function() {
 
 	canvas = document.createElement( 'canvas' );
 	canvas.width = this.w;
-	canvas.height = this.h;
+	canvas.height = this.d;
 
 	context = canvas.getContext( '2d' );
 	context.fillStyle = '#000';
-	context.fillRect( 0, 0, this.w, this.h );
+	context.fillRect( 0, 0, this.w, this.d );
 
 	image = context.getImageData( 0, 0, canvas.width, canvas.height );
 	imageData = image.data;
@@ -78,7 +94,7 @@ Terrain.prototype.generateTexture = function() {
 
 	this.canvasScaled = document.createElement( 'canvas' );
 	this.canvasScaled.width = this.w * 4;
-	this.canvasScaled.height = this.h * 4;
+	this.canvasScaled.height = this.d * 4;
 
 	context = this.canvasScaled.getContext( '2d' );
 	context.scale( 4, 4 );

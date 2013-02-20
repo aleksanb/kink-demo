@@ -19,7 +19,7 @@ SCENES = [
     /* introduction */
     new Scene(function(){
         //given we want to start camera at ORIGO;
-        if(cameratarget != ORIGO) cameratarget = ORIGO;
+        //if(cameratarget != ORIGO) cameratarget = ORIGO;
     },
     function(){
     },
@@ -208,17 +208,9 @@ function init() {
     fadeFn = undefined;
     fadeIn(2000);
 
-    var sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(
-            50,
-            16,
-            16
-        ),
-        materials[1]
-    );
-
-    // add the sphere to the scene
-    scene.add(sphere);
+    var terrain = new Terrain(256, 256);
+    scene.add(terrain.mesh);
+    camera.position.y = terrain.data[ 128 + 32768 ] + 500;
 
     setLoadingBar(1, function(){});
 
