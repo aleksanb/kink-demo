@@ -214,9 +214,9 @@ function init() {
     fadeFn = undefined;
     fadeIn(2000);
 
-    BACKGROUND_COLOR = 0x00cc88;
+    /*BACKGROUND_COLOR = 0x00cc88;
 
-    renderer.setClearColorHex(BACKGROUND_COLOR);
+    renderer.setClearColorHex(BACKGROUND_COLOR);*/
     bg.init();
 
     /*

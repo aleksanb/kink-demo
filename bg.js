@@ -3,6 +3,7 @@ function BG() {
     this.HEIGHT = 9*GU;
     this.geometry = new THREE.Geometry();
     this.colors = [0x000000, 0xff0080, 0x042d55, 0xffffff, 0xcc00dd];
+    this.PARTICLE_SIZE = 5;
 }
 
 BG.prototype.render = function() {
@@ -11,7 +12,7 @@ BG.prototype.render = function() {
 
 BG.prototype.init = function() {
 
-    for (var i = 0; i < 2000; i++) {
+    for (var i = 0; i < 9000; i++) {
 
         var vertex = new THREE.Vector3();
         vertex.x = Math.random() * 4000 - 2000;    
@@ -22,7 +23,7 @@ BG.prototype.init = function() {
 
     }
 
-    var material = new THREE.ParticleBasicMaterial({size: 100, vertexColors: THREE.VertexColors, depthTest:false, opacity: 0.5, sizeAttenuation: false, transparent: true } );
+    var material = new THREE.ParticleBasicMaterial({size: this.PARTICLE_SIZE, vertexColors: THREE.VertexColors, depthTest:false, opacity: 0.5, sizeAttenuation: false, transparent: true } );
 
     var mesh = new THREE.ParticleSystem(this.geometry, material);
     scene.add(mesh);
@@ -30,7 +31,5 @@ BG.prototype.init = function() {
 }
 
 BG.prototype.update = function() {
-
-    
 
 }
