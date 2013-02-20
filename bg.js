@@ -17,13 +17,13 @@ BG.prototype.init = function() {
         var vertex = new THREE.Vector3();
         vertex.x = Math.random() * 4000 - 2000;    
         vertex.y = Math.random() * 4000 - 2000;    
-        vertex.z = Math.random() * 4000 - 2000;    
+        vertex.z = Math.random() * 4000;
         this.geometry.vertices.push(vertex);
         this.geometry.colors.push(new THREE.Color( this.colors[Math.floor(Math.random()*this.colors.length)]));
 
     }
 
-    var material = new THREE.ParticleBasicMaterial({size: this.PARTICLE_SIZE, vertexColors: THREE.VertexColors, depthTest:false, opacity: 0.5, sizeAttenuation: false, transparent: true } );
+    var material = new THREE.ParticleBasicMaterial({size: this.PARTICLE_SIZE, vertexColors: THREE.VertexColors, depthTest:true, opacity: 0.5, sizeAttenuation: false, transparent: true } );
 
     var mesh = new THREE.ParticleSystem(this.geometry, material);
     scene.add(mesh);

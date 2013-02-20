@@ -192,6 +192,7 @@ function init() {
     osd = new OSD();
     bg = new BG();
 
+    scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0005, 1000 );
 
     materials = [
     new THREE.MeshLambertMaterial({
@@ -214,11 +215,13 @@ function init() {
     fadeFn = undefined;
     fadeIn(2000);
 
+    bg.init();
+
+
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
     camera.position.y = terrain.data[ 128 + 32768 ] + 500;
 
-    bg.init();
 
     setLoadingBar(1, function(){});
 

@@ -1,5 +1,4 @@
 function OSD(){
-
     this.text = "KINK is not Kinect";
     this.boxstart = GU;
     this.boxwidth = 4*GU;
