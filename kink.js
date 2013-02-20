@@ -131,6 +131,7 @@ function update() {
         SCENES[active_scene].onenter();
     }
     SCENES[active_scene].update();
+    bg.update();
     
 }
 
@@ -152,7 +153,9 @@ function render() {
         }
     }
     
-    SCENES[active_scene].render();
+    //SCENES[active_scene].render();
+
+    bg.render();
     
     camera.lookAt(cameratarget);
     renderer.render(scene, camera);
@@ -169,8 +172,9 @@ function Scene(update,render, onenter) {
 
 function init() {
 
-    camera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
-    camera.position.y = 200;
+    camera = new THREE.PerspectiveCamera(75, 16 / 9, 1, 10000);
+    //camera.position.y = 200;
+    camera.position.z = 1000;
     startcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
     startcamera.time = 0;
     goalcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
@@ -186,6 +190,8 @@ function init() {
     z_spacing = 4.363 * 2 + 0.5;
     
     osd = new OSD();
+    bg = new BG();
+
 
     materials = [
     new THREE.MeshLambertMaterial({
@@ -211,6 +217,8 @@ function init() {
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
     camera.position.y = terrain.data[ 128 + 32768 ] + 500;
+
+    bg.init();
 
     setLoadingBar(1, function(){});
 
