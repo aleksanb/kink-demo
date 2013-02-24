@@ -240,7 +240,7 @@ function init() {
 
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
-    camera.position.y = terrain.data[ 128 + 32768 ] + 500;
+    camera.position.y = terrain.data[ 128 + 256*128 ] + 500;
 
 
     setLoadingBar(1, function(){});
