@@ -65,7 +65,7 @@ function bootstrap(){
             window.close(); 
         }
     });
-    renderer = new THREE.WebGLRenderer({ maxLights: 10,antialias:true}); 
+    renderer = new THREE.WebGLRenderer({ maxLights: 10,antialias:true, clerColor:0x000000, clearAlpha:1}); 
     renderer.sortObjects = false;
     twoDCanvas = document.createElement("canvas");
     twoDCanvas.style.position = "absolute";
