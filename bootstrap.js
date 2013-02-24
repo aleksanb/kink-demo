@@ -76,8 +76,8 @@ function bootstrap(){
     resize();
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(twoDCanvas);
-    var audio_url = Modernizr.audio.ogg ? 'rammstein.ogg' : 'rammstein.mp3';
-    music = new Audio(audio_url);
+    var file_format = Modernizr.audio.ogg ? 'ogg' : 'mp3';
+    music = new Audio( "audio/rammstein." + file_format );
     setTimeout(start,0);
 }
 
