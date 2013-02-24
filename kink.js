@@ -152,6 +152,11 @@ function update() {
     }
 
     bg.update();
+    snake.update();
+
+    cameratarget.x = snake.position.x;
+    cameratarget.y = snake.position.y;
+    cameratarget.z = snake.position.z;
     
 }
 
@@ -176,6 +181,7 @@ function render() {
     //SCENES[active_scene].render();
 
     bg.render();
+    snake.render();
     
     camera.lookAt(cameratarget);
     renderer.render(scene, camera);
@@ -237,6 +243,12 @@ function init() {
 
     bg.init();
 
+    snake = new Snake(scene, materials[1]);
+    cameratarget = new THREE.Vector3(
+            snake.position.x,
+            snake.position.y,
+            snake.position.z
+            );
 
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
