@@ -14,10 +14,18 @@ function Terrain( width, depth ) {
 		this.geometry.vertices[i].y = this.data[i] * 10;
 	}
 
-	this.texture = new THREE.Texture( this.canvasScaled, new THREE.UVMapping(), THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping );
+	this.texture = new THREE.Texture(
+            this.canvasScaled,
+            new THREE.UVMapping(),
+            THREE.ClampToEdgeWrapping,
+            THREE.ClampToEdgeWrapping
+            );
 	this.texture.needsUpdate = true;
 
-	this.mesh = new THREE.Mesh( this.geometry, new THREE.MeshBasicMaterial( { map: this.texture } ) );
+	this.mesh = new THREE.Mesh(
+            this.geometry,
+            new THREE.MeshBasicMaterial( { map: this.texture } )
+            );
 
 }
 
@@ -116,3 +124,7 @@ Terrain.prototype.generateTexture = function() {
 	context.putImageData( image, 0, 0 );
 
 };	
+
+Terrain.prototype.getYValue = function(x,z) {
+
+};

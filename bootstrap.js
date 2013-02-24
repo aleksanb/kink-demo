@@ -38,7 +38,6 @@ function start(){
     dt = 0;
     music.play();
     music.volume = 0;
-    SCENES[0].onenter();
     init();
 }
 
@@ -65,7 +64,7 @@ function bootstrap(){
             window.close(); 
         }
     });
-    renderer = new THREE.WebGLRenderer({ maxLights: 10,antialias:true}); 
+    renderer = new THREE.WebGLRenderer({ maxLights: 10,antialias:true, clearColor:0x000000, clearAlpha:1}); 
     renderer.sortObjects = false;
     twoDCanvas = document.createElement("canvas");
     twoDCanvas.style.position = "absolute";
@@ -76,8 +75,8 @@ function bootstrap(){
     resize();
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(twoDCanvas);
-    var audio_url = Modernizr.audio.ogg ? 'rammstein.ogg' : 'rammstein.mp3';
-    music = new Audio(audio_url);
+    var file_format = Modernizr.audio.ogg ? 'ogg' : 'mp3';
+    music = new Audio( "audio/rammstein." + file_format );
     setTimeout(start,0);
 }
 
