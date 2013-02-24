@@ -6,39 +6,46 @@ TEXTS = [
     "KINK IS NOT KINECT"
 ];
 
-TIMELINE = [
-    20000
-];
-
 note_midicallback = function(e){};
 
-active_scene = 0;
-/* please specify these in chrono order! */
-/* yes, because i am lazy */
-SCENES = [
-    /* introduction */
-    new Scene(function(){
-        //given we want to start camera at ORIGO;
-        //if(cameratarget != ORIGO) cameratarget = ORIGO;
-    },
-    function(){
-    },
-    function(){
-        console.log("entered first scene");
-    }),
+active_camera_index = 0;
 
-    /* next scene */
-    new Scene(function(){
-       /*functional code */
+CAMERA_POSITIONS = {
+    0: {
+       "position": {
+           "x": -2000,
+           "y": 1000,
+           "z": 0
+       },
+       "animate": false,
     },
-    function(){
-    },
-    function(){
-        /* camera movement */
-        console.log("entered second scene");
-    })
-
-];
+    3000: {
+               "position": {
+                   "x": 3000,
+                   "y": 1000,
+                   "z": 0
+               },
+               "animate": true,
+               "duration": 5000
+           },
+    10000: {
+               "position": {
+                   "x": -2000,
+                   "y": 3000,
+                   "z": 2000
+               },
+               "animate": false
+           },
+    10001: {
+               "position": {
+                   "x": -2000,
+                   "y": 1500,
+                   "z": 2000
+               },
+               "animate": true,
+               "duration": 3000
+           }
+};
 
 
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
@@ -126,11 +133,24 @@ function update() {
     light.position.y = camera.position.y;
     light.position.z = -camera.position.z;
 
-    if (t >= TIMELINE[active_scene]) {
-        active_scene++;
-        SCENES[active_scene].onenter();
+    var camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
+    if (t >= camera_timestamps[active_camera_index+1]) {
+        active_camera_index++;
+        console.log("Active camera index: %i", active_camera_index);
+        var active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
+        if (active_camera.animate) {
+            var animation_time = active_camera.duration || 1000;
+            newCameraMovement(
+                    animation_time,
+                    active_camera.position.x,
+                    active_camera.position.y,
+                    active_camera.position.z
+                    );
+        } else {
+            camera.position = active_camera.position;
+        }
     }
-    SCENES[active_scene].update();
+
     bg.update();
     
 }

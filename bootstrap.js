@@ -38,7 +38,6 @@ function start(){
     dt = 0;
     music.play();
     music.volume = 0;
-    SCENES[0].onenter();
     init();
 }
 
