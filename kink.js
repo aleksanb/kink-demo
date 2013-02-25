@@ -53,7 +53,7 @@ var active_camera_index = 0;
 var active_camera;
 var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
-var osd, bg, snake;
+var osd, bg, snake, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 
 var CAMERA_POSITIONS = {
