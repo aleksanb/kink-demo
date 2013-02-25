@@ -10,7 +10,7 @@ var active_camera;
 var camera_timestamps;
 
 var CAMERA_POSITIONS = {
-    0: new FixedCamera({
+    /*0: new FixedCamera({
         "position": {
             "x": -2000,
             "y": 1000,
@@ -37,12 +37,12 @@ var CAMERA_POSITIONS = {
         },
         "animate": true,
         "duration": 3000
-    }),
-    8000: new TrackingCamera({
+    }),*/
+    0: new TrackingCamera({
         "position": {
             "x": -200,
-            "y": 300,
-            "z": 0
+            "y": 130,
+            "z": 200
         },
         "startposition": {
             "x": 50,
@@ -123,10 +123,10 @@ function update() {
     }
 
     bg.update();
-    snake.update( t/20, 300 + terrain.getYValue(t/20, t/20) , t/20 );
+    snake.update( t/10, terrain.getYValue(t/10, 0) , 0 );
 
     cameratarget = snake.position;
-    
+
     camera.position = active_camera.getPosition( cameratarget );
 }
 
