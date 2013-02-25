@@ -133,6 +133,5 @@ Terrain.prototype.getYValue = function(x,z) {
 	var scaled_x = ( x / 29.412 ) | 0;
 	var scaled_z = ( z / 29.412 ) | 0;
 	var height = this.data[ ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z) ] * 10; // geometry is scaled by this value 
-	//console.log( "relative position in array for x is " + scaled_x + " and z is ", + scaled_z + ". Height is " + height);
 	return height;
 };
