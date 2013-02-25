@@ -17,7 +17,7 @@ var CAMERA_POSITIONS = {
             "z": 0
         },
         "animate": true,
-        "duration": 1000,
+        "duration": 3000,
         "startposition": {
             "x": 0,
             "y": 0,
@@ -38,7 +38,7 @@ var CAMERA_POSITIONS = {
         "animate": true,
         "duration": 3000
     }),
-    10000: new TrackingCamera({
+    8000: new TrackingCamera({
         "position": {
             "x": -200,
             "y": 300,
@@ -122,8 +122,6 @@ function update() {
         active_camera.init( camera );
     }
 
-    camera.position = active_camera.getPosition( cameratarget );
-
     bg.update();
     snake.update();
 
@@ -131,6 +129,7 @@ function update() {
     cameratarget.y = snake.position.y;
     cameratarget.z = snake.position.z;
     
+    camera.position = active_camera.getPosition( cameratarget );
 }
 
 function render() {
@@ -174,7 +173,6 @@ function init() {
     setLoadingBar(.7, function() {
 
     camera = new THREE.PerspectiveCamera(75, 16 / 9, 1, 10000);
-    camera.position = ORIGO;
     camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
     active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
     camera.position = active_camera.init( camera );
@@ -234,7 +232,6 @@ function init() {
 
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
-    camera.position.y = terrain.data[ 128 + 256*128 ] + 500;
 
 
     setLoadingBar(1, function(){});
