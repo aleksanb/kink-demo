@@ -8,6 +8,9 @@ TEXTS = [
 var active_camera_index = 0;
 var active_camera;
 var camera_timestamps;
+var camera, scene, side, x_spacing, z_spacing, cameratarget;
+var osd, bg, snake;
+var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 
 var CAMERA_POSITIONS = {
     0: new FixedCamera({
@@ -26,14 +29,14 @@ var CAMERA_POSITIONS = {
     }),
     3000: new FixedCamera({
         "position": {
-            "x": -2000,
-            "y": 1500,
-            "z": 2000
+            "x": 700,
+            "y": 1050,
+            "z": 400
         },
         "startposition": {
-            "x": -2000,
-            "y": 3000,
-            "z": 2000
+            "x": 700,
+            "y": 1800,
+            "z": 400
         },
         "animate": true,
         "duration": 3000
@@ -110,11 +113,6 @@ function deepCopy3DObject(from, to) {
 
 function update() {
 
-    /* set the position of the global ambient light */
-    light.position.x = -camera.position.x;
-    light.position.y = camera.position.y;
-    light.position.z = -camera.position.z;
-
     if (t >= camera_timestamps[active_camera_index+1]) {
         active_camera_index++;
         console.log("Active camera index: %i", active_camera_index);
@@ -130,6 +128,19 @@ function update() {
     cameratarget.z = snake.position.z;
     
     camera.position = active_camera.getPosition( cameratarget );
+
+    /* set the position of the global ambient light */
+    /*
+    light.position.x = -camera.position.x;
+    light.position.y = camera.position.y;
+    light.position.z = -camera.position.z;
+    */
+    light.position.x = camera.position.x;
+    light.position.y = camera.position.y;
+    light.position.z = camera.position.z;
+    light.rotation.x = camera.rotation.x;
+    light.rotation.y = camera.rotation.y;
+    light.rotation.z = camera.rotation.z;
 }
 
 function render() {
@@ -169,6 +180,7 @@ function Scene(update,render, onenter) {
 }
 
 function init() {
+    "use strict";
 
     setLoadingBar(.7, function() {
 
@@ -195,21 +207,45 @@ function init() {
     
     osd = new OSD();
     bg = new BG();
+    
 
-    scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0005, 1000 );
+    //scene.fog = new THREE.Fog( 0x191919, .05, 3000 );
 
     materials = [
     new THREE.MeshLambertMaterial({
         color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:true
     }), 
     new THREE.MeshLambertMaterial({
-        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false})
+        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false}),
+    new THREE.MeshBasicMaterial({
+        color : 0xFFFFFF })
     ];
 
-    light = new THREE.SpotLight();
-    light.intensity = 0.5;
+    light = new THREE.SpotLight( 0xffffff );
+    light.intensity = 0.9;
+    light.position.set(100,1000,100);
     scene.add(light);
+
+    var global_light = new THREE.AmbientLight( 0x505050 ); // soft white light
+    scene.add( global_light );
     
+    var text = "K I N K";
+    var text3d = new THREE.TextGeometry( text, {
+        size: 180,
+        height: 5,
+        curveSegments: 4,
+        font: "helvetiker",
+        weight: "bold",
+        style: "normal",
+        bevelEnabled: true,
+        bevelThickness: 5,
+        bevelSize: 1
+    });
+    var textMesh = new THREE.Mesh( text3d, materials[1] );
+    scene.add(textMesh);
+    console.log(textMesh);
+    textMesh.position.set(100, 1000, -200);
+
     cameraskip = false;
 
     fadeStartTime = 0;
