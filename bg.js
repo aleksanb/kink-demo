@@ -5,6 +5,9 @@ function BG() {
     this.texture = new THREE.Texture(this.generateSprite());
     this.texture.needsUpdate = true;
     this.NUM_PARTICLES = 5000;
+    this.material;
+    this.particleSystem;
+    this.attributes = [];
 }
 
 BG.prototype.init = function() {
@@ -13,16 +16,17 @@ BG.prototype.init = function() {
         this.colors[i] = new THREE.Color();
         this.colors[i].setHSV(Math.random(), 1.0, 1.0);
 
-        var vertex = new THREE.Vector3();
-        vertex.x = Math.random() * 4000 - 2000;    
-        vertex.y = Math.random() * 4000 - 2000;    
-        vertex.z = Math.random() * 4000;
+        var px = Math.random() * 8000 - 4000 + Math.random() * 1000;
+        var py = Math.random() * 8000 - 4000;
+        var pz = Math.random() * 8000 + Math.random() * 1000 - 4000;
+        var vertex = new THREE.Vector3(px,py,pz);
         this.geometry.vertices.push(vertex);
+        this.attributes.push(vertex.clone());
     }
 
     this.geometry.colors = this.colors;
 
-    var material = new THREE.ParticleBasicMaterial( {
+    this.material = new THREE.ParticleBasicMaterial( {
             size: 20,
             map: this.texture,
             blending: THREE.AdditiveBlending,
@@ -32,9 +36,9 @@ BG.prototype.init = function() {
             vertexColors: true
     });
 
-    var particleSystem = new THREE.ParticleSystem( this.geometry, material);
+    this.particleSystem = new THREE.ParticleSystem( this.geometry, this.material);
 
-    scene.add(particleSystem);
+    scene.add(this.particleSystem);
 
 }
 
@@ -44,6 +48,18 @@ BG.prototype.render = function () {
 
 BG.prototype.update = function(){
 
+    var particleCount = this.NUM_PARTICLES;
+    while(particleCount--) {
+        var particle = this.geometry.vertices[particleCount];
+        var startPos = this.attributes[particleCount];
+
+        particle.x = startPos.x + Math.sin(t/5000)*100;
+        particle.y = (particleCount&1) ? startPos.y + Math.abs(Math.sin(t/5000)*100):startPos.y - Math.abs(Math.sin(t/5000)*100);
+        particle.z = startPos.z + (particleCount % 128)*0.1;
+       
+    }
+
+    this.geometry.verticesNeedUpdate = true;
 
 }
 
