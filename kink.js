@@ -123,7 +123,7 @@ function update() {
     }
 
     bg.update();
-    snake.update( t/10, terrain.getYValue(t/10, 0) , 0 );
+    snake.update( t/10, terrain.getYValue(t/10, t/10) , t/10 );
 
     cameratarget = snake.position;
 
