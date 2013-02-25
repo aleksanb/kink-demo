@@ -1,50 +1,57 @@
 DEBUG = false;
 ORIGO = new THREE.Vector3(0, 0, 0);
-cameraMovementDone = true;
 
 TEXTS = [
     "KINK IS NOT KINECT"
 ];
 
-note_midicallback = function(e){};
+var active_camera_index = 0;
+var active_camera;
+var camera_timestamps;
 
-active_camera_index = 0;
-
-CAMERA_POSITIONS = {
-    0: {
-       "position": {
-           "x": -2000,
-           "y": 1000,
-           "z": 0
-       },
-       "animate": false,
-    },
-    3000: {
-               "position": {
-                   "x": 3000,
-                   "y": 1000,
-                   "z": 0
-               },
-               "animate": true,
-               "duration": 5000
-           },
-    10000: {
-               "position": {
-                   "x": -2000,
-                   "y": 3000,
-                   "z": 2000
-               },
-               "animate": false
-           },
-    10001: {
-               "position": {
-                   "x": -2000,
-                   "y": 1500,
-                   "z": 2000
-               },
-               "animate": true,
-               "duration": 3000
-           }
+var CAMERA_POSITIONS = {
+    0: new FixedCamera({
+        "position": {
+            "x": -2000,
+            "y": 1000,
+            "z": 0
+        },
+        "animate": true,
+        "duration": 1000,
+        "startposition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        }
+    }),
+    3000: new FixedCamera({
+        "position": {
+            "x": -2000,
+            "y": 1500,
+            "z": 2000
+        },
+        "startposition": {
+            "x": -2000,
+            "y": 3000,
+            "z": 2000
+        },
+        "animate": true,
+        "duration": 3000
+    }),
+    10000: new TrackingCamera({
+        "position": {
+            "x": -200,
+            "y": 300,
+            "z": 0
+        },
+        "startposition": {
+            "x": 50,
+            "y": 50,
+            "z": 50
+        },
+        "animate": true,
+        "duration": 6000
+    })
 };
 
 
@@ -78,7 +85,7 @@ function drawImage(img,startx,starty) {
 }
 
 
-function newCameraMovement(movementTime, posx, posy, posz, rotx, roty, rotz, tarx,tary,tarz) {
+function newCameraMovement(movementTime, posx, posy, posz) {
     cameraMovementDone = false;
     deepCopy3DObject(camera, startcamera);
     startcamera.time = t;
@@ -86,14 +93,6 @@ function newCameraMovement(movementTime, posx, posy, posz, rotx, roty, rotz, tar
     goalcamera.position.x = posx;
     goalcamera.position.y = posy;
     goalcamera.position.z = posz;
-    
-    goalcamera.rotation.x = rotx;
-    goalcamera.rotation.y = roty;
-    goalcamera.rotation.z = rotz;
-    
-    cameratarget.x = tarx || 0;
-    cameratarget.y = tary || 0;
-    cameratarget.z = tarz || 0;
     
     //var samples_per_quaver = midi.ticks_per_beat / midi.ticks_per_second * 44100;
     goalcamera.time = t+movementTime;
@@ -111,45 +110,19 @@ function deepCopy3DObject(from, to) {
 
 function update() {
 
-    /* interpolate camera movement */
-    if(!cameraMovementDone){
-        var interpolt = (t-startcamera.time)/(goalcamera.time-startcamera.time);
-        if(interpolt >=0 && interpolt < 1){
-            camera.position.x = smoothstep(startcamera.position.x, goalcamera.position.x, interpolt);
-            camera.position.y = smoothstep(startcamera.position.y, goalcamera.position.y, interpolt);
-            camera.position.z = smoothstep(startcamera.position.z, goalcamera.position.z, interpolt);
-            
-            camera.rotation.x = smoothstep(startcamera.rotation.x, goalcamera.rotation.x, interpolt);
-            camera.rotation.y = smoothstep(startcamera.rotation.y, goalcamera.rotation.y, interpolt);
-            camera.rotation.z = smoothstep(startcamera.rotation.z, goalcamera.rotation.z, interpolt);
-        }else{
-            deepCopy3DObject(goalcamera, camera);
-            cameraMovementDone = true;
-        }
-    }
-    
     /* set the position of the global ambient light */
     light.position.x = -camera.position.x;
     light.position.y = camera.position.y;
     light.position.z = -camera.position.z;
 
-    var camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
     if (t >= camera_timestamps[active_camera_index+1]) {
         active_camera_index++;
         console.log("Active camera index: %i", active_camera_index);
-        var active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
-        if (active_camera.animate) {
-            var animation_time = active_camera.duration || 1000;
-            newCameraMovement(
-                    animation_time,
-                    active_camera.position.x,
-                    active_camera.position.y,
-                    active_camera.position.z
-                    );
-        } else {
-            camera.position = active_camera.position;
-        }
+        active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
+        active_camera.init( camera );
     }
+
+    camera.position = active_camera.getPosition( cameratarget );
 
     bg.update();
     snake.update();
@@ -198,14 +171,21 @@ function Scene(update,render, onenter) {
 
 function init() {
 
+    setLoadingBar(.7, function() {
+
     camera = new THREE.PerspectiveCamera(75, 16 / 9, 1, 10000);
-    //camera.position.y = 200;
-    camera.position.z = 1000;
+    camera.position = ORIGO;
+    camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
+    active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
+    camera.position = active_camera.init( camera );
+    console.log("Init position: %o", camera.position);
+
+    /*
     startcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
     startcamera.time = 0;
     goalcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
     goalcamera.time = 0;
-    cameratarget = new THREE.Vector3(0,0,0);
+    */
 
     scene = new THREE.Scene();
     
@@ -243,6 +223,8 @@ function init() {
 
     bg.init();
 
+
+
     snake = new Snake(scene, materials[1]);
     cameratarget = new THREE.Vector3(
             snake.position.x,
@@ -252,11 +234,12 @@ function init() {
 
     var terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
-    camera.position.y = terrain.data[ 128 + 32768 ] + 500;
+    camera.position.y = terrain.data[ 128 + 256*128 ] + 500;
 
 
     setLoadingBar(1, function(){});
 
+    });
 }
 
 function fadeIn(duration) {
