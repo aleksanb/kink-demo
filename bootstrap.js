@@ -36,8 +36,6 @@ function loop(){
 function start(){
     old_time = 0;
     dt = 0;
-    music.play();
-    music.volume = 0;
     init();
 }
 
@@ -52,6 +50,8 @@ function setLoadingBar(completed,fn){
         if(completed == 1){
             tdx.clearRect(0,0,16*GU,9*GU);
             requestAnimFrame(loop);
+            music.play();
+            music.volume = 0;
         }
     },0);
 }
