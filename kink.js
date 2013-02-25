@@ -2,7 +2,51 @@ DEBUG = false;
 ORIGO = new THREE.Vector3(0, 0, 0);
 
 TEXTS = [
-    "KINK IS NOT KINECT"
+    {
+        title: "KINK",
+        size: 100,
+        position: {
+            x: 400,
+            y: 850,
+            z: -100
+        },
+        visibleToggle: [
+            4320,
+            4360,
+            4380,
+            4590,
+            4610,
+            4720
+        ],
+    },
+    {
+        title: "KIDS",
+        size: 100,
+        position: {
+            x: 400,
+            y: 850,
+            z: -100
+        },
+        visibleToggle: [
+            4320,
+            4360,
+            4380,
+            4590,
+            4610,
+            4720
+        ],
+        initAsHidden: true
+    },
+    {
+        title: "IS NOT KINECT",
+        size: 100,
+        position: {
+            x: 850,
+            y: 800,
+            z: -400
+        },
+        rotation: Math.PI/2
+    }
 ];
 
 var active_camera_index = 0;
@@ -15,16 +59,16 @@ var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, f
 var CAMERA_POSITIONS = {
     0: new FixedCamera({
         "position": {
-            "x": -2000,
+            "x": -1000,
             "y": 1000,
-            "z": 0
+            "z": 500
         },
         "animate": true,
         "duration": 3000,
         "startposition": {
             "x": 0,
-            "y": 0,
-            "z": 0
+            "y": 500,
+            "z": 500
         }
     }),
     3000: new FixedCamera({
@@ -112,16 +156,26 @@ function deepCopy3DObject(from, to) {
 }
 
 function update() {
+    "use strict";
 
     if (t >= camera_timestamps[active_camera_index+1]) {
         active_camera_index++;
-        console.log("Active camera index: %i", active_camera_index);
         active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
         active_camera.init( camera );
     }
 
     bg.update();
     snake.update();
+
+    for ( var i=0; i < TEXTS.length; i++ ) {
+        var text = TEXTS[i];
+        if (text.visibleToggle && text.visibleToggle.length > 0) {
+            if ( t > text.visibleToggle[0] ) {
+                text.visibleToggle.shift();
+                text.object.visible = !text.object.visible;
+            }
+        }
+    }
 
     cameratarget.x = snake.position.x;
     cameratarget.y = snake.position.y;
@@ -184,11 +238,10 @@ function init() {
 
     setLoadingBar(.7, function() {
 
-    camera = new THREE.PerspectiveCamera(75, 16 / 9, 1, 10000);
+    camera = new THREE.PerspectiveCamera(45, 16 / 9, 1, 10000);
     camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
     active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
     camera.position = active_camera.init( camera );
-    console.log("Init position: %o", camera.position);
 
     /*
     startcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
@@ -229,31 +282,32 @@ function init() {
     var global_light = new THREE.AmbientLight( 0x505050 ); // soft white light
     scene.add( global_light );
     
-    var text = "K I N K";
-    var text3d = new THREE.TextGeometry( text, {
-        size: 180,
-        height: 5,
-        curveSegments: 4,
-        font: "helvetiker",
-        weight: "bold",
-        style: "normal",
-        bevelEnabled: true,
-        bevelThickness: 5,
-        bevelSize: 1
-    });
-    var textMesh = new THREE.Mesh( text3d, materials[1] );
-    scene.add(textMesh);
-    console.log(textMesh);
-    textMesh.position.set(100, 1000, -200);
+    for ( var i=0; i < TEXTS.length; i++ ) {
+        var text = TEXTS[i];
+        var text3d = new THREE.TextGeometry( text.title, {
+            size: text.size,
+            height: 5,
+            curveSegments: 4,
+            font: "helvetiker",
+            weight: "bold",
+            style: "normal",
+            bevelEnabled: true,
+            bevelThickness: 5,
+            bevelSize: 1
+        });
+        var textMesh = new THREE.Mesh( text3d, materials[1] );
+        text.object = textMesh;
+        textMesh.position = text.position;
+        textMesh.rotation.y = text.rotation || 0;
+        scene.add(textMesh);
+        if (text.initAsHidden) {
+            textMesh.visible = false;
+        }
+        console.log(textMesh);
+    }
 
     cameraskip = false;
 
-    fadeStartTime = 0;
-    fadeGoalTime = 0;
-    fadeStart = 0;
-    fadeGoal = 0;
-    fadeFn = undefined;
-    fadeIn(2000);
 
     bg.init();
 
@@ -272,6 +326,12 @@ function init() {
 
     setLoadingBar(1, function(){});
 
+    fadeStartTime = 0;
+    fadeGoalTime = 0;
+    fadeStart = 0;
+    fadeGoal = 0;
+    fadeFn = undefined;
+    fadeIn(2000);
     });
 }
 
