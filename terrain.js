@@ -126,7 +126,7 @@ Terrain.prototype.generateTexture = function() {
 };	
 
 Terrain.prototype.getYValue = function(x,z) {
-	if ((x >= 0 && x < 256) && ( z >= 0 && z < 256)) {
-		return this.data[( this.w + x ) + this.d * z] * 10; // geometry is scaled by this value 
-	}
+	var scaled_x = ( ( x % 3750 ) / 29.5 ) | 0;
+	var scaled_z = ( ( z % 3750 ) / 29.5 ) | 0;
+	return this.data[ ( this.w + scaled_x ) + this.d * scaled_z ] * 10; // geometry is scaled by this value 
 };

@@ -125,12 +125,14 @@ function update() {
     camera.position = active_camera.getPosition( cameratarget );
 
     bg.update();
-    snake.update();
+    snake.update( t/20, 300 + terrain.getYValue(t/20, t/20) , t/20 );
 
+    cameratarget = snake.position;
+/*
     cameratarget.x = snake.position.x;
     cameratarget.y = snake.position.y;
     cameratarget.z = snake.position.z;
-    
+  */  
 }
 
 function render() {
@@ -223,19 +225,12 @@ function init() {
 
     bg.init();
 
+    snake = new Snake(scene, materials[1], 0, 400, 0);
+    cameratarget = snake.position;
 
-
-    snake = new Snake(scene, materials[1]);
-    cameratarget = new THREE.Vector3(
-            snake.position.x,
-            snake.position.y,
-            snake.position.z
-            );
-
-    var terrain = new Terrain(256, 256);
+    terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
     camera.position.y = terrain.data[ 128 + 256*128 ] + 500;
-
 
     setLoadingBar(1, function(){});
 
