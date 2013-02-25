@@ -4,7 +4,7 @@ function FixedCamera( _options ) {
         "y": y,
         "z": z
     }
-    var startposition, startTime, endTime, cameraHelper;
+    var startposition, cameraHelper;
 
     this.init = function( prevCamera ) {
         console.log("init time: %i", t);
@@ -24,23 +24,27 @@ function TrackingCamera( _options ) {
         _options.position = {"x":0, "y":0, "z":0};
     }
     var relative_position = _options.position;
-    var startposition, startTime, endTime, cameraHelper;
+    var startposition, cameraHelper;
 
     this.init = function( prevCamera ) {
         console.log("init time: %i", t);
-        startposition = (_options.startposition) || (prevCamera.position);
+        if (_options.startposition !== undefined) {
+            startposition = _options.startposition;
+        } else {
+            startposition = prevCamera.position;
+        }
         cameraHelper = new CameraHelper( _options );
 
         return startposition;
     };
 
     this.getPosition = function( target ) {
-        var relative_position = cameraHelper.animate( startposition, goalposition );
+        var new_position = cameraHelper.animate( startposition, relative_position );
 
         return {
-            "x": target.x + relative_position.x, 
-            "y": target.y + relative_position.y, 
-            "z": target.z + relative_position.z, 
+            "x": target.x + new_position.x,
+            "y": target.y + new_position.y,
+            "z": target.z + new_position.z
         };
     };
 }
