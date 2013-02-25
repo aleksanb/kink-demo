@@ -57,7 +57,7 @@ var osd, bg, snake;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 
 var CAMERA_POSITIONS = {
-    0: new FixedCamera({
+    /*0: new FixedCamera({
         "position": {
             "x": -1000,
             "y": 1000,
@@ -84,12 +84,12 @@ var CAMERA_POSITIONS = {
         },
         "animate": true,
         "duration": 3000
-    }),
-    8000: new TrackingCamera({
+    }),*/
+    0: new TrackingCamera({
         "position": {
             "x": -200,
-            "y": 300,
-            "z": 0
+            "y": 130,
+            "z": 200
         },
         "startposition": {
             "x": 50,
@@ -165,7 +165,9 @@ function update() {
     }
 
     bg.update();
-    snake.update();
+    snake.update( t/10, terrain.getYValue(t/10, t/10) , t/10 );
+
+    cameratarget = snake.position;
 
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
@@ -315,18 +317,11 @@ function init() {
 
     bg.init();
 
+    snake = new Snake(scene, materials[1], 0, 400, 0);
+    cameratarget = snake.position;
 
-
-    snake = new Snake(scene, materials[1]);
-    cameratarget = new THREE.Vector3(
-            snake.position.x,
-            snake.position.y,
-            snake.position.z
-            );
-
-    var terrain = new Terrain(256, 256);
+    terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
-
 
     setLoadingBar(1, function(){});
 
