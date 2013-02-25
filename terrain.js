@@ -128,5 +128,7 @@ Terrain.prototype.generateTexture = function() {
 Terrain.prototype.getYValue = function(x,z) {
 	var scaled_x = ( ( x % 3750 ) / 29.5 ) | 0;
 	var scaled_z = ( ( z % 3750 ) / 29.5 ) | 0;
-	return this.data[ ( this.w + scaled_x ) + this.d * scaled_z ] * 10; // geometry is scaled by this value 
+	var height = this.data[ ( this.w + scaled_x ) + this.d * scaled_z ] * 10; // geometry is scaled by this value 
+	//console.log( "relative position in array for x is " + scaled_x + " and z is ", + scaled_z + ". Height is " + height);
+	return height;
 };
