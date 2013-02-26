@@ -125,14 +125,32 @@ Terrain.prototype.generateTexture = function() {
 
 };	
 
-Terrain.prototype.getYValue = function(x,z) {
+Terrain.prototype.getYValue = function(x,z, dx, dz) {
     if ( z > 3750 || z < -3750 || x > 3750 || x < -3750) {
         return false;
     }
-    console.log("we made it!");
-	var scaled_x = ( x / 29.412 ) | 0;
-	var scaled_z = ( z / 29.412 ) | 0;
-	var height = this.data[ ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z) ] * 10; // geometry is scaled by this value 
-	//console.log( "relative position in array for x is " + scaled_x + " and z is ", + scaled_z + ". Height is " + height);
-	return height;
+    var DIVIDER = 29.412;
+
+	var scaled_x = ( x / DIVIDER ) | 0;
+	var scaled_z = ( z / DIVIDER ) | 0;
+
+    var dataIndex = ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z);
+	var height = this.data[ dataIndex ] * 10; // geometry is scaled by this value 
+
+    /*
+    var nextDataIndex = ( this.w/2 + scaled_x + dx ) + this.w * ( this.d/2 + scaled_z + dz );
+    var nextHeight = this.data[ nextDataIndex ] * 10; 
+
+    interpolt_x = ( x - this.geometry.vertices[ dataIndex ].x ) / DIVIDER * 2;
+    interpolt_z = ( z - this.geometry.vertices[ dataIndex ].z ) / DIVIDER * 2;
+    var interpolt = Math.sqrt( Math.pow(interpolt_x, 2) + Math.pow(interpolt_z, 2) );
+
+    if (t < 2500) {
+        console.log(interpolt_x);
+    }
+
+    var yPos = smoothstep(height, nextHeight, interpolt);
+	return yPos;
+    */
+    return height;
 };

@@ -56,8 +56,13 @@ var camera, scene, side, x_spacing, z_spacing, cameratarget;
 var osd, bg, snake, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 
+var SNAKE_TRACK = [
+    [-3000, -3000],
+    [-3000, 0]
+];
+
 var CAMERA_POSITIONS = {
-    /*0: new FixedCamera({
+    0: new FixedCamera({
         "position": {
             "x": -1000,
             "y": 1000,
@@ -84,12 +89,12 @@ var CAMERA_POSITIONS = {
         },
         "animate": true,
         "duration": 3000
-    }),*/
-    0: new TrackingCamera({
+    }),
+    8000: new TrackingCamera({
         "position": {
             "x": -200,
-            "y": 130,
-            "z": 200
+            "y": 230,
+            "z": 250
         },
         "startposition": {
             "x": 50,
@@ -97,7 +102,21 @@ var CAMERA_POSITIONS = {
             "z": 50
         },
         "animate": true,
-        "duration": 6000
+        "duration": 8000
+    }),
+    16000: new TrackingCamera({
+        "position": {
+            "x": -400,
+            "y": 200,
+            "z": 350
+        },
+        "startposition": {
+            "x": -200,
+            "y": 230,
+            "z": 250
+        },
+        "animate": true,
+        "duration": 8000
     })
 };
 
@@ -165,7 +184,11 @@ function update() {
     }
 
     bg.update();
-    snake.update( t/10, terrain.getYValue(t/10, t/10) , t/10 );
+    var prevY = snake.position.y;
+    var newY = terrain.getYValue(t/10, 0, 1, 0) + 25;
+    if ( newY - prevY > .02 ) newY = prevY + .02;
+    if ( prevY - newY > .02 ) newY = prevY - .02;
+    snake.update( t/10, newY, 0 );
 
     cameratarget = snake.position;
 
@@ -178,10 +201,6 @@ function update() {
             }
         }
     }
-
-    cameratarget.x = snake.position.x;
-    cameratarget.y = snake.position.y;
-    cameratarget.z = snake.position.z;
     
     camera.position = active_camera.getPosition( cameratarget );
 
@@ -309,7 +328,6 @@ function init() {
         if (text.initAsHidden) {
             textMesh.visible = false;
         }
-        console.log(textMesh);
     }
 
     cameraskip = false;
@@ -317,7 +335,8 @@ function init() {
 
     bg.init();
 
-    snake = new Snake(scene, materials[1], 0, 400, 0);
+    var init_pos = SNAKE_TRACK.shift();
+    snake = new Snake(scene, materials[1], init_pos.x, 200, init_pos.z);
     cameratarget = snake.position;
 
     terrain = new Terrain(256, 256);
