@@ -75,42 +75,42 @@ var SNAKE_TRACK = [
 var CAMERA_POSITIONS = {
     0: new FixedCamera({
         "position": {
-            "x": -1000,
+            "x": -1500,
             "y": 1000,
-            "z": 500
+            "z": -1500
         },
         "animate": true,
         "duration": 3000,
         "startposition": {
-            "x": 0,
+            "x": -3000,
             "y": 500,
-            "z": 500
+            "z": -3000
         }
     }),
     3000: new FixedCamera({
         "position": {
-            "x": 700,
+            "x": -2000,
             "y": 1050,
-            "z": 400
+            "z": -1500
         },
         "startposition": {
-            "x": 700,
-            "y": 1800,
-            "z": 400
+            "x": -2000,
+            "y": 2500,
+            "z": -1500
         },
         "animate": true,
         "duration": 3000
     }),
     6000: new FixedCamera({
         "position": {
-            "x": 1500,
-            "y": 350,
+            "x": -3300,
+            "y": 600,
             "z": 400
         },
         "startposition": {
-            "x": 700,
+            "x": -2000,
             "y": 1050,
-            "z": 400
+            "z": -1500
         },
         "animate": true,
         "duration": 3000
@@ -122,9 +122,9 @@ var CAMERA_POSITIONS = {
             "z": 250
         },
         "startposition": {
-            "x": 50,
-            "y": 50,
-            "z": 50
+            "x": 80,
+            "y": 80,
+            "z": 80
         },
         "animate": true,
         "duration": 8000
@@ -221,8 +221,13 @@ function update() {
         }
     }
     var currentSnakeMoveTime = t - currentSnakeMoveInitTime;
-    var current_x = (currentSnakeMove.to.x - currentSnakeMove.from.x) / currentSnakeMove.duration * currentSnakeMoveTime;
-    var current_z = (currentSnakeMove.to.z - currentSnakeMove.from.z) / currentSnakeMove.duration * currentSnakeMoveTime;
+    var current_x = currentSnakeMove.from.x + 
+        (currentSnakeMove.to.x - currentSnakeMove.from.x) / 
+        currentSnakeMove.duration * currentSnakeMoveTime;
+    var current_z = currentSnakeMove.from.z + 
+        (currentSnakeMove.to.z - currentSnakeMove.from.z) / 
+        currentSnakeMove.duration * currentSnakeMoveTime;
+
 
     var prevY = snake.getPosition().y;
     var newY = terrain.getYValue(current_x, current_z) + 25;
@@ -371,7 +376,7 @@ function init() {
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
     console.log(currentSnakeMove);
-    snake = new Snake(scene, materials[1], currentSnakeMove.from.x, 200, currentSnakeMove.from.z);
+    snake = new Snake(scene, materials[1], currentSnakeMove.from.x, 700, currentSnakeMove.from.z);
     var front_snake = snake;
 
     for (var i = 0; i < 10; i++ ) {
