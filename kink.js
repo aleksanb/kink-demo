@@ -38,11 +38,21 @@ TEXTS = [
         initAsHidden: true
     },
     {
-        title: "IS NOT KINECT",
+        title: "HELP, I'M TRAPPED",
         size: 100,
         position: {
             x: 850,
-            y: 800,
+            y: 850,
+            z: -400
+        },
+        rotation: Math.PI/2
+    },
+    {
+        title: "IN A .JS LIBRARY!",
+        size: 100,
+        position: {
+            x: 850,
+            y: 700,
             z: -400
         },
         rotation: Math.PI/2
@@ -101,15 +111,15 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:3200, z:0},
-        to: {x: 3200, z:2500},
-        duration: 6000,
+        to: {x: 3200, z:1000},
+        duration: 3000,
         startTime: 30000
     },
     {
-        from: {x:3200, z:2500},
-        to: {x: 500, z:2500},
+        from: {x:3200, z:1000},
+        to: {x: 500, z:1000},
         duration: 10000,
-        startTime: 36000,
+        startTime: 33000,
     },
 
 ];
@@ -207,12 +217,26 @@ var CAMERA_POSITIONS = {
         "position": {
             "x": 2400,
             "y": 800,
-            "z": 3500
+            "z": 600
         },
         "startposition": {
             "x": 3400,
             "y": 400,
             "z": 350
+        },
+        "animate": true,
+        "duration": 3000
+    }),
+    39000: new FixedCamera({
+        "position": {
+            "x": 1400,
+            "y": 800,
+            "z": 1200
+        },
+        "startposition": {
+            "x": 2400,
+            "y": 800,
+            "z": 600
         },
         "animate": true,
         "duration": 6000
