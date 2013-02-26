@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset=utf-8 />
         <style>
             html,body{overflow:hidden;background:#000;padding:0;margin:0;border:0;outline:0;}
             canvas{background:#000;}
@@ -13,6 +14,18 @@
                      url('fonts/Arvo-Regular-webfont.svg#ArvoRegular') format('svg');
                 font-weight: normal;
                 font-style: normal;
+            }
+            #time-counter {
+                z-index: 1000;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                font-size: 40px;
+                background: red;
+                color: white;
+                padding: 10px;
+                min-width: 140px;
+                text-align: center;
             }
         </style>
         <script src=//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min.js></script>
@@ -29,5 +42,6 @@
         <script src=kink.js></script>
     </head>
     <body onload="bootstrap()">
+        <div id="time-counter"></div>
     </body>
 </html>

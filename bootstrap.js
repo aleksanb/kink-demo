@@ -29,6 +29,7 @@ function loop(){
         dt-= FRAME_LENGTH;
     }
     render();
+    document.querySelector("#time-counter").innerText = t|0;
     requestAnimFrame(loop);
 }
 
