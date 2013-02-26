@@ -368,23 +368,24 @@ function init() {
 
     bg.init();
 
+    terrain = new Terrain(256, 256);
+    scene.add(terrain.mesh);
+
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
+    var newY = terrain.getYValue(currentSnakeMove.from.x, currentSnakeMove.from.z) + 25;
 
     snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50 );
     var front_snake = snake;
 
     for (var i = 0; i < 30; i++ ) {
-        var newPosition = new THREE.Vector3( front_snake.getPosition().x, 700, front_snake.getPosition().z - 20);
-        var to_be_attached = new Snake(scene, materials.snakeTexture, newPosition, 40 - 10 * Math.sin(i/2) );
+        var newPosition = new THREE.Vector3( front_snake.getPosition().x, newY, front_snake.getPosition().z - 10);
+        var to_be_attached = new Snake(scene, materials.snakeTexture, newPosition, 40 - 5 * Math.sin(i/2) );
         front_snake.setPrevious(to_be_attached);
         front_snake = to_be_attached;
     }
     
     cameratarget = snake.getPosition();
-
-    terrain = new Terrain(256, 256);
-    scene.add(terrain.mesh);
 
     setLoadingBar(1, function(){});
 
