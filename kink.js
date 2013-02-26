@@ -337,7 +337,7 @@ function init() {
     bg = new BG();
     
 
-    scene.fog = new THREE.Fog( 0x191919, .00005, 3000 );
+    scene.fog = new THREE.Fog( 0x393939, 1, 5000 );
 
     materials = {
     "textTexture" : new THREE.MeshLambertMaterial({
@@ -353,11 +353,11 @@ function init() {
     light.position.set(100,1000,100);
     scene.add(light);
 
-    var pointLight = new THREE.PointLight( 0x4477ff, 1.5 );
+    var pointLight = new THREE.PointLight( 0x3366ff, 1.5 );
     pointLight.position.set( 0, 2000, 0 );
     scene.add( pointLight );
 
-    var global_light = new THREE.AmbientLight( 0x505050 ); // soft white light
+    var global_light = new THREE.AmbientLight( 0xa0a0a0 ); // soft white light
     scene.add( global_light );
 
     skybox = createSkybox("images/");
