@@ -247,12 +247,6 @@ function update() {
 
     camera.position = active_camera.getPosition( cameratarget );
 
-    /* set the position of the global ambient light */
-    /*
-    light.position.x = -camera.position.x;
-    light.position.y = camera.position.y;
-    light.position.z = -camera.position.z;
-    */
     light.position.x = camera.position.x;
     light.position.y = camera.position.y;
     light.position.z = camera.position.z;
@@ -296,13 +290,6 @@ function init() {
     camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
     active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
     camera.position = active_camera.init( camera );
-
-    /*
-    startcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
-    startcamera.time = 0;
-    goalcamera = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 10000);
-    goalcamera.time = 0;
-    */
 
     scene = new THREE.Scene();
     
