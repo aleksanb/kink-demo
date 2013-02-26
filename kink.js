@@ -184,13 +184,13 @@ function update() {
     }
 
     bg.update();
-    var prevY = snake.position.y;
-    var newY = terrain.getYValue(t/10, 0, 1, 0) + 25;
+    var prevY = snake.getPosition().y;
+    var newY = terrain.getYValue(t/10, 0) + 25;
     if ( newY - prevY > .02 ) newY = prevY + .02;
     if ( prevY - newY > .02 ) newY = prevY - .02;
     snake.update( t/10, newY, 0 );
 
-    cameratarget = snake.position;
+    cameratarget = snake.getPosition();
 
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
@@ -201,7 +201,7 @@ function update() {
             }
         }
     }
-    
+
     camera.position = active_camera.getPosition( cameratarget );
 
     /* set the position of the global ambient light */
@@ -235,8 +235,6 @@ function render() {
             fadeFn();
         }
     }
-    
-    //SCENES[active_scene].render();
 
     bg.render();
     snake.render();
@@ -244,14 +242,6 @@ function render() {
     camera.lookAt(cameratarget);
     renderer.render(scene, camera);
     
-}
-
-function Scene(update,render, onenter) {
-
-    this.update = update;
-    this.render = render;
-    this.onenter = onenter;
-
 }
 
 function init() {
@@ -336,8 +326,16 @@ function init() {
     bg.init();
 
     var init_pos = SNAKE_TRACK.shift();
-    snake = new Snake(scene, materials[1], init_pos.x, 200, init_pos.z);
-    cameratarget = snake.position;
+    snake = new Snake(scene, materials[1], init_pos[0], 200, init_pos[1]);
+    var front_snake = snake;
+
+    for (var i = 0; i < 10; i++ ) {
+        var to_be_attached = new Snake(scene, materials[1], 0, 400, front_snake.getPosition().z - 20, 40);
+        front_snake.setPrevious(to_be_attached);
+        front_snake = to_be_attached;
+    }
+    
+    cameratarget = snake.getPosition();
 
     terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
