@@ -18,14 +18,7 @@ Snake.prototype.getPosition = function( previousSnake ) {
 	return this.mesh.position;
 }
 
-Snake.prototype.update = function() {
-	var newPos = new THREE.Vector3( 0, 0, 0 );
-
-	if ( arguments.length == 3 ) {
-		newPos.set( arguments[0], arguments[1], arguments[2] );
-	} else if ( arguments.length == 1 ) {
-		newPos = arguments[0];
-	}
+Snake.prototype.update = function( newPos) {
 	
 	if ( this.previousSnake != null ) {
 		this.previousSnake.update( this.mesh.position );

@@ -230,8 +230,8 @@ function update() {
     if ( newY - prevY > 15 ) newY = prevY + 15;
     if ( prevY - newY > 15 ) newY = prevY - 15;
 
-    snake.update( current_x, newY, current_z );
-
+    var newGoal = new THREE.Vector3( current_x, newY, current_z );
+    snake.update( newGoal );
 
     cameratarget = snake.getPosition();
 
