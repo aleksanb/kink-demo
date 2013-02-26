@@ -50,7 +50,10 @@ TEXTS = [
             y: 850,
             z: -400
         },
-        rotation: Math.PI/2
+        rotation: Math.PI/2,
+        visibleToggle: [
+            27000
+        ],
     },
     {
         title: "IN A .JS LIBRARY!",
@@ -60,7 +63,10 @@ TEXTS = [
             y: 700,
             z: -400
         },
-        rotation: Math.PI/2
+        rotation: Math.PI/2,
+        visibleToggle: [
+            27000
+        ],
     },
     {
         title: "BEKK",
@@ -87,6 +93,7 @@ TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             25500,
+            45000
         ],       
     },
     {
@@ -103,6 +110,20 @@ TEXTS = [
         visibleToggle: [
             25500,
         ],     */
+    },
+    {
+        title: "ROBOCUP",
+        size: 100,
+        position: {
+            x: 3000,
+            y: 500,
+            z: -600
+        },
+        rotation: -Math.PI/2,
+        initAsHidden: true,
+        visibleToggle: [
+            45000
+        ],       
     }
 ];
 
@@ -144,7 +165,7 @@ var SNAKE_TRACK = [
     {
         from: {x:-3000, z:0},
         to: {x: 1000, z:0},
-        duration: 12000,
+        duration: 18000,
         startTime: 48000,
     }
 
@@ -298,13 +319,27 @@ var CAMERA_POSITIONS = {
     57000: new FixedCamera({
         "position": {
             "x": -250,
-            "y": 250,
+            "y": 500,
             "z": 600
         },
         "startposition": {
             "x": -1000,
             "y": 800,
             "z": -200
+        },
+        "animate": true,
+        "duration": 6000
+    }),
+    63000: new FixedCamera({
+        "position": {
+            "x": 2000,
+            "y": 500,
+            "z": -600
+        },
+        "startposition": {
+            "x": -250,
+            "y": 500,
+            "z": 600
         },
         "animate": true,
         "duration": 12000
