@@ -53,7 +53,7 @@ var active_camera_index = 0;
 var active_camera;
 var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
-var osd, bg, snake, terrain;
+var osd, bg, snake, snakeTracker, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 
@@ -232,8 +232,8 @@ function update() {
     var prevY = snake.getPosition().y;
     var newY = terrain.getYValue(current_x, current_z) + 25;
 
-    if ( newY - prevY > 15 ) newY = prevY + 15;
-    if ( prevY - newY > 15 ) newY = prevY - 15;
+    /*if ( newY - prevY > 20 ) newY = prevY + 20;
+    if ( prevY - newY > 20 ) newY = prevY - 20;*/
 
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
     snake.update( newGoal );
@@ -354,18 +354,17 @@ function init() {
 
     cameraskip = false;
 
-
     bg.init();
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
-    console.log(currentSnakeMove);
-    snake = new Snake(scene, materials.snakeTexture, currentSnakeMove.from.x, 700, currentSnakeMove.from.z);
 
+    snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50 );
     var front_snake = snake;
 
-    for (var i = 0; i < 10; i++ ) {
-        var to_be_attached = new Snake(scene, materials.snakeTexture, front_snake.getPosition().x, 400, front_snake.getPosition().z - 20, 40);
+    for (var i = 0; i < 30; i++ ) {
+        var newPosition = new THREE.Vector3( front_snake.getPosition().x, 700, front_snake.getPosition().z - 20);
+        var to_be_attached = new Snake(scene, materials.snakeTexture, newPosition, 40 - 10 * Math.sin(i/2) );
         front_snake.setPrevious(to_be_attached);
         front_snake = to_be_attached;
     }
