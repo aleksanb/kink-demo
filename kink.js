@@ -57,6 +57,7 @@ var osd, bg, snake, snakeTracker, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox;
+var axis;
 
 var SNAKE_TRACK = [
     {
@@ -258,6 +259,9 @@ function update() {
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
     snake.update( newGoal );
 
+    axis.position = newGoal;
+    axis.position.y += 50;
+
     var prevTarget = cameratarget.clone();
     var newTarget = snake.getPosition(); 
     if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
@@ -358,6 +362,10 @@ function init() {
 
     skybox = createSkybox("images/");
     scene.add(skybox);
+
+    axis = new THREE.AxisHelper( 200 );
+    axis.position.setY(600);
+    scene.add(axis);
     
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
