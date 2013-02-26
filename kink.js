@@ -153,7 +153,7 @@ function drawImage(img,startx,starty) {
         var num = img.data.charCodeAt(i)-65;
         while(num-->0) {
             if(on) cubes[(side-x-1)*side+y].mesh.position.y = 25+5*Math.sin(x/4+t/4000);
-            cubes[(side-x-1)*side+y].mesh.material = materials[+on];
+            cubes[(side-x-1)*side+y].mesh.material = materials[+on]; // materials no longer uses indexes
             x++;
             if(x>startx+img.w) {
                 x = startx+1;
@@ -291,15 +291,12 @@ function init() {
 
     scene.fog = new THREE.Fog( 0x191919, .00005, 3000 );
 
-    materials = [
-    new THREE.MeshLambertMaterial({
-        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:true
-    }), 
-    new THREE.MeshLambertMaterial({
-        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false}),
-    new THREE.MeshBasicMaterial({
-        color : 0xFFFFFF })
-    ];
+    materials = {
+    "textTexture" : new THREE.MeshLambertMaterial({
+        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false }),
+    "snakeTexture" : new THREE.MeshLambertMaterial({ 
+        map: THREE.ImageUtils.loadTexture("snake_texture.jpg") })
+    };
 
     light = new THREE.SpotLight( 0xffffff );
     light.intensity = 0.9;
@@ -326,7 +323,7 @@ function init() {
             bevelThickness: 5,
             bevelSize: 1
         });
-        var textMesh = new THREE.Mesh( text3d, materials[1] );
+        var textMesh = new THREE.Mesh( text3d, materials.textTexture );
         text.object = textMesh;
         textMesh.position = text.position;
         textMesh.rotation.y = text.rotation || 0;
@@ -343,11 +340,11 @@ function init() {
 
     var init_pos = SNAKE_TRACK.shift();
     console.log(init_pos);
-    snake = new Snake(scene, materials[1], init_pos.x, 200, init_pos.z);
+    snake = new Snake(scene, materials.snakeTexture, init_pos.x, 200, init_pos.z);
     var front_snake = snake;
 
     for (var i = 0; i < 10; i++ ) {
-        var to_be_attached = new Snake(scene, materials[1], front_snake.getPosition().x, 400, front_snake.getPosition().z - 20, 40);
+        var to_be_attached = new Snake(scene, materials.snakeTexture, front_snake.getPosition().x, 400, front_snake.getPosition().z - 20, 40);
         front_snake.setPrevious(to_be_attached);
         front_snake = to_be_attached;
     }
