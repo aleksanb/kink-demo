@@ -140,15 +140,15 @@ var CAMERA_POSITIONS = {
         "animate": true,
         "duration": 8000
     }),
-    20000: new TrackingCamera({
+    18000: new FixedCamera({
         "position": {
             "x": -400,
-            "y": 200,
+            "y": 600,
             "z": 350
         },
         "startposition": {
             "x": -200,
-            "y": 230,
+            "y": 400,
             "z": 250
         },
         "animate": true,
