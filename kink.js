@@ -87,9 +87,9 @@ var CAMERA_POSITIONS = {
     }),*/
     0: new TrackingCamera({
         "position": {
-            "x": -200,
-            "y": 130,
-            "z": 200
+            "x": -300,
+            "y": 200,
+            "z": 300
         },
         "startposition": {
             "x": 50,
@@ -165,9 +165,11 @@ function update() {
     }
 
     bg.update();
-    snake.update( t/10, terrain.getYValue(t/10, t/10) , t/10 );
+    snake.update( t/10, terrain.getYValue(t/10, t/10) + snake.radius/2 , t/10 );
+    //snake.relativeUpdate( new THREE.Vector3( 1, 0, 1 ) );
+    //snake.update()
 
-    cameratarget = snake.position;
+    cameratarget = snake.getPosition();
 
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
@@ -179,10 +181,6 @@ function update() {
         }
     }
 
-    cameratarget.x = snake.position.x;
-    cameratarget.y = snake.position.y;
-    cameratarget.z = snake.position.z;
-    
     camera.position = active_camera.getPosition( cameratarget );
 
     /* set the position of the global ambient light */
@@ -216,8 +214,6 @@ function render() {
             fadeFn();
         }
     }
-    
-    //SCENES[active_scene].render();
 
     bg.render();
     snake.render();
@@ -225,14 +221,6 @@ function render() {
     camera.lookAt(cameratarget);
     renderer.render(scene, camera);
     
-}
-
-function Scene(update,render, onenter) {
-
-    this.update = update;
-    this.render = render;
-    this.onenter = onenter;
-
 }
 
 function init() {
@@ -317,8 +305,17 @@ function init() {
 
     bg.init();
 
-    snake = new Snake(scene, materials[1], 0, 400, 0);
-    cameratarget = snake.position;
+    snake = new Snake(scene, materials[1], 0, 400, 0, 50);
+    
+    var front_snake = snake;
+
+    for (var i = 0; i < 10; i++ ) {
+        var to_be_attached = new Snake(scene, materials[1], 0, 400, front_snake.getPosition().z - 20, 40);
+        front_snake.setPrevious(to_be_attached);
+        front_snake = to_be_attached;
+    }
+    
+    cameratarget = snake.getPosition();
 
     terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
