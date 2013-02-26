@@ -46,6 +46,33 @@ TEXTS = [
             z: -400
         },
         rotation: Math.PI/2
+    },
+    {
+        title: "BEKK",
+        size: 100,
+        position: {
+            x: 3000,
+            y: 375,
+            z: 390
+        },
+        rotation: Math.PI/2,
+        visibleToggle: [
+            25500
+        ],
+    },
+    {
+        title: "BEKKENLOSNING",
+        size: 100,
+        position: {
+            x: 3000,
+            y: 375,
+            z: 390
+        },
+        rotation: Math.PI/2,
+        initAsHidden: true,
+        visibleToggle: [
+            25500,
+        ],       
     }
 ];
 
@@ -73,10 +100,17 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:3200, z:0},
-        to: {x: 3200, z:3000},
-        duration: 10000,
+        to: {x: 3200, z:2500},
+        duration: 6000,
         startTime: 30000
     },
+    {
+        from: {x:3200, z:2500},
+        to: {x: 500, z:2500},
+        duration: 10000,
+        startTime: 36000,
+    },
+
 ];
 
 var CAMERA_POSITIONS = {
@@ -167,6 +201,20 @@ var CAMERA_POSITIONS = {
         },
         "animate": true,
         "duration": 8000
+    }),
+    36000: new FixedCamera({
+        "position": {
+            "x": 2400,
+            "y": 800,
+            "z": 3500
+        },
+        "startposition": {
+            "x": 3400,
+            "y": 400,
+            "z": 350
+        },
+        "animate": true,
+        "duration": 6000
     })
 };
 
