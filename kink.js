@@ -239,17 +239,17 @@ function update() {
         (currentSnakeMove.to.z - currentSnakeMove.from.z) / 
         currentSnakeMove.duration * currentSnakeMoveTime;
 
-
-    var prevY = snake.getPosition().y;
     var newY = terrain.getYValue(current_x, current_z) + 25;
-
-    /*if ( newY - prevY > 20 ) newY = prevY + 20;
-    if ( prevY - newY > 20 ) newY = prevY - 20;*/
 
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
     snake.update( newGoal );
 
-    cameratarget = snake.getPosition();
+    var prevTarget = cameratarget.clone();
+    var newTarget = snake.getPosition(); 
+    if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
+    if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
+
+    cameratarget = newTarget;
 
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
