@@ -55,10 +55,21 @@ var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
 var osd, bg, snake, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
+var currentSnakeMove, currentSnakeMoveInitTime;
 
 var SNAKE_TRACK = [
-    {x:-3000, z:-3000},
-    {x:-3000, z:0},
+    {
+        from: {x:-3000, z:-3000},
+        to: {x:-3000, z:0},
+        duration: 15000,
+        startTime: 0
+    },
+    {
+        from: {x:-3000, z:0},
+        to: {x:0, z:0},
+        duration: 15000,
+        startTime: 15000
+    },
 ];
 
 var CAMERA_POSITIONS = {
@@ -198,11 +209,28 @@ function update() {
     }
 
     bg.update();
+    
+    for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
+        if ( SNAKE_TRACK[i].startTime < t &&
+            SNAKE_TRACK[i].startTime + SNAKE_TRACK[i].duration > t ) {
+            if (SNAKE_TRACK[i] != currentSnakeMove) {
+                currentSnakeMove = SNAKE_TRACK[i];
+                currentSnakeMoveInitTime = t;
+                break;
+            }
+        }
+    }
+    var currentSnakeMoveTime = t - currentSnakeMoveInitTime;
+    var current_x = (currentSnakeMove.to.x - currentSnakeMove.from.x) / currentSnakeMove.duration * currentSnakeMoveTime;
+    var current_z = (currentSnakeMove.to.z - currentSnakeMove.from.z) / currentSnakeMove.duration * currentSnakeMoveTime;
+
     var prevY = snake.getPosition().y;
-    var newY = terrain.getYValue(t/10, 0) + 25;
+    var newY = terrain.getYValue(current_x, current_z) + 25;
+
     if ( newY - prevY > 15 ) newY = prevY + 15;
     if ( prevY - newY > 15 ) newY = prevY - 15;
-    snake.update( t/10, newY, 0 );
+
+    snake.update( current_x, newY, current_z );
 
 
     cameratarget = snake.getPosition();
@@ -340,9 +368,10 @@ function init() {
 
     bg.init();
 
-    var init_pos = SNAKE_TRACK.shift();
-    console.log(init_pos);
-    snake = new Snake(scene, materials[1], init_pos.x, 200, init_pos.z);
+    currentSnakeMove = SNAKE_TRACK[0];
+    currentSnakeMoveInitTime = t;
+    console.log(currentSnakeMove);
+    snake = new Snake(scene, materials[1], currentSnakeMove.from.x, 200, currentSnakeMove.from.z);
     var front_snake = snake;
 
     for (var i = 0; i < 10; i++ ) {
