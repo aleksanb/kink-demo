@@ -142,14 +142,28 @@ var CAMERA_POSITIONS = {
     }),
     18000: new FixedCamera({
         "position": {
-            "x": -400,
-            "y": 600,
+            "x": 3400,
+            "y": 800,
             "z": 350
         },
         "startposition": {
-            "x": -200,
-            "y": 400,
+            "x": 3600,
+            "y": 250,
             "z": 250
+        },
+        "animate": true,
+        "duration": 6000
+    }),
+    24000: new FixedCamera({
+        "position": {
+            "x": 1000,
+            "y": 800,
+            "z": 350
+        },
+        "startposition": {
+            "x": 3400,
+            "y": 800,
+            "z": 350
         },
         "animate": true,
         "duration": 8000
