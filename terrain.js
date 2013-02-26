@@ -129,7 +129,7 @@ Terrain.prototype.getYValue = function(x,z) {
     if ( z > 3750 || z < -3750 || x > 3750 || x < -3750) {
         return false;
     }
-    console.log("we made it!");
+    
 	var scaled_x = ( x / 29.412 ) | 0;
 	var scaled_z = ( z / 29.412 ) | 0;
 	var height = this.data[ ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z) ] * 10; // geometry is scaled by this value 
