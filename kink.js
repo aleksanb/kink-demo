@@ -385,7 +385,7 @@ function init() {
     bg = new BG();
     
 
-    scene.fog = new THREE.Fog( 0x393939, 1, 5000 );
+    scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
     materials = {
     "textTexture" : new THREE.MeshLambertMaterial({
