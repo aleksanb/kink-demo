@@ -32,7 +32,7 @@ Snake.prototype.update = function() {
 	}
 
 	var distance = this.mesh.position.distanceTo(newPos);
-	var distanceToGo = distance - 20; // snake segment length
+	var distanceToGo = distance - 40; // snake segment length
 	var normalizedPointer = new THREE.Vector3( 0,0,0 );
 
 	normalizedPointer.subVectors(newPos, this.mesh.position);

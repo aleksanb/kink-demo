@@ -57,8 +57,8 @@ var osd, bg, snake, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 
 var SNAKE_TRACK = [
-    [-3000, -3000],
-    [-3000, 0]
+    {x:-3000, z:-3000},
+    {x:-3000, z:0},
 ];
 
 var CAMERA_POSITIONS = {
@@ -90,7 +90,21 @@ var CAMERA_POSITIONS = {
         "animate": true,
         "duration": 3000
     }),
-    8000: new TrackingCamera({
+    6000: new FixedCamera({
+        "position": {
+            "x": 1500,
+            "y": 350,
+            "z": 400
+        },
+        "startposition": {
+            "x": 700,
+            "y": 1050,
+            "z": 400
+        },
+        "animate": true,
+        "duration": 3000
+    }),
+    18000: new TrackingCamera({
         "position": {
             "x": -200,
             "y": 230,
@@ -104,7 +118,7 @@ var CAMERA_POSITIONS = {
         "animate": true,
         "duration": 8000
     }),
-    16000: new TrackingCamera({
+    26000: new TrackingCamera({
         "position": {
             "x": -400,
             "y": 200,
@@ -186,9 +200,10 @@ function update() {
     bg.update();
     var prevY = snake.getPosition().y;
     var newY = terrain.getYValue(t/10, 0) + 25;
-    if ( newY - prevY > .02 ) newY = prevY + .02;
-    if ( prevY - newY > .02 ) newY = prevY - .02;
+    if ( newY - prevY > 15 ) newY = prevY + 15;
+    if ( prevY - newY > 15 ) newY = prevY - 15;
     snake.update( t/10, newY, 0 );
+
 
     cameratarget = snake.getPosition();
 
@@ -326,11 +341,12 @@ function init() {
     bg.init();
 
     var init_pos = SNAKE_TRACK.shift();
-    snake = new Snake(scene, materials[1], init_pos[0], 200, init_pos[1]);
+    console.log(init_pos);
+    snake = new Snake(scene, materials[1], init_pos.x, 200, init_pos.z);
     var front_snake = snake;
 
     for (var i = 0; i < 10; i++ ) {
-        var to_be_attached = new Snake(scene, materials[1], 0, 400, front_snake.getPosition().z - 20, 40);
+        var to_be_attached = new Snake(scene, materials[1], front_snake.getPosition().x, 400, front_snake.getPosition().z - 20, 40);
         front_snake.setPrevious(to_be_attached);
         front_snake = to_be_attached;
     }
