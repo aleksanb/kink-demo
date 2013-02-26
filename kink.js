@@ -56,19 +56,26 @@ var camera, scene, side, x_spacing, z_spacing, cameratarget;
 var osd, bg, snake, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
+var skybox;
 
 var SNAKE_TRACK = [
     {
-        from: {x:-3000, z:-3000},
-        to: {x:-3000, z:0},
-        duration: 15000,
+        from: {x:-3200, z:-3000},
+        to: {x:-3200, z:0},
+        duration: 10000,
         startTime: 0
     },
     {
-        from: {x:-3000, z:0},
-        to: {x:0, z:0},
-        duration: 15000,
-        startTime: 15000
+        from: {x:-3200, z:0},
+        to: {x: 3200, z:0},
+        duration: 20000,
+        startTime: 10000
+    },
+    {
+        from: {x:3200, z:0},
+        to: {x: 3200, z:3000},
+        duration: 10000,
+        startTime: 30000
     },
 ];
 
@@ -289,7 +296,7 @@ function render() {
 function init() {
     "use strict";
 
-    setLoadingBar(.7, function() {
+    setLoadingBar(.5, function() {
 
     camera = new THREE.PerspectiveCamera(45, 16 / 9, 1, 10000);
     camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
@@ -317,6 +324,8 @@ function init() {
         map: THREE.ImageUtils.loadTexture("snake_texture.jpg") })
     };
 
+    setLoadingBar(.8, function(){
+
     light = new THREE.SpotLight( 0xffffff );
     light.intensity = 0.9;
     light.position.set(100,1000,100);
@@ -328,6 +337,9 @@ function init() {
 
     var global_light = new THREE.AmbientLight( 0x505050 ); // soft white light
     scene.add( global_light );
+
+    skybox = createSkybox("images/");
+    scene.add(skybox);
     
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
@@ -383,7 +395,7 @@ function init() {
     fadeGoal = 0;
     fadeFn = undefined;
     fadeIn(2000);
-    });
+    })});
 }
 
 function fadeIn(duration) {
@@ -403,4 +415,13 @@ function fadeOut(duration,fn) {
     fadeGoal = 1;
     fadeFn = fn;
 
+}
+
+function createSkybox(url){
+    var cubeMaterial = new THREE.MeshLambertMaterial({ 
+        map: THREE.ImageUtils.loadTexture("images/skybox.png"),
+        side: THREE.DoubleSide });
+
+    var skybox = new THREE.Mesh( new THREE.CubeGeometry(7500, 7500, 7500, 1, 1, 1), cubeMaterial);
+    return skybox;
 }
