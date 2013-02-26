@@ -69,7 +69,7 @@ function bootstrap(){
     twoDCanvas = document.createElement("canvas");
     twoDCanvas.style.position = "absolute";
     twoDCanvas.style.left = "0";
-    twoDCanvas.style.zIndex = "9999";
+    twoDCanvas.style.zIndex = "8999";
     twoDCanvas.style.background = "transparent";
     tdx = twoDCanvas.getContext("2d");
     resize();
