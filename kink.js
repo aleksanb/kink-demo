@@ -38,11 +38,21 @@ TEXTS = [
         initAsHidden: true
     },
     {
-        title: "IS NOT KINECT",
+        title: "HELP, I'M TRAPPED",
         size: 100,
         position: {
             x: 850,
-            y: 800,
+            y: 850,
+            z: -400
+        },
+        rotation: Math.PI/2
+    },
+    {
+        title: "IN A .JS LIBRARY!",
+        size: 100,
+        position: {
+            x: 850,
+            y: 700,
             z: -400
         },
         rotation: Math.PI/2
@@ -73,6 +83,21 @@ TEXTS = [
         visibleToggle: [
             25500,
         ],       
+    },
+    {
+        title: "CLOUD",
+        size: 100,
+        position: {
+            x: -1600,
+            y: 780,
+            z: 900
+        },
+        rotation: -Math.PI/2,
+        /*
+        initAsHidden: true,
+        visibleToggle: [
+            25500,
+        ],     */
     }
 ];
 
@@ -101,16 +126,22 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:3200, z:0},
-        to: {x: 3200, z:2500},
-        duration: 6000,
+        to: {x: 3200, z:1000},
+        duration: 3000,
         startTime: 30000
     },
     {
-        from: {x:3200, z:2500},
-        to: {x: 500, z:2500},
-        duration: 10000,
-        startTime: 36000,
+        from: {x:3200, z:1000},
+        to: {x: 500, z:1000},
+        duration: 15000,
+        startTime: 33000,
     },
+    {
+        from: {x:-3000, z:0},
+        to: {x: 3000, z:0},
+        duration: 12000,
+        startTime: 48000,
+    }
 
 ];
 
@@ -207,7 +238,7 @@ var CAMERA_POSITIONS = {
         "position": {
             "x": 2400,
             "y": 800,
-            "z": 3500
+            "z": 600
         },
         "startposition": {
             "x": 3400,
@@ -215,7 +246,35 @@ var CAMERA_POSITIONS = {
             "z": 350
         },
         "animate": true,
+        "duration": 3000
+    }),
+    39000: new FixedCamera({
+        "position": {
+            "x": -2000,
+            "y": 820,
+            "z": 1200
+        },
+        "startposition": {
+            "x": 2400,
+            "y": 800,
+            "z": 600
+        },
+        "animate": true,
         "duration": 6000
+    }),
+    48000: new TrackingCamera({
+        "position": {
+            "x": -250,
+            "y": 250,
+            "z": 600
+        },
+        "startposition": {
+            "x": 250,
+            "y": 250,
+            "z": 600
+        },
+        "animate": true,
+        "duration": 12000
     })
 };
 
