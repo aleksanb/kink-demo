@@ -199,10 +199,11 @@ function update() {
 
     bg.update();
     var prevY = snake.getPosition().y;
-    var newY = terrain.getYValue(t/10, 0) + 25;
+    var newY = terrain.getYValue(t/5, 0) + 25;
     if ( newY - prevY > 15 ) newY = prevY + 15;
     if ( prevY - newY > 15 ) newY = prevY - 15;
-    snake.update( t/10, newY, 0 );
+    var newGoal = new THREE.Vector3( t/5, newY, 0 );
+    snake.update( newGoal );
 
 
     cameratarget = snake.getPosition();
