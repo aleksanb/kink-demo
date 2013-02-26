@@ -6,34 +6,39 @@ TEXTS = [
         title: "KINK",
         size: 100,
         position: {
-            x: 400,
-            y: 850,
+            x: -1100,
+            y: 500,
             z: -100
         },
         visibleToggle: [
-            4320,
-            4360,
-            4380,
-            4590,
-            4610,
-            4720
+            45000,
+            53820,
+            53900,
+            53920,
+            53960,
+            54030,
+            54060,
+            54400
+
         ],
+        initAsHidden: true
     },
     {
         title: "KIDS",
         size: 100,
         position: {
-            x: 400,
-            y: 850,
+            x: -1100,
+            y: 500,
             z: -100
         },
         visibleToggle: [
-            4320,
-            4360,
-            4380,
-            4590,
-            4610,
-            4720
+            53820,
+            53900,
+            53920,
+            53960,
+            54030,
+            54060,
+            54400
         ],
         initAsHidden: true
     },
@@ -138,7 +143,7 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:-3000, z:0},
-        to: {x: 3000, z:0},
+        to: {x: 1000, z:0},
         duration: 12000,
         startTime: 48000,
     }
@@ -274,8 +279,37 @@ var CAMERA_POSITIONS = {
             "z": 600
         },
         "animate": true,
+        "duration": 6000
+    }),
+    54000: new TrackingCamera({
+        "position": {
+            "x": -250,
+            "y": 1000,
+            "z": 600
+        },
+        "startposition": {
+            "x": -250,
+            "y": 250,
+            "z": 600
+        },
+        "animate": true,
+        "duration": 3000
+    }),
+    57000: new FixedCamera({
+        "position": {
+            "x": -250,
+            "y": 250,
+            "z": 600
+        },
+        "startposition": {
+            "x": -1000,
+            "y": 800,
+            "z": -200
+        },
+        "animate": true,
         "duration": 12000
     })
+
 };
 
 
