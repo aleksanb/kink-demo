@@ -51,7 +51,6 @@ function setLoadingBar(completed,fn){
             tdx.clearRect(0,0,16*GU,9*GU);
             requestAnimFrame(loop);
             music.play();
-            music.volume = 0;
         }
     },0);
 }
@@ -77,7 +76,7 @@ function bootstrap(){
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(twoDCanvas);
     var file_format = Modernizr.audio.ogg ? 'ogg' : 'mp3';
-    music = new Audio( "audio/rammstein." + file_format );
+    music = new Audio( "audio/soundtrack." + file_format );
     setTimeout(start,0);
 }
 

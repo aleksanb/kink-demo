@@ -87,14 +87,16 @@ var CAMERA_POSITIONS = {
             "z": -1500
         },
         "animate": true,
-        "duration": 3000,
+        "duration": 6000,
         "startposition": {
             "x": -3000,
             "y": 500,
             "z": -3000
-        }
+        },
+        "fadeIn": true,
+        "fadeOut": true
     }),
-    3000: new FixedCamera({
+    6000: new FixedCamera({
         "position": {
             "x": -2000,
             "y": 1050,
@@ -106,9 +108,10 @@ var CAMERA_POSITIONS = {
             "z": -1500
         },
         "animate": true,
-        "duration": 3000
+        "duration": 3000,
+        "fadeIn": true
     }),
-    6000: new FixedCamera({
+    9000: new FixedCamera({
         "position": {
             "x": -3300,
             "y": 600,
@@ -120,9 +123,10 @@ var CAMERA_POSITIONS = {
             "z": -1500
         },
         "animate": true,
-        "duration": 3000
+        "duration": 3000,
+        "fadeOut": true
     }),
-    18000: new TrackingCamera({
+    12000: new TrackingCamera({
         "position": {
             "x": -200,
             "y": 230,
@@ -136,7 +140,7 @@ var CAMERA_POSITIONS = {
         "animate": true,
         "duration": 8000
     }),
-    26000: new TrackingCamera({
+    20000: new TrackingCamera({
         "position": {
             "x": -400,
             "y": 200,
