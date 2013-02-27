@@ -108,7 +108,7 @@ var camera, scene, side, x_spacing, z_spacing, cameratarget;
 var osd, bg, snake, snakeTracker, terrain;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
-var skybox;
+var skybox, lightCarpets = [];
 var axis;
 
 var SNAKE_TRACK = [
@@ -503,6 +503,24 @@ function init() {
 
     terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
+
+
+    for ( var i=0; i < 4; i++ ) {
+        var lightCarpet = new LightCarpet( scene );
+        lightCarpet.setPosition(new THREE.Vector3( -3850, 600, 0 ));
+        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
+        lightCarpet.tilt( .5 );
+
+        lightCarpets.push( lightCarpet );
+    }
+    for ( var i=0; i < 4; i++ ) {
+        var lightCarpet = new LightCarpet( scene );
+        lightCarpet.setPosition(new THREE.Vector3( 3850, 600, 0 ));
+        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
+        lightCarpet.tilt( -0.5 );
+
+        lightCarpets.push( lightCarpet );
+    }
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
