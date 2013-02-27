@@ -623,14 +623,22 @@ function init() {
     
     cameratarget = snake.getPosition();
 
-    apples = [];
+    apples = [
+        new Apple(
+                scene,
+                new THREE.Vector3( -2800, terrain.getYValue( -2800, 0 ) + 30, 0),
+                50
+                ),
+        new Apple(
+                scene,
+                new THREE.Vector3( -2200, terrain.getYValue( -2200, 0 ) + 30, 0),
+                50
+                )
+        ];
     currentApple = 0;
-    numberOfApples = 10; // trenger ikke å fylle apples her i fra, så lenge det gjøres en plass
-    for ( var i = 0; i < numberOfApples; i++ ) {
-        apples[i] = new Apple( scene, new THREE.Vector3( -3000 + 200 * i, terrain.getYValue( -3000 + 200 * i, 0 ) + 30, 0), 50 );
+    for ( var i=1; i < apples.length; i++ ) {
         apples[i].visibleToggle();
     }
-    apples[0].visibleToggle();
 
     setLoadingBar(1, function(){});
 
