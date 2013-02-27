@@ -76,9 +76,7 @@ function update() {
         }
     }
 
-    if ( currentApple < apples.length ) {
-        apples[currentApple].update();
-    }
+    apple.update();
 
     if ( t > 25500 && t < 45500 ) {
         oslash.visible = true;
@@ -235,46 +233,38 @@ function init() {
     cameratarget = snake.getPosition();
 
     apples = [
-        new Apple(
-                scene,
-                new THREE.Vector3( -2800, terrain.getYValue( -2800, 0 ) + 30, 0),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( 2900, terrain.getYValue( 2900, 0 ) + 30, 0),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( 2600, terrain.getYValue( 2600, 1000 ) + 30, 1000),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( 1600, terrain.getYValue( 1600, 1000 ) + 30, 1000),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( -400, terrain.getYValue( -400, 0 ) + 30, 0),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( -400, terrain.getYValue( -400, 0 ) + 30, 0),
-                50
-                ),
-        new Apple(
-                scene,
-                new THREE.Vector3( 4600, 0, -650),
-                1000
-                )
+            {
+                position: new THREE.Vector3( -2800, terrain.getYValue( -2800, 0 ) + 30, 0),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( 2900, terrain.getYValue( 2900, 0 ) + 30, 0),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( 2600, terrain.getYValue( 2600, 1000 ) + 30, 1000),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( 1600, terrain.getYValue( 1600, 1000 ) + 30, 1000),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( -400, terrain.getYValue( -400, 0 ) + 30, 0),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( -400, terrain.getYValue( -400, 0 ) + 30, 0),
+                radius: 50
+            },
+            {
+                position: new THREE.Vector3( 4600, 0, -650),
+                radius: 1000
+            }
         ];
     currentApple = 0;
-    for ( var i=1; i < apples.length; i++ ) {
-        apples[i].visibleToggle();
-    }
+    apple = new Apple(apples[currentApple]);
+    scene.add(apple.mesh);
 
 /*
     var jsonLoader = new THREE.JSONLoader();

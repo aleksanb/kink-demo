@@ -1,31 +1,18 @@
-function Apple( scene, vector, radius ) {
-	this.position = vector;
-	this.radius = radius;
-
+function Apple( options ) {
+	var radius = options.radius || 50;
 
 	var appleGeometry = new THREE.SphereGeometry( radius, 20, 20 );
-	this.appleMesh = new THREE.Mesh( appleGeometry, materials.appleBody );
+	this.mesh = new THREE.Mesh( appleGeometry, materials.appleBody );
 
-	this.appleMesh.position.copy( vector );
-	scene.add( this.appleMesh );
+	this.mesh.position.copy( options.position );
 
-}
+    this.update = function() {
+        var distance = this.mesh.position.distanceTo( snake.getPosition() );
 
-Apple.prototype.visibleToggle = function() {
-	this.appleMesh.visible = ( this.appleMesh.visible )? false : true;
-}
-
-Apple.prototype.update = function() {
-	var distance = this.position.distanceTo( snake.getPosition() );
-
-	if ( Math.abs( distance ) < this.radius ) {
-		if (currentApple < apples.length-1) {
-			this.appleMesh.visible = false;
-		}
-
-		currentApple += 1;
-        if ( currentApple < apples.length ) {
-            apples[currentApple].visibleToggle();  
+        if ( Math.abs( distance ) < appleGeometry.radius && currentApple < apples.length-1 ) {
+            currentApple += 1;
+            this.mesh.position.copy( apples[currentApple].position );
+            appleGeometry.radius = apples[currentApple].radius;
         }
-	}
+    };
 }
