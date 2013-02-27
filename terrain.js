@@ -1,13 +1,19 @@
 function Terrain( width, depth ) {
 	this.data;
 	this.canvasScaled;
-	this.w = width || 256;
-	this.d = depth || 256;
+	this.w = width || 192;
+	this.d = depth || 192;
+    this.factor = 40;
 
 	this.generateHeight();
 	this.generateTexture();
 
-	this.geometry = new THREE.PlaneGeometry( 7500, 7500, this.w - 1, this.d - 1 );
+	this.geometry = new THREE.PlaneGeometry( 
+            this.w*this.factor,
+            this.d*this.factor,
+            this.w - 1,
+            this.d - 1
+            );
 	this.geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
 	for ( var i = 0, l = this.geometry.vertices.length; i < l; i ++ ) {
@@ -111,6 +117,8 @@ Terrain.prototype.generateTexture = function() {
 	image = context.getImageData( 0, 0, this.canvasScaled.width, this.canvasScaled.height );
 	imageData = image.data;
 
+    var rands = [];
+
 	for ( var i = 0, l = imageData.length; i < l; i += 4 ) {
 
 		var v = ~~ ( Math.random() * 5 );
@@ -126,13 +134,15 @@ Terrain.prototype.generateTexture = function() {
 };	
 
 Terrain.prototype.getYValue = function(x,z) {
-    if ( z > 3750 || z < -3750 || x > 3750 || x < -3750) {
+    if ( z > this.w*this.factor/2
+        || z < -this.w*this.factor/2
+        || x > this.d*this.factor/2
+        || x < -this.d*this.factor/2) {
         return false;
     }
-    var DIVIDER = 29.412;
 
-	var scaled_x = ( x / DIVIDER ) | 0;
-	var scaled_z = ( z / DIVIDER ) | 0;
+	var scaled_x = ( x / this.factor ) | 0;
+	var scaled_z = ( z / this.factor ) | 0;
 
     var dataIndex = ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z);
 	var height = this.data[ dataIndex ] * 10; // geometry is scaled by this value 

@@ -1,5 +1,5 @@
 var active_camera_index = 0;
-var active_camera;
+var active_camera, camera_helper;
 var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
 var bg, snake, terrain;
@@ -28,7 +28,7 @@ function update() {
         active_camera.init( camera );
     }
 
-    bg.update();
+    //bg.update();
     for ( var i=0; i < lightCarpets.length; i++ ) {
         lightCarpets[i].update();
     }
@@ -107,7 +107,7 @@ function render() {
         }
     }
 
-    bg.render();
+    //bg.render();
     snake.render();
     
     camera.lookAt(cameratarget);
@@ -120,12 +120,21 @@ function init() {
 
     setLoadingBar(.5, function() {
 
+    // DON'T ADD ANYTHING BEFORE HERE
+    scene = new THREE.Scene();
+
+    terrain = new Terrain(192, 192);
+    scene.add(terrain.mesh);
+    //terrain = {};
+    //terrain.getYValue = function(){return 600};
+    //
+    // SAFE TO ADD
+
     camera = new THREE.PerspectiveCamera(45, 16 / 9, 1, 10000);
     camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
     active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
     camera.position = active_camera.init( camera );
 
-    scene = new THREE.Scene();
     
     scene.add(camera);
     side = 32;
@@ -133,7 +142,7 @@ function init() {
     x_spacing = 5 + 2.545 + 0.5;
     z_spacing = 4.363 * 2 + 0.5;
     
-    bg = new BG();
+    //bg = new BG();
 
     scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
@@ -184,7 +193,7 @@ function init() {
         text.object = textMesh;
         textMesh.position = text.position;
         textMesh.rotation.y = text.rotation || 0;
-        scene.add(textMesh);
+        //scene.add(textMesh);
         if (text.initAsHidden) {
             textMesh.visible = false;
         }
@@ -192,10 +201,11 @@ function init() {
 
     cameraskip = false;
 
-    bg.init();
+    //bg.init();
+    for ( var i=0; i < 30000; i++ ) {
+        var _ = Math.random();
+    }
 
-    terrain = new Terrain(256, 256);
-    scene.add(terrain.mesh);
 
 
     for ( var i=0; i < 4; i++ ) {
@@ -223,7 +233,7 @@ function init() {
 
     var newY = terrain.getYValue(currentSnakeMove.from.x, currentSnakeMove.from.z) + 25;
 
-    for (var i = 0; i < 30; i++ ) {
+    for (var i = 0; i < 5; i++ ) {
         var newPosition = new THREE.Vector3( front_snake.getPosition().x, newY, front_snake.getPosition().z - 10);
         var to_be_attached = new Snake(scene, materials.snakeTexture, newPosition, 40 - 5 * Math.sin(i/2) );
         front_snake.setPrevious(to_be_attached);
@@ -324,8 +334,9 @@ function fadeOut(duration,fn) {
 function createSkybox(url){
     var cubeMaterial = new THREE.MeshLambertMaterial({ 
         map: THREE.ImageUtils.loadTexture("images/skybox.png"),
-        side: THREE.DoubleSide });
+        side: THREE.BackSide });
 
-    var skybox = new THREE.Mesh( new THREE.CubeGeometry(7500, 7500, 7500, 1, 1, 1), cubeMaterial);
+    var skybox = new THREE.Mesh( new THREE.CubeGeometry(7680, 3840, 7680, 1, 1, 1), cubeMaterial);
+    skybox.position.y = 1920;
     return skybox;
 }
