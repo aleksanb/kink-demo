@@ -141,6 +141,5 @@ addEventListener('keydown', function(e) {
     if ( e.keyCode == 83 ) {
         developer_camera_target.z+=factor;
     }
-    console.log(developer_camera);
 
 });

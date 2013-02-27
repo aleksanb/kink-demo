@@ -63,7 +63,9 @@ function update() {
     if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
     if ( ! camera_override ) {
-        cameratarget = newTarget;
+        axis.position = newGoal.clone();
+        axis.position.y += 50;
+        cameratarget = newTarget.clone();
     }
 
 
@@ -87,15 +89,12 @@ function update() {
 
     if ( ! camera_override ) {
         camera.position = active_camera.getPosition( cameratarget );
-        axis.position = cameratarget;
-        axis.position.y += 50;
     } else {
         camera.position = developer_camera.clone();
         cameratarget = developer_camera_target.clone();
-        axis.position.copy(camera.position);
-        axis.position.y -= 100;
-        axis.position.x -= 100;
-        axis.position.z -= 100;
+        cameratarget.y = terrain.getYValue(cameratarget.x, cameratarget.z);
+        axis.position.copy(cameratarget);
+        console.log(axis.position);
         scene.fog = new THREE.Fog(0x000000, 0.0000000001, 100000);
     }
 
