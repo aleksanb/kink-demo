@@ -546,9 +546,7 @@ function init() {
     "snakeTexture" : new THREE.MeshLambertMaterial({ 
         map: THREE.ImageUtils.loadTexture("snake_texture.jpg") }),
     "appleBody" : new THREE.MeshPhongMaterial({
-        color : 0xFF0000 }),
-    "appleStilk" : new THREE.MeshPhongMaterial({
-        color : 0x00FF00 })
+        map: THREE.ImageUtils.loadTexture("seamless_apple.jpg") })
     };
 
     setLoadingBar(.8, function(){
@@ -641,7 +639,7 @@ function init() {
     currentApple = 0;
     numberOfApples = 10; // trenger ikke å fylle apples her i fra, så lenge det gjøres en plass
     for ( var i = 0; i < numberOfApples; i++ ) {
-        apples[i] = new Apple( scene, new THREE.Vector3( -3000 + 200 * i, terrain.getYValue( -3000 + 200 * i, 0 ) + 30, 0), 60 );
+        apples[i] = new Apple( scene, new THREE.Vector3( -3000 + 200 * i, terrain.getYValue( -3000 + 200 * i, 0 ) + 30, 0), 50 );
         apples[i].visibleToggle();
     }
     apples[0].visibleToggle();
