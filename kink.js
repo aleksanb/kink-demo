@@ -2,9 +2,9 @@ var active_camera_index = 0;
 var active_camera;
 var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
-var osd, bg, snake, terrain;
+var bg, snake, terrain;
 var apple, apples, currentApple, numberOfApples;
-var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
+var materials, light, cameraskip, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox, lightCarpets = [];
 var axis;
@@ -485,7 +485,6 @@ function render() {
 
     /* render the 2d canvas */
     tdx.clearRect(0,0,twoDCanvas.width, twoDCanvas.height);
-    osd.render(); //yah, we just always render the osd
     
     if(t < fadeGoalTime){
         tdx.fillStyle = "rgba(0,0,0,"+lerp(fadeStart,fadeGoal, (t-fadeStartTime)/(fadeGoalTime-fadeStartTime))+")";
@@ -525,9 +524,7 @@ function init() {
     x_spacing = 5 + 2.545 + 0.5;
     z_spacing = 4.363 * 2 + 0.5;
     
-    osd = new OSD();
     bg = new BG();
-    
 
     scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
