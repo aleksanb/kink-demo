@@ -2,6 +2,7 @@ function Apple( scene, vector, radius ) {
 	this.position = vector;
 	this.radius = radius;
 
+
 	var appleGeometry = new THREE.SphereGeometry( radius, 20, 20 );
 	this.appleMesh = new THREE.Mesh( appleGeometry, materials.appleBody );
 
@@ -18,7 +19,9 @@ Apple.prototype.update = function() {
 	var distance = this.position.distanceTo( snake.getPosition() );
 
 	if ( Math.abs( distance ) < this.radius ) {
-		this.appleMesh.visible = false;
+		if (currentApple < apples.length-1) {
+			this.appleMesh.visible = false;
+		}
 
 		currentApple += 1;
         if ( currentApple < apples.length ) {
