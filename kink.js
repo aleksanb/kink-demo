@@ -1,7 +1,15 @@
-DEBUG = false;
-ORIGO = new THREE.Vector3(0, 0, 0);
+var active_camera_index = 0;
+var active_camera;
+var camera_timestamps;
+var camera, scene, side, x_spacing, z_spacing, cameratarget;
+var bg, snake, terrain;
+var apple, apples, currentApple, numberOfApples;
+var materials, light, cameraskip, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
+var currentSnakeMove, currentSnakeMoveInitTime;
+var skybox, lightCarpets = [];
+var axis;
 
-TEXTS = [
+var TEXTS = [
     {
         title: "KINK",
         size: 100,
@@ -213,17 +221,6 @@ TEXTS = [
     }
 ];
 
-var active_camera_index = 0;
-var active_camera;
-var camera_timestamps;
-var camera, scene, side, x_spacing, z_spacing, cameratarget;
-var osd, bg, snake, terrain;
-var apple, apples, currentApple, numberOfApples;
-var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
-var currentSnakeMove, currentSnakeMoveInitTime;
-var skybox, lightCarpets = [];
-var axis;
-
 var SNAKE_TRACK = [
     {
         from: {x:-3200, z:-3000},
@@ -410,7 +407,6 @@ var CAMERA_POSITIONS = {
 
 };
 
-
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
 function smoothstep(a, b, t) {
     var v = t * t * (3 - 2 * t);
@@ -419,49 +415,6 @@ function smoothstep(a, b, t) {
 
 function lerp(a, b, t) {
     return b * t + a * (1 - t);
-}
-
-function drawImage(img,startx,starty) {
-    var x = startx+1;
-    var y = starty;
-    var on = false;
-    for(var i=0;i<img.data.length;i++){
-        var num = img.data.charCodeAt(i)-65;
-        while(num-->0) {
-            if(on) cubes[(side-x-1)*side+y].mesh.position.y = 25+5*Math.sin(x/4+t/4000);
-            cubes[(side-x-1)*side+y].mesh.material = materials[+on]; // materials no longer uses indexes
-            x++;
-            if(x>startx+img.w) {
-                x = startx+1;
-                y++;
-            }
-        }
-        on = !on;
-    }
-}
-
-
-function newCameraMovement(movementTime, posx, posy, posz) {
-    cameraMovementDone = false;
-    deepCopy3DObject(camera, startcamera);
-    startcamera.time = t;
-    
-    goalcamera.position.x = posx;
-    goalcamera.position.y = posy;
-    goalcamera.position.z = posz;
-    
-    //var samples_per_quaver = midi.ticks_per_beat / midi.ticks_per_second * 44100;
-    goalcamera.time = t+movementTime;
-}
-
-function deepCopy3DObject(from, to) {
-    to.position.x = from.position.x;
-    to.position.y = from.position.y;
-    to.position.z = from.position.z;
-    
-    to.rotation.x = from.rotation.x;
-    to.rotation.y = from.rotation.y;
-    to.rotation.z = from.rotation.z;
 }
 
 function update() {
@@ -524,19 +477,14 @@ function update() {
 
     camera.position = active_camera.getPosition( cameratarget );
 
-    light.position.x = camera.position.x;
-    light.position.y = camera.position.y;
-    light.position.z = camera.position.z;
-    light.rotation.x = camera.rotation.x;
-    light.rotation.y = camera.rotation.y;
-    light.rotation.z = camera.rotation.z;
+    light.position.copy( camera.position );
+    light.rotation.copy( camera.rotation );
 }
 
 function render() {
 
     /* render the 2d canvas */
     tdx.clearRect(0,0,twoDCanvas.width, twoDCanvas.height);
-    osd.render(); //yah, we just always render the osd
     
     if(t < fadeGoalTime){
         tdx.fillStyle = "rgba(0,0,0,"+lerp(fadeStart,fadeGoal, (t-fadeStartTime)/(fadeGoalTime-fadeStartTime))+")";
@@ -576,9 +524,7 @@ function init() {
     x_spacing = 5 + 2.545 + 0.5;
     z_spacing = 4.363 * 2 + 0.5;
     
-    osd = new OSD();
     bg = new BG();
-    
 
     scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
