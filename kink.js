@@ -28,7 +28,7 @@ function update() {
         active_camera.init( camera );
     }
 
-    //bg.update();
+    bg.update();
     for ( var i=0; i < lightCarpets.length; i++ ) {
         lightCarpets[i].update();
     }
@@ -120,7 +120,7 @@ function render() {
         }
     }
 
-    //bg.render();
+    bg.render();
     snake.render();
     
     camera.lookAt(cameratarget);
@@ -155,7 +155,7 @@ function init() {
     x_spacing = 5 + 2.545 + 0.5;
     z_spacing = 4.363 * 2 + 0.5;
     
-    //bg = new BG();
+    bg = new BG();
 
     scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
@@ -214,12 +214,7 @@ function init() {
 
     cameraskip = false;
 
-    //bg.init();
-    for ( var i=0; i < 30000; i++ ) {
-        var _ = Math.random();
-    }
-
-
+    bg.init();
 
     for ( var i=0; i < 4; i++ ) {
         var lightCarpet = new LightCarpet( scene );
