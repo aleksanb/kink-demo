@@ -28,9 +28,12 @@ function loop(){
         update();
         dt-= FRAME_LENGTH;
     }
+
     render();
     document.querySelector("#time-counter").innerText = t|0;
-    requestAnimFrame(loop);
+
+    if (!music.ended)
+        requestAnimFrame(loop);
 }
 
 
