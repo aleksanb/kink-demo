@@ -21,4 +21,13 @@ function LightCarpet( scene ) {
     this.tilt = function( angle ) {
         mesh.rotation.y = angle;
     };
+    this.update = function() {
+        // fancy visible-toggling here
+        if ( material.opacity <= 0 && t % 768 < 20 ) {
+            material.opacity = .8;
+        }
+        if ( material.opacity > 0) {
+            material.opacity -= .05;
+        }
+    };
 }

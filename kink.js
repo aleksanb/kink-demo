@@ -427,6 +427,9 @@ function update() {
     }
 
     bg.update();
+    for ( var i=0; i < lightCarpets.length; i++ ) {
+        lightCarpets[i].update();
+    }
     
     for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
         if ( SNAKE_TRACK[i].startTime < t &&
