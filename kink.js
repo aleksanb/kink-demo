@@ -646,16 +646,16 @@ function init() {
     for ( var i=0; i < 4; i++ ) {
         var lightCarpet = new LightCarpet( scene );
         lightCarpet.setPosition(new THREE.Vector3( -3850, 600, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
+        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
         lightCarpet.tilt( .5 );
 
         lightCarpets.push( lightCarpet );
     }
     for ( var i=0; i < 4; i++ ) {
         var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( 3850, 600, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
-        lightCarpet.tilt( -0.5 );
+        lightCarpet.setPosition(new THREE.Vector3( 3950, 0, 0 ));
+        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
+        lightCarpet.tilt( -0.8 );
 
         lightCarpets.push( lightCarpet );
     }
