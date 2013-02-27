@@ -31,6 +31,7 @@ Snake.prototype.getPosition = function( previousSnake ) {
 
 Snake.prototype.update = function( newPos) {
 	
+
 	if ( this.previousSnake != null ) {
 		this.previousSnake.update( this.mesh.position );
 	}

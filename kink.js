@@ -54,7 +54,8 @@ function update() {
     var newY = terrain.getYValue(current_x, current_z) + 25;
 
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
-    snake.update( newGoal );
+    snake.update( newGoal.clone() );
+
 
 
     var prevTarget = cameratarget.clone();

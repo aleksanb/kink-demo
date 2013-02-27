@@ -17,7 +17,7 @@ function Terrain( width, depth ) {
 	this.geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
 	for ( var i = 0, l = this.geometry.vertices.length; i < l; i ++ ) {
-		this.geometry.vertices[i].y = this.data[i] * 6;
+		this.geometry.vertices[i].y = this.data[i] * 10;
 	}
 
 	this.texture = new THREE.Texture(
@@ -145,7 +145,7 @@ Terrain.prototype.getYValue = function(x,z) {
 	var scaled_z = ( z / this.factor ) | 0;
 
     var dataIndex = ( this.w/2 + scaled_x ) + this.w * ( this.d/2 + scaled_z);
-	var height = this.data[ dataIndex ] * 6; // geometry is scaled by this value 
+	var height = this.data[ dataIndex ] * 10; // geometry is scaled by this value 
 
     return height;
 };
