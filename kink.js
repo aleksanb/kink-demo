@@ -56,10 +56,8 @@ function update() {
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
     snake.update( newGoal.clone() );
 
-
-
     var prevTarget = cameratarget.clone();
-    var newTarget = snake.getPosition(); 
+    var newTarget = snake.getPosition().clone(); 
     if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
     if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
