@@ -24,6 +24,20 @@ TEXTS = [
         initAsHidden: true
     },
     {
+        title: "IS NOT KINECT",
+        size: 100,
+        position: {
+            x: -800,
+            y: 300,
+            z: -100
+        },
+        visibleToggle: [
+            45000,
+
+        ],
+        initAsHidden: true
+    },
+    {
         title: "KIDS",
         size: 100,
         position: {
@@ -50,7 +64,10 @@ TEXTS = [
             y: 850,
             z: -400
         },
-        rotation: Math.PI/2
+        rotation: Math.PI/2,
+        visibleToggle: [
+            27000
+        ],
     },
     {
         title: "IN A .JS LIBRARY!",
@@ -60,7 +77,10 @@ TEXTS = [
             y: 700,
             z: -400
         },
-        rotation: Math.PI/2
+        rotation: Math.PI/2,
+        visibleToggle: [
+            27000
+        ],
     },
     {
         title: "BEKK",
@@ -87,6 +107,7 @@ TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             25500,
+            45000
         ],       
     },
     {
@@ -103,6 +124,20 @@ TEXTS = [
         visibleToggle: [
             25500,
         ],     */
+    },
+    {
+        title: "ROBOCUP",
+        size: 100,
+        position: {
+            x: 3000,
+            y: 500,
+            z: -600
+        },
+        rotation: -Math.PI/2,
+        initAsHidden: true,
+        visibleToggle: [
+            45000
+        ],       
     }
 ];
 
@@ -114,7 +149,7 @@ var osd, bg, snake, terrain;
 var apple, apples, currentApple, numberOfApples;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
-var skybox;
+var skybox, lightCarpets = [];
 var axis;
 
 var SNAKE_TRACK = [
@@ -144,9 +179,15 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:-3000, z:0},
-        to: {x: 1000, z:0},
-        duration: 12000,
+        to: {x: -1000, z:0},
+        duration: 6000,
         startTime: 48000,
+    },
+    {
+        from: {x:-1000, z:0},
+        to: {x: 1000, z:0},
+        duration: 9000,
+        startTime: 54000,
     }
 
 ];
@@ -299,13 +340,27 @@ var CAMERA_POSITIONS = {
     57000: new FixedCamera({
         "position": {
             "x": -250,
-            "y": 250,
+            "y": 500,
             "z": 600
         },
         "startposition": {
             "x": -1000,
             "y": 800,
             "z": -200
+        },
+        "animate": true,
+        "duration": 6000
+    }),
+    63000: new FixedCamera({
+        "position": {
+            "x": 2000,
+            "y": 500,
+            "z": -600
+        },
+        "startposition": {
+            "x": -250,
+            "y": 500,
+            "z": 600
         },
         "animate": true,
         "duration": 12000
@@ -546,6 +601,24 @@ function init() {
 
     terrain = new Terrain(256, 256);
     scene.add(terrain.mesh);
+
+
+    for ( var i=0; i < 4; i++ ) {
+        var lightCarpet = new LightCarpet( scene );
+        lightCarpet.setPosition(new THREE.Vector3( -3850, 600, 0 ));
+        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
+        lightCarpet.tilt( .5 );
+
+        lightCarpets.push( lightCarpet );
+    }
+    for ( var i=0; i < 4; i++ ) {
+        var lightCarpet = new LightCarpet( scene );
+        lightCarpet.setPosition(new THREE.Vector3( 3850, 600, 0 ));
+        lightCarpet.rotate( Math.PI/8 + Math.PI/6 * i);
+        lightCarpet.tilt( -0.5 );
+
+        lightCarpets.push( lightCarpet );
+    }
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
