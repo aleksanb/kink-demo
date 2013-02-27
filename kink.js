@@ -236,7 +236,22 @@ function init() {
                 ),
         new Apple(
                 scene,
-                new THREE.Vector3( -2200, terrain.getYValue( -2200, 0 ) + 30, 0),
+                new THREE.Vector3( 2900, terrain.getYValue( 2900, 0 ) + 30, 0),
+                50
+                ),
+        new Apple(
+                scene,
+                new THREE.Vector3( 2600, terrain.getYValue( 2600, 1000 ) + 30, 1000),
+                50
+                ),
+        new Apple(
+                scene,
+                new THREE.Vector3( 1600, terrain.getYValue( 1600, 1000 ) + 30, 1000),
+                50
+                ),
+        new Apple(
+                scene,
+                new THREE.Vector3( -400, terrain.getYValue( -400, 0 ) + 30, 0),
                 50
                 )
         ];
