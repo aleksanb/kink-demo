@@ -18,7 +18,8 @@ TEXTS = [
             53960,
             54030,
             54060,
-            54400
+            54400,
+            54950
 
         ],
         initAsHidden: true
@@ -52,7 +53,8 @@ TEXTS = [
             53960,
             54030,
             54060,
-            54400
+            54400,
+            54950
         ],
         initAsHidden: true
     },
@@ -138,6 +140,76 @@ TEXTS = [
         visibleToggle: [
             45000
         ],       
+    },
+    {
+        title: "2013",
+        size: 90,
+        position: {
+            x: 3200,
+            y: 300,
+            z: -650
+        },
+        rotation: -Math.PI/2,
+        initAsHidden: true,
+        visibleToggle: [
+            45000
+        ],       
+    },
+    {
+        title: "stiaje",
+        size: 70,
+        position: {
+            x: 1100,
+            y: 280,
+            z: 200
+        },
+        rotation: -Math.PI/2 - .7,
+        initAsHidden: true,
+        visibleToggle: [
+            48000
+        ],       
+    },
+    {
+        title: "assios",
+        size: 70,
+        position: {
+            x: 650,
+            y: 290,
+            z: -150
+        },
+        rotation: -Math.PI/2,
+        initAsHidden: true,
+        visibleToggle: [
+            48000
+        ],       
+    },
+    {
+        title: "cristea",
+        size: 70,
+        position: {
+            x: 1600,
+            y: 190,
+            z: -350
+        },
+        rotation: -Math.PI/2 + 1,
+        initAsHidden: true,
+        visibleToggle: [
+            48000
+        ],       
+    },
+    {
+        title: "aleksanb",
+        size: 70,
+        position: {
+            x: 1750,
+            y: 290,
+            z: 350
+        },
+        rotation: -Math.PI/2 - .5,
+        initAsHidden: true,
+        visibleToggle: [
+            48000
+        ],       
     }
 ];
 
@@ -172,7 +244,7 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:3200, z:1000},
-        to: {x: 500, z:1000},
+        to: {x: -1000, z:1000},
         duration: 15000,
         startTime: 33000,
     },
@@ -194,48 +266,18 @@ var SNAKE_TRACK = [
 var CAMERA_POSITIONS = {
     0: new FixedCamera({
         "position": {
-            "x": -1500,
+            "x": -3000,
             "y": 1000,
-            "z": -1500
+            "z": -700
         },
         "animate": true,
-        "duration": 6000,
+        "duration": 9000,
         "startposition": {
-            "x": -3000,
-            "y": 500,
-            "z": -3000
+            "x": -3500,
+            "y": 3000,
+            "z": -3500
         },
         "fadeIn": true,
-        "fadeOut": true
-    }),
-    6000: new FixedCamera({
-        "position": {
-            "x": -2000,
-            "y": 1050,
-            "z": -1500
-        },
-        "startposition": {
-            "x": -2000,
-            "y": 2500,
-            "z": -1500
-        },
-        "animate": true,
-        "duration": 3000,
-        "fadeIn": true
-    }),
-    9000: new FixedCamera({
-        "position": {
-            "x": -3300,
-            "y": 600,
-            "z": 400
-        },
-        "startposition": {
-            "x": -2000,
-            "y": 1050,
-            "z": -1500
-        },
-        "animate": true,
-        "duration": 3000,
         "fadeOut": true
     }),
     12000: new TrackingCamera({
