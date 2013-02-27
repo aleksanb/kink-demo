@@ -24,6 +24,20 @@ TEXTS = [
         initAsHidden: true
     },
     {
+        title: "IS NOT KINECT",
+        size: 100,
+        position: {
+            x: -800,
+            y: 300,
+            z: -100
+        },
+        visibleToggle: [
+            45000,
+
+        ],
+        initAsHidden: true
+    },
+    {
         title: "KIDS",
         size: 100,
         position: {
@@ -164,9 +178,15 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:-3000, z:0},
-        to: {x: 1000, z:0},
-        duration: 18000,
+        to: {x: -1000, z:0},
+        duration: 6000,
         startTime: 48000,
+    },
+    {
+        from: {x:-1000, z:0},
+        to: {x: 1000, z:0},
+        duration: 9000,
+        startTime: 54000,
     }
 
 ];
