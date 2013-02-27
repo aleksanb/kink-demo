@@ -79,7 +79,7 @@ function bootstrap(){
     twoDCanvas.style.background = "transparent";
     tdx = twoDCanvas.getContext("2d");
     resize();
-    Math.seedrandom('kinkisawesomeyo');    
+    Math.seedrandom('kinkisawesomebitchyo');    
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(twoDCanvas);
     var file_format = Modernizr.audio.ogg ? 'ogg' : 'mp3';
