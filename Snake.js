@@ -57,3 +57,8 @@ Snake.prototype.update = function( newPos) {
 Snake.prototype.render = function() {
     
 };
+Snake.prototype.visibleToggle = function() {
+    this.mesh.visible = !this.mesh.visible;
+    if (this.previousSnake) 
+        this.previousSnake.visibleToggle();
+};

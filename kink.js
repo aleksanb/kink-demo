@@ -56,15 +56,16 @@ function update() {
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
     snake.update( newGoal );
 
-    axis.position = newGoal;
-    axis.position.y += 50;
 
     var prevTarget = cameratarget.clone();
     var newTarget = snake.getPosition(); 
     if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
     if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
-    cameratarget = newTarget;
+    if ( ! camera_override ) {
+        cameratarget = newTarget;
+    }
+
 
     for ( var i=0; i < TEXTS.length; i++ ) {
         var text = TEXTS[i];
@@ -84,7 +85,19 @@ function update() {
         oslash.visible = false;
     }
 
-    camera.position = active_camera.getPosition( cameratarget );
+    if ( ! camera_override ) {
+        camera.position = active_camera.getPosition( cameratarget );
+        axis.position = cameratarget;
+        axis.position.y += 50;
+    } else {
+        camera.position = developer_camera.clone();
+        cameratarget = developer_camera_target.clone();
+        axis.position.copy(camera.position);
+        axis.position.y -= 100;
+        axis.position.x -= 100;
+        axis.position.z -= 100;
+        scene.fog = new THREE.Fog(0x000000, 0.0000000001, 100000);
+    }
 
     light.position.copy( camera.position );
     light.rotation.copy( camera.rotation );
@@ -135,8 +148,8 @@ function init() {
     active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
     camera.position = active_camera.init( camera );
 
-    
     scene.add(camera);
+
     side = 32;
 
     x_spacing = 5 + 2.545 + 0.5;
@@ -193,7 +206,7 @@ function init() {
         text.object = textMesh;
         textMesh.position = text.position;
         textMesh.rotation.y = text.rotation || 0;
-        //scene.add(textMesh);
+        scene.add(textMesh);
         if (text.initAsHidden) {
             textMesh.visible = false;
         }
@@ -240,7 +253,9 @@ function init() {
         front_snake = to_be_attached;
     }
     
-    cameratarget = snake.getPosition();
+    if ( ! camera_override ) {
+        cameratarget = snake.getPosition();
+    }
 
     apples = [
             {

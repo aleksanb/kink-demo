@@ -1,3 +1,6 @@
+var camera_override = false;
+var developer_camera = new THREE.Vector3(0,0,0);
+var developer_camera_target = new THREE.Vector3(0,0,0);
 FRAME_LENGTH = 882;
 t = 0;
 window.requestAnimFrame = (function(){
@@ -101,3 +104,43 @@ function resize(){
 }
 
 window.onresize = resize;
+addEventListener('keydown', function(e) {
+    var factor = 35;
+   if ( e.keyCode == 32) {
+       camera_override = !camera_override;
+       snake.visibleToggle();
+   }
+    if ( e.keyCode == 37 ) {
+        developer_camera.x-=factor;
+    }
+    if ( e.keyCode == 38 ) {
+        developer_camera.z-=factor;
+
+    }
+    if ( e.keycode == 39 ) {
+        developer_camera.x+=factor;
+    }
+    if ( e.keyCode == 40 ) {
+        developer_camera.z+=factor;
+    }
+    if ( e.keyCode == 85 ) {
+        developer_camera.y+=factor;
+    }
+    if ( e.keyCode == 78 ) {
+        developer_camera.y-=factor;
+    }
+    if ( e.keyCode == 65 ) {
+        developer_camera_target.x-=factor;
+    }
+    if ( e.keyCode == 87 ) {
+        developer_camera_target.z-=factor;
+    }
+    if ( e.keyCode == 68 ) {
+        developer_camera_target.x+=factor;
+    }
+    if ( e.keyCode == 83 ) {
+        developer_camera_target.z+=factor;
+    }
+    console.log(developer_camera);
+
+});
