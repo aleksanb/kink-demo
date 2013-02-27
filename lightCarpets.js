@@ -1,9 +1,10 @@
 function LightCarpet( scene ) {
-    var geometry = new THREE.PlaneGeometry( 100, 5000, 1, 1 );
-    var material = new THREE.MeshLambertMaterial( {
+    var geometry = new THREE.PlaneGeometry( 100, 8000, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( {
         color: Math.random() * 0xffffff,
         opacity: 0.5,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        transparent: true
     } );
     var mesh = new THREE.Mesh( geometry, material );
     mesh.rotation.x = Math.PI/2;
