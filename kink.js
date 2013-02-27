@@ -7,7 +7,7 @@ var apple, apples, currentApple, numberOfApples;
 var materials, light, cameraskip, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox, lightCarpets = [];
-var axis;
+var axis, oslash;
 
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
 function smoothstep(a, b, t) {
@@ -78,6 +78,12 @@ function update() {
 
     if ( currentApple < apples.length ) {
         apples[currentApple].update();
+    }
+
+    if ( t > 25500 && t < 45500 ) {
+        oslash.visible = true;
+    } else {
+        oslash.visible = false;
     }
 
     camera.position = active_camera.getPosition( cameratarget );
@@ -244,6 +250,31 @@ function init() {
     for ( var i=1; i < apples.length; i++ ) {
         apples[i].visibleToggle();
     }
+
+/*
+    var jsonLoader = new THREE.JSONLoader();
+    jsonLoader.load( "sunglasses.js", function( geometry ) { createScene( geometry) } );
+
+
+    function createScene( geometry ) {
+        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
+        mesh.scale.set(.1, .1, .1);
+        mesh.position.y = 1200;
+        mesh.position.x = -3000;
+        mesh.position.z = -2000;
+        scene.add(mesh);
+    }
+*/
+    var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
+    oslash = new THREE.Mesh( oslashCube, materials.textTexture );
+    oslash.rotation.z = Math.PI/2;
+    oslash.rotation.x = -Math.PI/4;
+    oslash.position = {
+            x: 3001,
+            y: 424,
+            z: -290
+    };
+    scene.add(oslash);
 
     setLoadingBar(1, function(){});
 
