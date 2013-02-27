@@ -7,7 +7,6 @@ function FixedCamera( _options ) {
     var startposition, cameraHelper;
 
     this.init = function( prevCamera ) {
-        console.log("init time: %i", t);
         startposition = (_options.startposition) || (prevCamera.position);
         cameraHelper = new CameraHelper( _options );
 
@@ -27,7 +26,6 @@ function TrackingCamera( _options ) {
     var startposition, cameraHelper;
 
     this.init = function( prevCamera ) {
-        console.log("init time: %i", t);
         if (_options.startposition !== undefined) {
             startposition = _options.startposition;
         } else {
