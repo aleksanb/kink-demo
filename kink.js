@@ -33,7 +33,6 @@ TEXTS = [
         },
         visibleToggle: [
             45000,
-
         ],
         initAsHidden: true
     },
