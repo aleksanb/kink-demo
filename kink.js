@@ -110,7 +110,8 @@ var active_camera_index = 0;
 var active_camera;
 var camera_timestamps;
 var camera, scene, side, x_spacing, z_spacing, cameratarget;
-var osd, bg, snake, snakeTracker, terrain;
+var osd, bg, snake, terrain;
+var apple, apples, currentApple, numberOfApples;
 var materials, light, cameraskip, OSD, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox;
@@ -420,6 +421,10 @@ function update() {
         }
     }
 
+    if ( currentApple < apples.length ) {
+        apples[currentApple].update();
+    }
+
     camera.position = active_camera.getPosition( cameratarget );
 
     light.position.x = camera.position.x;
@@ -484,7 +489,11 @@ function init() {
     "textTexture" : new THREE.MeshLambertMaterial({
         color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false }),
     "snakeTexture" : new THREE.MeshLambertMaterial({ 
-        map: THREE.ImageUtils.loadTexture("snake_texture.jpg") })
+        map: THREE.ImageUtils.loadTexture("snake_texture.jpg") }),
+    "appleBody" : new THREE.MeshPhongMaterial({
+        color : 0xFF0000 }),
+    "appleStilk" : new THREE.MeshPhongMaterial({
+        color : 0x00FF00 })
     };
 
     setLoadingBar(.8, function(){
@@ -498,7 +507,7 @@ function init() {
     pointLight.position.set( 0, 2000, 0 );
     scene.add( pointLight );
 
-    var global_light = new THREE.AmbientLight( 0xa0a0a0 ); // soft white light
+    var global_light = new THREE.AmbientLight( 0x303030 ); // soft white light
     scene.add( global_light );
 
     skybox = createSkybox("images/");
@@ -540,10 +549,11 @@ function init() {
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
-    var newY = terrain.getYValue(currentSnakeMove.from.x, currentSnakeMove.from.z) + 25;
 
     snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50 );
     var front_snake = snake;
+
+    var newY = terrain.getYValue(currentSnakeMove.from.x, currentSnakeMove.from.z) + 25;
 
     for (var i = 0; i < 30; i++ ) {
         var newPosition = new THREE.Vector3( front_snake.getPosition().x, newY, front_snake.getPosition().z - 10);
@@ -553,6 +563,15 @@ function init() {
     }
     
     cameratarget = snake.getPosition();
+
+    apples = [];
+    currentApple = 0;
+    numberOfApples = 10; // trenger ikke å fylle apples her i fra, så lenge det gjøres en plass
+    for ( var i = 0; i < numberOfApples; i++ ) {
+        apples[i] = new Apple( scene, new THREE.Vector3( -3000 + 200 * i, terrain.getYValue( -3000 + 200 * i, 0 ) + 30, 0), 60 );
+        apples[i].visibleToggle();
+    }
+    apples[0].visibleToggle();
 
     setLoadingBar(1, function(){});
 
