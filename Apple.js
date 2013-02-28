@@ -13,6 +13,8 @@ function Apple( options ) {
             currentApple += 1;
             this.mesh.position.copy( apples[currentApple].position );
             appleGeometry.radius = apples[currentApple].radius;
+            snake.addSegments( 2 );
+
         }
     };
 }
