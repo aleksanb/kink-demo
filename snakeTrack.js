@@ -21,24 +21,24 @@ var SNAKE_TRACK = [
         from: {x:3200, z:1000},
         to: {x: -1000, z:1000},
         duration: 15000,
-        startTime: 33000,
+        startTime: 33000
     },
     {
         from: {x:-1000, z:1000},
         to: {x: -1000, z:0},
         duration: 6000,
-        startTime: 48000,
+        startTime: 48000
     },
     {
         from: {x:-1000, z:0},
         to: {x: 1000, z:0},
         duration: 9000,
-        startTime: 54000,
+        startTime: 54000
     },
     {
         from: {x:2400, z:0},
         to: {x: 3900, z:500},
         duration: 9000,
-        startTime: 69000,
+        startTime: 69000
     }
 ];

@@ -20,7 +20,7 @@ var TEXTS = [
 
         ],
         rotation: Math.PI/4,
-        initAsHidden: true,
+        initAsHidden: true
     },
     {
         title: "IS NOT KINECT",
@@ -31,10 +31,9 @@ var TEXTS = [
             z: -320
         },
         visibleToggle: [
-            43000,
-
+            43000
         ],
-        initAsHidden: true,
+        initAsHidden: true
     },
     {
         title: "KIDS",
@@ -68,7 +67,7 @@ var TEXTS = [
         rotation: Math.PI/2,
         visibleToggle: [
             27000
-        ],
+        ]
     },
     {
         title: "IN A .JS LIBRARY!",
@@ -81,7 +80,7 @@ var TEXTS = [
         rotation: Math.PI/2,
         visibleToggle: [
             27000
-        ],
+        ]
     },
     {
         title: "BEKK",
@@ -94,7 +93,7 @@ var TEXTS = [
         rotation: Math.PI/3,
         visibleToggle: [
             25500
-        ],
+        ]
     },
     {
         title: "BEKKENLOSNING",
@@ -109,7 +108,7 @@ var TEXTS = [
         visibleToggle: [
             25500,
             45000
-        ],       
+        ]  
     },
     {
         title: "KNOWLEDGE ECONOMY",
@@ -123,7 +122,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
+        initAsHidden: true
     },
     {
         title: "CLOUD",
@@ -137,8 +136,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
-
+        initAsHidden: true
     },
     {
         title: "AGILE",
@@ -152,8 +150,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
-
+        initAsHidden: true
     },
     {
         title: "VALUE-ADDED",
@@ -167,8 +164,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
-
+        initAsHidden: true
     },
     {
         title: "WORKFLOW",
@@ -182,7 +178,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
+        initAsHidden: true
     },
     {
         title: "SCALABILITY",
@@ -196,8 +192,7 @@ var TEXTS = [
         visibleToggle: [
             25000
         ],
-        initAsHidden: true,
-
+        initAsHidden: true
     },
     {
         title: "ROBOCUP",
@@ -211,7 +206,7 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             45000
-        ],       
+        ]
     },
     {
         title: "2013",
@@ -225,7 +220,7 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             45000
-        ],       
+        ]
     },
     {
         title: "stiaje",
@@ -239,7 +234,7 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             48000
-        ],       
+        ]
     },
     {
         title: "assios",
@@ -253,7 +248,7 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             48000
-        ],       
+        ]
     },
     {
         title: "cristea",
@@ -267,7 +262,7 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             48000
-        ],       
+        ]
     },
     {
         title: "aleksanb",
@@ -281,6 +276,6 @@ var TEXTS = [
         initAsHidden: true,
         visibleToggle: [
             48000
-        ],       
+        ]
     }
 ];
