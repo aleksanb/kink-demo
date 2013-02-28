@@ -7,12 +7,12 @@ var SNAKE_TRACK = [
     },
     {
         from: {x:-3200, z:0},
-        to: {x: 3200, z:0},
+        to: {x: 3200, z:120},
         duration: 20000,
         startTime: 10000
     },
     {
-        from: {x:3200, z:0},
+        from: {x:3200, z:120},
         to: {x: 3200, z:1000},
         duration: 3000,
         startTime: 30000

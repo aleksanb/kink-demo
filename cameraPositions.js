@@ -17,14 +17,14 @@ var CAMERA_POSITIONS = {
     }),
     12000: new TrackingCamera({
         "position": {
-            "x": 20,
-            "y": 50,
-            "z": 30
+            "x": 100,
+            "y": 100,
+            "z": 100
         },
         "startposition": {
-            "x": -20,
-            "y": 70,
-            "z": 50
+            "x": 40,
+            "y": 140,
+            "z": 200
         },
         "animate": true,
         "duration": 8000
@@ -45,9 +45,9 @@ var CAMERA_POSITIONS = {
     }),
     24000: new FixedCamera({
         "position": {
-            "x": 1000,
-            "y": 800,
-            "z": 350
+            "x": 800,
+            "y": 700,
+            "z": 200
         },
         "startposition": {
             "x": 3400,
@@ -55,8 +55,22 @@ var CAMERA_POSITIONS = {
             "z": 350
         },
         "animate": true,
-        "duration": 8000
+        "duration": 6000
     }),
+    30000: new FixedCamera({
+        "position": {
+            "x": 3400,
+            "y": 400,
+            "z": 350
+        },
+        "startposition": {
+            "x": 800,
+            "y": 700,
+            "z": 200
+        },
+        "animate": true,
+        "duration": 6000
+    }), 
     36000: new FixedCamera({
         "position": {
             "x": 2400,
