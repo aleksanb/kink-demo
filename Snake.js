@@ -35,7 +35,6 @@ Snake.prototype.getPosition = function() {
 Snake.prototype.attachGlasses = function( geometry, materials ) {
   var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materials ) );
   mesh.scale.set( .5, .5, .5 );
-  //mesh.position = this.getPosition(); // gotta du dirty hack here to set correct position
   this.glasses = mesh;
   scene.add( this.glasses );
   
@@ -87,16 +86,26 @@ Snake.prototype.update = function( newPos ) {
 
   if ( this.previousSnake != null) {
     var dVector = new THREE.Vector3( 0, 0, 0 );
-    dVector.subVectors( this.getPosition(), this.previousSnake.getPosition() );
     var glassLookAt = new THREE.Vector3( 0, 0, 0 );
     var glassPosition = new THREE.Vector3( 0, 0, 0 );
-    glassLookAt.addVectors( dVector.clone().multiplyScalar(100), this.previousSnake.getPosition()  );
-    glassPosition.addVectors( dVector.clone().multiplyScalar(2.5), this.previousSnake.getPosition() );
+    dVector.subVectors( this.getPosition(), this.previousSnake.getPosition() );
+    
+    var xzPointer = dVector.clone(); xzPointer.y = 0;
+    var xzNormalized = xzPointer.clone().normalize();
+    var xzFromHead = xzNormalized.multiplyScalar( 55 );
+    var xzFromSegment = THREE.Vector3( 0, 0, 0 );
+    
+    //xzFromSegment.addVectors( this.previousSnake.getPosition(), xzPointer );
 
+    //glassLookAt.add( xzFromSegment, + xzFromHead );
+    glassLookAt.addVectors( dVector.clone().multiplyScalar(10), this.previousSnake.getPosition()  );
+    glassLookAt.y = this.getPosition().y; // Disse to linjene låser brillene til y-verdien til hodet
+
+    glassPosition.addVectors( xzPointer, xzFromHead );
+    glassPosition.add( this.previousSnake.getPosition()  );
     glassPosition.y = this.mesh.position.y;
-    glassLookAt.y = this.mesh.position.y; // Disse to linjene låser brillene til y-verdien til hodet
 
-    glassPosition.add( new THREE.Vector3( 0, 20, 0 ) ); // Height adjustment
+    glassPosition.add( new THREE.Vector3( 0, 25, 0 ) ); // Height adjustment
   }
 
 	this.mesh.position.add(normalizedPointer);
