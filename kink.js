@@ -58,13 +58,13 @@ function update() {
 
     var prevTarget = cameratarget.clone();
     var newTarget = snake.getPosition().clone(); 
-    if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
-    if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
+    //if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
+    //if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
     if ( ! camera_override ) {
-        axis.position = newGoal.clone();
-        axis.position.y += 50;
         cameratarget = newTarget.clone();
+        axis.position = cameratarget;
+        //axis.position.y += 50;
     }
 
 
@@ -93,7 +93,6 @@ function update() {
         cameratarget = developer_camera_target.clone();
         cameratarget.y = terrain.getYValue(cameratarget.x, cameratarget.z);
         axis.position.copy(cameratarget);
-        console.log(axis.position);
         scene.fog = new THREE.Fog(0x000000, 0.0000000001, 100000);
     }
 
