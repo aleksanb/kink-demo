@@ -121,21 +121,41 @@ var TEXTS = [
     },
     {
         title: "AGILE",
-        size: 50,
+        size: 30,
         position: {
-            x: -1680,
+            x: -1650,
             y: 530,
-            z: 1200
+            z: 1160
         },
-        rotation: -Math.PI/2
+        rotation: -Math.PI/2+.5
     },
     {
-        title: "CLOUD",
-        size: 50,
+        title: "VALUE-ADDED",
+        size: 30,
         position: {
             x: -1600,
-            y: 580,
-            z: 1100
+            y: 480,
+            z: 1300
+        },
+        rotation: -Math.PI/2-.3
+    },
+    {
+        title: "WORKFLOW",
+        size: 30,
+        position: {
+            x: -1700,
+            y: 440,
+            z: 950
+        },
+        rotation: -Math.PI/2+.2
+    },
+    {
+        title: "SCALABILITY",
+        size: 24,
+        position: {
+            x: -1600,
+            y: 440,
+            z: 1190
         },
         rotation: -Math.PI/2
     },
