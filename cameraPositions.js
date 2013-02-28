@@ -1,16 +1,16 @@
 var CAMERA_POSITIONS = {
     0: new FixedCamera({
         "position": {
-            "x": -3000,
+            "x": -2200,
             "y": 1000,
             "z": -700
         },
         "animate": true,
         "duration": 9000,
         "startposition": {
-            "x": -3500,
+            "x": -1200,
             "y": 3000,
-            "z": -3500
+            "z": -2700
         },
         "fadeIn": true,
         "fadeOut": true

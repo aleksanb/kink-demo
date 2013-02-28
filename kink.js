@@ -309,9 +309,9 @@ function init() {
     oslash.rotation.z = Math.PI/3;
     oslash.rotation.x = -Math.PI/4;
     oslash.position = {
-            x: 3325,
-            y: 330,
-            z: 205
+            x: 3327,
+            y: 328,
+            z: 207
     };
     scene.add(oslash);
 
@@ -322,7 +322,7 @@ function init() {
     fadeStart = 0;
     fadeGoal = 0;
     fadeFn = undefined;
-    fadeIn(2000);
+    fadeIn(4000);
     })});
 }
 
