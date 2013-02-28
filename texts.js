@@ -59,9 +59,9 @@ var TEXTS = [
         title: "HELP, I'M TRAPPED",
         size: 100,
         position: {
-            x: 850,
+            x: 840,
             y: 850,
-            z: -400
+            z: -300
         },
         rotation: Math.PI/2,
         visibleToggle: [
@@ -72,9 +72,9 @@ var TEXTS = [
         title: "IN A .JS LIBRARY!",
         size: 100,
         position: {
-            x: 850,
+            x: 840,
             y: 700,
-            z: -400
+            z: -300
         },
         rotation: Math.PI/2,
         visibleToggle: [
@@ -108,6 +108,16 @@ var TEXTS = [
             25500,
             45000
         ],       
+    },
+    {
+        title: "KNOWLEDGE ECONOMY",
+        size:30,
+        position: {
+            x: -1600,
+            y: 690,
+            z: 1100
+        },
+        rotation: -Math.PI/2
     },
     {
         title: "CLOUD",
@@ -206,7 +216,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 650,
-            y: 700,
+            y: 650,
             z: -150
         },
         rotation: -Math.PI/2,

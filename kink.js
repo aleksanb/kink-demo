@@ -29,9 +29,10 @@ function update() {
     }
 
     bg.update();
+    /*
     for ( var i=0; i < lightCarpets.length; i++ ) {
         lightCarpets[i].update();
-    }
+    }*/
     
     for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
         if ( SNAKE_TRACK[i].startTime < t &&
@@ -209,26 +210,34 @@ function init() {
         }
     }
 
+    var name1Light = new THREE.DirectionalLight(0xffffff, 1);
+    name1Light.position.set(0,0,0);
+    name1Light.target.position = new THREE.Vector3(1600,640,-350);
+    scene.add(name1Light);
+
     cameraskip = false;
 
     bg.init();
 
-    for ( var i=0; i < 4; i++ ) {
+    /*
+    for ( var i=0; i < 10; i++ ) {
         var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( -3850, 600, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
-        lightCarpet.tilt( .5 );
+        lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
 
+        lightCarpet.xrot(Math.PI/2);
         lightCarpets.push( lightCarpet );
     }
-    for ( var i=0; i < 4; i++ ) {
-        var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( 3950, 0, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
-        lightCarpet.tilt( -0.8 );
 
-        lightCarpets.push( lightCarpet );
+    for(var i = 0; i < 10; i++ ) {
+
+        var lightCarpet = new LightCarpet(scene);
+        lightCarpet.setPosition(new THREE.Vector3( -3800, 1200-i*100, 800));
+        
+        lightCarpet.xrot(Math.PI/2);
+        lightCarpets.push( lightCarpet);
+
     }
+    */
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
