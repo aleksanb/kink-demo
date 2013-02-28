@@ -121,7 +121,7 @@ var TEXTS = [
     },
     {
         title: "AGILE",
-        size: 50,
+        size: 40,
         position: {
             x: -1680,
             y: 530,
@@ -130,12 +130,12 @@ var TEXTS = [
         rotation: -Math.PI/2
     },
     {
-        title: "CLOUD",
-        size: 50,
+        title: "VALUE-ADDED",
+        size: 40,
         position: {
             x: -1600,
-            y: 580,
-            z: 1100
+            y: 430,
+            z: 1500
         },
         rotation: -Math.PI/2
     },
