@@ -7,7 +7,7 @@ var apple, apples, currentApple, numberOfApples;
 var materials, light, cameraskip, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox, lightCarpets = [];
-var axis, oslash;
+var oslash;
 
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
 function smoothstep(a, b, t) {
@@ -30,13 +30,13 @@ function update() {
 
     bg.update();
     /*
-    for ( var i=0; i < lightCarpets.length; i++ ) {
-        lightCarpets[i].update();
-    }*/
-    
+       for ( var i=0; i < lightCarpets.length; i++ ) {
+       lightCarpets[i].update();
+       }*/
+
     for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
         if ( SNAKE_TRACK[i].startTime < t &&
-            SNAKE_TRACK[i].startTime + SNAKE_TRACK[i].duration > t ) {
+                SNAKE_TRACK[i].startTime + SNAKE_TRACK[i].duration > t ) {
             if (SNAKE_TRACK[i] != currentSnakeMove) {
                 currentSnakeMove = SNAKE_TRACK[i];
                 currentSnakeMoveInitTime = t;
@@ -62,11 +62,7 @@ function update() {
     //if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
     //if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
-    if ( ! camera_override ) {
-        cameratarget = newTarget.clone();
-        axis.position = cameratarget;
-        //axis.position.y += 50;
-    }
+    cameratarget = newTarget.clone();
 
 
     for ( var i=0; i < TEXTS.length; i++ ) {
@@ -87,15 +83,7 @@ function update() {
         oslash.visible = false;
     }
 
-    if ( ! camera_override ) {
-        camera.position = active_camera.getPosition( cameratarget );
-    } else {
-        camera.position = developer_camera.clone();
-        cameratarget = developer_camera_target.clone();
-        cameratarget.y = terrain.getYValue(cameratarget.x, cameratarget.z);
-        axis.position.copy(cameratarget);
-        scene.fog = new THREE.Fog(0x000000, 0.0000000001, 100000);
-    }
+    camera.position = active_camera.getPosition( cameratarget );
 
     light.position.copy( camera.position );
     light.rotation.copy( camera.rotation );
@@ -105,7 +93,7 @@ function render() {
 
     /* render the 2d canvas */
     tdx.clearRect(0,0,twoDCanvas.width, twoDCanvas.height);
-    
+
     if(t < fadeGoalTime){
         tdx.fillStyle = "rgba(0,0,0,"+lerp(fadeStart,fadeGoal, (t-fadeStartTime)/(fadeGoalTime-fadeStartTime))+")";
         tdx.fillRect(0,0,16*GU,9*GU);
@@ -120,10 +108,10 @@ function render() {
 
     bg.render();
     snake.render();
-    
+
     camera.lookAt(cameratarget);
     renderer.render(scene, camera);
-    
+
 }
 
 function init() {
@@ -131,135 +119,129 @@ function init() {
 
     setLoadingBar(.5, function() {
 
-    // DON'T ADD ANYTHING BEFORE HERE
-    scene = new THREE.Scene();
+        // DON'T ADD ANYTHING BEFORE HERE
+        scene = new THREE.Scene();
 
-    terrain = new Terrain(192, 192);
-    scene.add(terrain.mesh);
-    //terrain = {};
-    //terrain.getYValue = function(){return 600};
-    //
-    // SAFE TO ADD
+        terrain = new Terrain(192, 192);
+        scene.add(terrain.mesh);
+        //terrain = {};
+        //terrain.getYValue = function(){return 600};
+        //
+        // SAFE TO ADD
 
-    camera = new THREE.PerspectiveCamera(45, 16 / 9, 1, 10000);
-    camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
-    active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
-    camera.position = active_camera.init( camera );
+        camera = new THREE.PerspectiveCamera(45, 16 / 9, 1, 10000);
+        camera_timestamps = Object.keys(CAMERA_POSITIONS).sort(function(a,b){return a-b});
+        active_camera = CAMERA_POSITIONS[ camera_timestamps[active_camera_index] ];
+        camera.position = active_camera.init( camera );
 
-    scene.add(camera);
+        scene.add(camera);
 
-    side = 32;
+        side = 32;
 
-    x_spacing = 5 + 2.545 + 0.5;
-    z_spacing = 4.363 * 2 + 0.5;
-    
-    bg = new BG();
+        x_spacing = 5 + 2.545 + 0.5;
+        z_spacing = 4.363 * 2 + 0.5;
 
-    scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
+        bg = new BG();
 
-    materials = {
-    "textTexture" : new THREE.MeshLambertMaterial({
-        color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false }),
-    "snakeTexture" : new THREE.MeshLambertMaterial({ 
-        map: THREE.ImageUtils.loadTexture("snake_texture.jpg") }),
-    "appleBody" : new THREE.MeshPhongMaterial({
-        map: THREE.ImageUtils.loadTexture("seamless_apple.jpg") })
-    };
+        scene.fog = new THREE.Fog( 0x393939, 1, 3000 );
 
-    setLoadingBar(.8, function(){
+        materials = {
+            "textTexture" : new THREE.MeshLambertMaterial({
+                color : 0xE8B86F, blending : THREE.AdditiveBlending, transparent:false }),
+            "snakeTexture" : new THREE.MeshLambertMaterial({ 
+                map: THREE.ImageUtils.loadTexture("snake_texture.jpg") }),
+            "appleBody" : new THREE.MeshPhongMaterial({
+                map: THREE.ImageUtils.loadTexture("seamless_apple.jpg") })
+        };
 
-    light = new THREE.SpotLight( 0xffffff );
-    light.intensity = 0.9;
-    light.position.set(100,1000,100);
-    scene.add(light);
+        setLoadingBar(.8, function(){
 
-    var pointLight = new THREE.PointLight( 0x3366ff, 1.5 );
-    pointLight.position.set( 0, 2000, 0 );
-    scene.add( pointLight );
+            light = new THREE.SpotLight( 0xffffff );
+            light.intensity = 0.9;
+            light.position.set(100,1000,100);
+            scene.add(light);
 
-    var global_light = new THREE.AmbientLight( 0x303030 ); // soft white light
-    scene.add( global_light );
+            var pointLight = new THREE.PointLight( 0x3366ff, 1.5 );
+            pointLight.position.set( 0, 2000, 0 );
+            scene.add( pointLight );
 
-    skybox = createSkybox("images/");
-    scene.add(skybox);
+            var global_light = new THREE.AmbientLight( 0x303030 ); // soft white light
+            scene.add( global_light );
 
-    axis = new THREE.AxisHelper( 200 );
-    axis.position.setY(600);
-    scene.add(axis);
-    
-    for ( var i=0; i < TEXTS.length; i++ ) {
-        var text = TEXTS[i];
-        var text3d = new THREE.TextGeometry( text.title, {
-            size: text.size,
-            height: 5,
-            curveSegments: 4,
-            font: "helvetiker",
-            weight: "bold",
-            style: "normal",
-            bevelEnabled: true,
-            bevelThickness: 5,
-            bevelSize: 1
-        });
-        var textMesh = new THREE.Mesh( text3d, materials.textTexture );
-        text.object = textMesh;
-        textMesh.position = text.position;
-        textMesh.rotation.y = text.rotation || 0;
-        scene.add(textMesh);
-        if (text.initAsHidden) {
-            textMesh.visible = false;
-        }
-    }
+            skybox = createSkybox("images/");
+            scene.add(skybox);
 
-    var name1Light = new THREE.DirectionalLight(0xffffff, 1);
-    name1Light.position.set(0,0,0);
-    name1Light.target.position = new THREE.Vector3(1600,640,-350);
-    scene.add(name1Light);
+            for ( var i=0; i < TEXTS.length; i++ ) {
+                var text = TEXTS[i];
+                var text3d = new THREE.TextGeometry( text.title, {
+                    size: text.size,
+                    height: 5,
+                    curveSegments: 4,
+                    font: "helvetiker",
+                    weight: "bold",
+                    style: "normal",
+                    bevelEnabled: true,
+                    bevelThickness: 5,
+                    bevelSize: 1
+                });
+                var textMesh = new THREE.Mesh( text3d, materials.textTexture );
+                text.object = textMesh;
+                textMesh.position = text.position;
+                textMesh.rotation.y = text.rotation || 0;
+                scene.add(textMesh);
+                if (text.initAsHidden) {
+                    textMesh.visible = false;
+                }
+            }
 
-    cameraskip = false;
+            var name1Light = new THREE.DirectionalLight(0xffffff, 1);
+            name1Light.position.set(0,0,0);
+            name1Light.target.position = new THREE.Vector3(1600,640,-350);
+            scene.add(name1Light);
 
-    bg.init();
+            cameraskip = false;
 
-    /*
-    for ( var i=0; i < 10; i++ ) {
-        var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
+            bg.init();
 
-        lightCarpet.xrot(Math.PI/2);
-        lightCarpets.push( lightCarpet );
-    }
+            /*
+               for ( var i=0; i < 10; i++ ) {
+               var lightCarpet = new LightCarpet( scene );
+               lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
 
-    for(var i = 0; i < 10; i++ ) {
+               lightCarpet.xrot(Math.PI/2);
+               lightCarpets.push( lightCarpet );
+               }
 
-        var lightCarpet = new LightCarpet(scene);
-        lightCarpet.setPosition(new THREE.Vector3( -3800, 1200-i*100, 800));
-        
-        lightCarpet.xrot(Math.PI/2);
-        lightCarpets.push( lightCarpet);
+               for(var i = 0; i < 10; i++ ) {
 
-    }
-    */
+               var lightCarpet = new LightCarpet(scene);
+               lightCarpet.setPosition(new THREE.Vector3( -3800, 1200-i*100, 800));
 
-    currentSnakeMove = SNAKE_TRACK[0];
-    currentSnakeMoveInitTime = t;
+               lightCarpet.xrot(Math.PI/2);
+               lightCarpets.push( lightCarpet);
 
-    snake = new Snake( 
-        scene, materials.snakeTexture, 
-        new THREE.Vector3( 
-            currentSnakeMove.from.x, 
-            700, currentSnakeMove.from.z, 
-            50 
-        ), 
-        50, 5 
-    );
-    
-    if ( ! camera_override ) {
-        cameratarget = snake.getPosition();
-    }
+               }
+               */
 
-    apples = [
+            currentSnakeMove = SNAKE_TRACK[0];
+            currentSnakeMoveInitTime = t;
+
+            snake = new Snake( 
+                    scene, materials.snakeTexture, 
+                    new THREE.Vector3( 
+                        currentSnakeMove.from.x, 
+                        700, currentSnakeMove.from.z, 
+                        50 
+                        ), 
+                    50, 5 
+                    );
+
+            cameratarget = snake.getPosition();
+
+            apples = [
             {
                 position: new THREE.Vector3( -2800, terrain.getYValue( -2800, 0 ) + 30, 0),
-                radius: 50
+                    radius: 50
             },
             {
                 position: new THREE.Vector3( 3000, terrain.getYValue( 3000, 120 ) + 30, 120),
@@ -285,45 +267,45 @@ function init() {
                 position: new THREE.Vector3( 4600, 0, -650),
                 radius: 1000
             }
-        ];
-    currentApple = 0;
-    apple = new Apple(apples[currentApple]);
-    scene.add(apple.mesh);
+            ];
+            currentApple = 0;
+            apple = new Apple(apples[currentApple]);
+            scene.add(apple.mesh);
 
-/*
-    var jsonLoader = new THREE.JSONLoader();
-    jsonLoader.load( "sunglasses.js", function( geometry ) { createScene( geometry) } );
+            /*
+               var jsonLoader = new THREE.JSONLoader();
+               jsonLoader.load( "sunglasses.js", function( geometry ) { createScene( geometry) } );
 
 
-    function createScene( geometry ) {
-        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
-        mesh.scale.set(.1, .1, .1);
-        mesh.position.y = 1200;
-        mesh.position.x = -3000;
-        mesh.position.z = -2000;
-        scene.add(mesh);
-    }
-*/
-    var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
-    oslash = new THREE.Mesh( oslashCube, materials.textTexture );
-    oslash.rotation.z = Math.PI/3;
-    oslash.rotation.x = -Math.PI/4;
-    oslash.position = {
-            x: 3325,
-            y: 330,
-            z: 205
-    };
-    scene.add(oslash);
+               function createScene( geometry ) {
+               var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
+               mesh.scale.set(.1, .1, .1);
+               mesh.position.y = 1200;
+               mesh.position.x = -3000;
+               mesh.position.z = -2000;
+               scene.add(mesh);
+               }
+               */
+            var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
+            oslash = new THREE.Mesh( oslashCube, materials.textTexture );
+            oslash.rotation.z = Math.PI/3;
+            oslash.rotation.x = -Math.PI/4;
+            oslash.position = {
+                x: 3325,
+                y: 330,
+                z: 205
+            };
+            scene.add(oslash);
 
-    setLoadingBar(1, function(){});
+            setLoadingBar(1, function(){});
 
-    fadeStartTime = 0;
-    fadeGoalTime = 0;
-    fadeStart = 0;
-    fadeGoal = 0;
-    fadeFn = undefined;
-    fadeIn(2000);
-    })});
+            fadeStartTime = 0;
+            fadeGoalTime = 0;
+            fadeStart = 0;
+            fadeGoal = 0;
+            fadeFn = undefined;
+            fadeIn(2000);
+        })});
 }
 
 function fadeIn(duration) {
