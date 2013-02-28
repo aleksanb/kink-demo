@@ -2,6 +2,7 @@ function Snake( scene, material, position, radius, segments ) {
     this.length;
     this.radius = radius;
     this.previousSnake = null;
+    this.glasses = null;
 
     this.submerge = false;
     this.headBob = false;
@@ -31,6 +32,16 @@ Snake.prototype.getPosition = function() {
 	return this.mesh.position.clone();
 }
 
+Snake.prototype.attatchGlasses = function( geometry ) {
+  var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
+  mesh.scale.set( .1, .1, .1 );
+  mesh.position = this.getPosition();
+
+  this.glasses = mesh;
+  scene.add( this.glasses );
+  
+}
+
 Snake.prototype.addSegments = function ( segments ) {
   var currentSegments = 0;
   var tempSnake = this;
@@ -52,7 +63,7 @@ Snake.prototype.addSegments = function ( segments ) {
   }
 }
 
-Snake.prototype.update = function( newPos) {
+Snake.prototype.update = function( newPos ) {
 	
 
 	if ( this.previousSnake != null ) {
@@ -76,6 +87,11 @@ Snake.prototype.update = function( newPos) {
 	normalizedPointer.multiplyScalar(distanceToGo);
 
 	this.mesh.position.add(normalizedPointer);
+
+  if ( this.glasses != null ) {
+    this.glasses.lookAt( this.mesh.position );
+    this.glasses.position.add( normalizedPointer );
+  }
 };
 
 Snake.prototype.render = function() {
