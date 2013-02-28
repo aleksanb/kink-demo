@@ -246,7 +246,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 650,
-            y: 700,
+            y: 650,
             z: -150
         },
         rotation: -Math.PI/2,

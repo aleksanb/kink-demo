@@ -306,12 +306,12 @@ function init() {
 */
     var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
     oslash = new THREE.Mesh( oslashCube, materials.textTexture );
-    oslash.rotation.z = Math.PI/2;
+    oslash.rotation.z = Math.PI/3;
     oslash.rotation.x = -Math.PI/4;
     oslash.position = {
-            x: 3001,
-            y: 424,
-            z: -290
+            x: 3325,
+            y: 330,
+            z: 205
     };
     scene.add(oslash);
 
