@@ -78,6 +78,12 @@ function update() {
         oslash.visible = false;
     }
 
+    if ( t > 14000 && t < 16000) {
+        snake.headBob = true;
+    } else if (t > 45000 && t < 47000) {
+        snake.headBob = false;
+    }
+
     camera.position = active_camera.getPosition( cameratarget );
 
     light.position.copy( camera.position );
