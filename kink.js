@@ -234,7 +234,15 @@ function init() {
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
 
-    snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50, 5 );
+    snake = new Snake( 
+        scene, materials.snakeTexture, 
+        new THREE.Vector3( 
+            currentSnakeMove.from.x, 
+            700, currentSnakeMove.from.z, 
+            50 
+        ), 
+        50, 5 
+    );
     
     if ( ! camera_override ) {
         cameratarget = snake.getPosition();

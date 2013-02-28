@@ -73,9 +73,9 @@ var CAMERA_POSITIONS = {
     }),
     39000: new FixedCamera({
         "position": {
-            "x": -2100,
-            "y": 620,
-            "z": 1400
+            "x": -2150,
+            "y": 610,
+            "z": 1450
         },
         "startposition": {
             "x": 2400,
