@@ -94,7 +94,6 @@ function update() {
         cameratarget = developer_camera_target.clone();
         cameratarget.y = terrain.getYValue(cameratarget.x, cameratarget.z);
         axis.position.copy(cameratarget);
-        console.log(axis.position);
         scene.fog = new THREE.Fog(0x000000, 0.0000000001, 100000);
     }
 
@@ -215,21 +214,22 @@ function init() {
 
     bg.init();
 
-    for ( var i=0; i < 4; i++ ) {
+    for ( var i=0; i < 10; i++ ) {
         var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( -3850, 600, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
-        lightCarpet.tilt( .5 );
+        lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
 
+        lightCarpet.xrot(Math.PI/2);
         lightCarpets.push( lightCarpet );
     }
-    for ( var i=0; i < 4; i++ ) {
-        var lightCarpet = new LightCarpet( scene );
-        lightCarpet.setPosition(new THREE.Vector3( 3950, 0, 0 ));
-        lightCarpet.rotate( Math.PI/8 + Math.PI/4 * i);
-        lightCarpet.tilt( -0.8 );
 
-        lightCarpets.push( lightCarpet );
+    for(var i = 0; i < 10; i++ ) {
+
+        var lightCarpet = new LightCarpet(scene);
+        lightCarpet.setPosition(new THREE.Vector3( -3800, 1200-i*100, 800));
+        
+        lightCarpet.xrot(Math.PI/2);
+        lightCarpets.push( lightCarpet);
+
     }
 
     currentSnakeMove = SNAKE_TRACK[0];

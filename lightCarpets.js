@@ -15,6 +15,9 @@ function LightCarpet( scene ) {
     this.setPosition = function(pos) {
         mesh.position = pos;
     };
+    this.xrot = function(angle) {
+        mesh.rotation.x = angle;
+    };
     this.rotate = function( angle ) {
         mesh.rotation.z = angle;
     };
@@ -26,7 +29,7 @@ function LightCarpet( scene ) {
         if ( material.opacity <= 0 && t % 768 < 20 ) {
             material.opacity = .8;
         }
-        if ( material.opacity > 0) {
+        if ( material.opacity > 0 && t % 120 < 10) {
             material.opacity -= .05;
         }
     };
