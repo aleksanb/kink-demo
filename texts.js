@@ -133,7 +133,7 @@ var TEXTS = [
         title: "VALUE-ADDED",
         size: 30,
         position: {
-            x: -1600,
+            x: -1560,
             y: 480,
             z: 1300
         },
