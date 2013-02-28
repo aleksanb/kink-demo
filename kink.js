@@ -210,11 +210,10 @@ function init() {
         }
     }
 
-    /* STILL IN BETA
-    var name1Light = new THREE.DirectionalLight(0xffffff, 0.5);
-    name1Light.position.set(1600,640,-350);
+    var name1Light = new THREE.DirectionalLight(0xffffff, 1);
+    name1Light.position.set(0,0,0);
+    name1Light.target.position = new THREE.Vector3(1600,640,-350);
     scene.add(name1Light);
-    */
 
     cameraskip = false;
 
