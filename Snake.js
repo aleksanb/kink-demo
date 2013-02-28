@@ -94,7 +94,10 @@ Snake.prototype.update = function( newPos ) {
     var xzPointer = dVector.clone(); xzPointer.y = 0;
     var xzNormalized = xzPointer.clone().normalize();
     var xzFromHead = xzNormalized.multiplyScalar( 55 );
-    var xzHeadAbsolute = THREE.Vector3( 0, 0, 0 );
+    var xzHeadAbsolute = new THREE.Vector3( 0, 0, 0 );
+    var xzNormalVector = new THREE.Vector3( 0, 0, 0 );
+    
+    xzNormalVector.set( -xzNormalized.z, 0, xzNormalized.x );
 
     xzHeadAbsolute.addVectors( xzFromHead, this.previousSnake.getPosition()  ); 
     xzHeadAbsolute.y = this.getPosition().y;
@@ -102,6 +105,7 @@ Snake.prototype.update = function( newPos ) {
     glassLookAt.addVectors( xzPointer.clone().multiplyScalar(10), xzHeadAbsolute );
     glassPosition.addVectors( xzPointer.clone().multiplyScalar(1), xzHeadAbsolute );
     glassPosition.add( new THREE.Vector3( 0, 25, 0 ) ); // Height adjustment
+    glassPosition.add( xzNormalVector.multiplyScalar( 0.2 ) );
 
   }
 
