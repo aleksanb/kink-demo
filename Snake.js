@@ -34,8 +34,8 @@ Snake.prototype.getPosition = function() {
 
 Snake.prototype.attatchGlasses = function( geometry ) {
   var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
-  mesh.scale.set( .1, .1, .1 );
-  mesh.position = this.getPosition();
+  mesh.scale.set( .5, .5, .5 );
+  mesh.position = this.getPosition(); // gotta du dirty hack here to set correct position
 
   this.glasses = mesh;
   scene.add( this.glasses );
@@ -86,12 +86,27 @@ Snake.prototype.update = function( newPos ) {
 	normalizedPointer.normalize();
 	normalizedPointer.multiplyScalar(distanceToGo);
 
+  if ( this.previousSnake != null) {
+    var dVector = new THREE.Vector3( 0, 0, 0 );
+    dVector.subVectors( this.getPosition(), this.previousSnake.getPosition() );
+    var glassLookAt = new THREE.Vector3( 0, 0, 0 );
+    var glassPosition = new THREE.Vector3( 0, 0, 0 );
+    glassLookAt.addVectors( dVector.clone().multiplyScalar(100), this.previousSnake.getPosition()  );
+    glassPosition.addVectors( dVector.clone().multiplyScalar(2.5), this.previousSnake.getPosition() );
+
+    glassPosition.y = this.mesh.position.y;
+    glassLookAt.y = this.mesh.position.y; // Disse to linjene låser brillene til y-verdien til hodet
+
+    glassPosition.add( new THREE.Vector3( 0, 20, 0 ) ); // Height adjustment
+  }
+
 	this.mesh.position.add(normalizedPointer);
 
   if ( this.glasses != null ) {
-    this.glasses.lookAt( this.mesh.position );
-    this.glasses.position.add( normalizedPointer );
+    this.glasses.lookAt( glassLookAt );
+    this.glasses.position = glassPosition;
   }
+
 };
 
 Snake.prototype.render = function() {
