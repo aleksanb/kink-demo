@@ -85,11 +85,11 @@ var TEXTS = [
         title: "BEKK",
         size: 100,
         position: {
-            x: 3000,
-            y: 375,
-            z: 390
+            x: 3100,
+            y: 150,
+            z: 700
         },
-        rotation: Math.PI/2,
+        rotation: Math.PI/3,
         visibleToggle: [
             25500
         ],
@@ -98,11 +98,11 @@ var TEXTS = [
         title: "BEKKENLOSNING",
         size: 100,
         position: {
-            x: 3000,
-            y: 375,
-            z: 390
+            x: 3100,
+            y: 150,
+            z: 700
         },
-        rotation: Math.PI/2,
+        rotation: Math.PI/3,
         initAsHidden: true,
         visibleToggle: [
             25500,
