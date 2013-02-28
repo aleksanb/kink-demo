@@ -86,10 +86,10 @@ var TEXTS = [
         size: 100,
         position: {
             x: 3000,
-            y: 375,
-            z: 390
+            y: 280,
+            z: 800
         },
-        rotation: Math.PI/2,
+        rotation: Math.PI/3,
         visibleToggle: [
             25500
         ],
@@ -99,10 +99,10 @@ var TEXTS = [
         size: 100,
         position: {
             x: 3000,
-            y: 375,
-            z: 390
+            y: 280,
+            z: 800
         },
-        rotation: Math.PI/2,
+        rotation: Math.PI/3,
         initAsHidden: true,
         visibleToggle: [
             25500,
@@ -114,8 +114,28 @@ var TEXTS = [
         size: 100,
         position: {
             x: -1600,
-            y: 780,
-            z: 900
+            y: 580,
+            z: 1100
+        },
+        rotation: -Math.PI/2
+    },
+    {
+        title: "AGILE",
+        size: 40,
+        position: {
+            x: -1680,
+            y: 530,
+            z: 1200
+        },
+        rotation: -Math.PI/2
+    },
+    {
+        title: "VALUE-ADDED",
+        size: 40,
+        position: {
+            x: -1600,
+            y: 430,
+            z: 1500
         },
         rotation: -Math.PI/2
     },
@@ -152,7 +172,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1100,
-            y: 280,
+            y: 550,
             z: 200
         },
         rotation: -Math.PI/2 - .7,
@@ -166,7 +186,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 650,
-            y: 290,
+            y: 700,
             z: -150
         },
         rotation: -Math.PI/2,
@@ -180,7 +200,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1600,
-            y: 190,
+            y: 600,
             z: -350
         },
         rotation: -Math.PI/2 + 1,
@@ -194,7 +214,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1750,
-            y: 290,
+            y: 550,
             z: 350
         },
         rotation: -Math.PI/2 - .5,

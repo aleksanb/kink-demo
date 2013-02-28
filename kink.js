@@ -54,18 +54,17 @@ function update() {
     var newY = terrain.getYValue(current_x, current_z) + 25;
 
     var newGoal = new THREE.Vector3( current_x, newY, current_z );
-    snake.update( newGoal );
-
+    snake.update( newGoal.clone() );
 
     var prevTarget = cameratarget.clone();
-    var newTarget = snake.getPosition(); 
-    if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
-    if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
+    var newTarget = snake.getPosition().clone(); 
+    //if (newTarget.y-prevTarget.y > .0001) { newTarget.y = prevTarget.y + .0001; }
+    //if (prevTarget.y-newTarget.y > .0001) { newTarget.y = prevTarget.y - .0001; }
 
     if ( ! camera_override ) {
-        axis.position = newGoal.clone();
-        axis.position.y += 50;
         cameratarget = newTarget.clone();
+        axis.position = cameratarget;
+        //axis.position.y += 50;
     }
 
 
@@ -235,17 +234,7 @@ function init() {
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;
 
-    snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50 );
-    var front_snake = snake;
-
-    var newY = terrain.getYValue(currentSnakeMove.from.x, currentSnakeMove.from.z) + 25;
-
-    for (var i = 0; i < 5; i++ ) {
-        var newPosition = new THREE.Vector3( front_snake.getPosition().x, newY, front_snake.getPosition().z - 10);
-        var to_be_attached = new Snake(scene, materials.snakeTexture, newPosition, 40 - 5 * Math.sin(i/2) );
-        front_snake.setPrevious(to_be_attached);
-        front_snake = to_be_attached;
-    }
+    snake = new Snake( scene, materials.snakeTexture, new THREE.Vector3( currentSnakeMove.from.x, 700, currentSnakeMove.from.z, 50 ), 50, 5 );
     
     if ( ! camera_override ) {
         cameratarget = snake.getPosition();
@@ -257,11 +246,11 @@ function init() {
                 radius: 50
             },
             {
-                position: new THREE.Vector3( 2900, terrain.getYValue( 2900, 0 ) + 30, 0),
+                position: new THREE.Vector3( 3000, terrain.getYValue( 3000, 100 ) + 30, 100),
                 radius: 50
             },
             {
-                position: new THREE.Vector3( 2600, terrain.getYValue( 2600, 1000 ) + 30, 1000),
+                position: new THREE.Vector3( 3600, terrain.getYValue( 3600, 900 ) + 30, 900),
                 radius: 50
             },
             {

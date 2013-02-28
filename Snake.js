@@ -1,4 +1,4 @@
-function Snake( scene, material, position, radius ) {
+function Snake( scene, material, position, radius, segments ) {
     this.length;
     this.radius = radius;
     this.previousSnake = null;
@@ -9,6 +9,8 @@ function Snake( scene, material, position, radius ) {
     var sphereGeometry = new THREE.SphereGeometry( radius );
     this.mesh = new THREE.Mesh( sphereGeometry, material );
     this.mesh.position =  position || new THREE.Vector3( 0, 0, 0 );
+    this.addSegments( segments );
+
     scene.add(this.mesh);
 
 };
@@ -25,12 +27,34 @@ Snake.prototype.setPrevious = function( previousSnake ) {
 	this.previousSnake = previousSnake;
 }
 
-Snake.prototype.getPosition = function( previousSnake ) {
-	return this.mesh.position;
+Snake.prototype.getPosition = function() {
+	return this.mesh.position.clone();
+}
+
+Snake.prototype.addSegments = function ( segments ) {
+  var currentSegments = 0;
+  var tempSnake = this;
+  while ( tempSnake.previousSnake != null ) {
+    tempSnake = tempSnake.previousSnake;
+    currentSegments += 1;
+  }
+
+  for ( var i = 0; i < segments; i++ ) {
+    tempSnake.setPrevious(
+      new Snake(
+        scene,
+        materials.snakeTexture,
+        tempSnake.getPosition(),
+        ( this.radius - 10 ) - 5 * Math.sin( ( currentSegments + i ) / 2 )
+        )
+      )
+    tempSnake = tempSnake.previousSnake;
+  }
 }
 
 Snake.prototype.update = function( newPos) {
 	
+
 	if ( this.previousSnake != null ) {
 		this.previousSnake.update( this.mesh.position );
 	}
