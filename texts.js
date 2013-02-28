@@ -114,8 +114,28 @@ var TEXTS = [
         size: 100,
         position: {
             x: -1600,
-            y: 780,
-            z: 900
+            y: 580,
+            z: 1100
+        },
+        rotation: -Math.PI/2
+    },
+    {
+        title: "AGILE",
+        size: 50,
+        position: {
+            x: -1680,
+            y: 530,
+            z: 1200
+        },
+        rotation: -Math.PI/2
+    },
+    {
+        title: "CLOUD",
+        size: 50,
+        position: {
+            x: -1600,
+            y: 580,
+            z: 1100
         },
         rotation: -Math.PI/2
     },
