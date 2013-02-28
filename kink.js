@@ -29,11 +29,6 @@ function update() {
     }
 
     bg.update();
-    /*
-       for ( var i=0; i < lightCarpets.length; i++ ) {
-       lightCarpets[i].update();
-       }*/
-
     for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
         if ( SNAKE_TRACK[i].startTime < t &&
                 SNAKE_TRACK[i].startTime + SNAKE_TRACK[i].duration > t ) {
@@ -203,26 +198,6 @@ function init() {
 
             bg.init();
 
-            /*
-               for ( var i=0; i < 10; i++ ) {
-               var lightCarpet = new LightCarpet( scene );
-               lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
-
-               lightCarpet.xrot(Math.PI/2);
-               lightCarpets.push( lightCarpet );
-               }
-
-               for(var i = 0; i < 10; i++ ) {
-
-               var lightCarpet = new LightCarpet(scene);
-               lightCarpet.setPosition(new THREE.Vector3( -3800, 1200-i*100, 800));
-
-               lightCarpet.xrot(Math.PI/2);
-               lightCarpets.push( lightCarpet);
-
-               }
-               */
-
             currentSnakeMove = SNAKE_TRACK[0];
             currentSnakeMoveInitTime = t;
 
@@ -267,45 +242,32 @@ function init() {
                 position: new THREE.Vector3( 4600, 0, -650),
                 radius: 1000
             }
-            ];
-            currentApple = 0;
-            apple = new Apple(apples[currentApple]);
-            scene.add(apple.mesh);
 
-            /*
-               var jsonLoader = new THREE.JSONLoader();
-               jsonLoader.load( "sunglasses.js", function( geometry ) { createScene( geometry) } );
+        ];
+    currentApple = 0;
+    apple = new Apple(apples[currentApple]);
+    scene.add(apple.mesh);
 
+    var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
+    oslash = new THREE.Mesh( oslashCube, materials.textTexture );
+    oslash.rotation.z = Math.PI/3;
+    oslash.rotation.x = -Math.PI/4;
+    oslash.position = {
+            x: 3327,
+            y: 328,
+            z: 207
+    };
+    scene.add(oslash);
 
-               function createScene( geometry ) {
-               var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
-               mesh.scale.set(.1, .1, .1);
-               mesh.position.y = 1200;
-               mesh.position.x = -3000;
-               mesh.position.z = -2000;
-               scene.add(mesh);
-               }
-               */
-            var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
-            oslash = new THREE.Mesh( oslashCube, materials.textTexture );
-            oslash.rotation.z = Math.PI/3;
-            oslash.rotation.x = -Math.PI/4;
-            oslash.position = {
-                x: 3325,
-                y: 330,
-                z: 205
-            };
-            scene.add(oslash);
+    setLoadingBar(1, function(){});
 
-            setLoadingBar(1, function(){});
-
-            fadeStartTime = 0;
-            fadeGoalTime = 0;
-            fadeStart = 0;
-            fadeGoal = 0;
-            fadeFn = undefined;
-            fadeIn(2000);
-        })});
+    fadeStartTime = 0;
+    fadeGoalTime = 0;
+    fadeStart = 0;
+    fadeGoal = 0;
+    fadeFn = undefined;
+    fadeIn(4000);
+    })});
 }
 
 function fadeIn(duration) {
