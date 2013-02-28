@@ -88,24 +88,21 @@ Snake.prototype.update = function( newPos ) {
     var dVector = new THREE.Vector3( 0, 0, 0 );
     var glassLookAt = new THREE.Vector3( 0, 0, 0 );
     var glassPosition = new THREE.Vector3( 0, 0, 0 );
+
     dVector.subVectors( this.getPosition(), this.previousSnake.getPosition() );
     
     var xzPointer = dVector.clone(); xzPointer.y = 0;
     var xzNormalized = xzPointer.clone().normalize();
     var xzFromHead = xzNormalized.multiplyScalar( 55 );
-    var xzFromSegment = THREE.Vector3( 0, 0, 0 );
+    var xzHeadAbsolute = THREE.Vector3( 0, 0, 0 );
+
+    xzHeadAbsolute.addVectors( xzFromHead, this.previousSnake.getPosition()  ); 
+    xzHeadAbsolute.y = this.getPosition().y;
     
-    //xzFromSegment.addVectors( this.previousSnake.getPosition(), xzPointer );
-
-    //glassLookAt.add( xzFromSegment, + xzFromHead );
-    glassLookAt.addVectors( dVector.clone().multiplyScalar(10), this.previousSnake.getPosition()  );
-    glassLookAt.y = this.getPosition().y; // Disse to linjene låser brillene til y-verdien til hodet
-
-    glassPosition.addVectors( xzPointer, xzFromHead );
-    glassPosition.add( this.previousSnake.getPosition()  );
-    glassPosition.y = this.mesh.position.y;
-
+    glassLookAt.addVectors( xzPointer.clone().multiplyScalar(10), xzHeadAbsolute );
+    glassPosition.addVectors( xzPointer.clone().multiplyScalar(1), xzHeadAbsolute );
     glassPosition.add( new THREE.Vector3( 0, 25, 0 ) ); // Height adjustment
+
   }
 
 	this.mesh.position.add(normalizedPointer);
