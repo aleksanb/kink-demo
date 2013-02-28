@@ -85,9 +85,9 @@ var TEXTS = [
         title: "BEKK",
         size: 100,
         position: {
-            x: 3100,
-            y: 150,
-            z: 700
+            x: 3000,
+            y: 280,
+            z: 800
         },
         rotation: Math.PI/3,
         visibleToggle: [
@@ -98,9 +98,9 @@ var TEXTS = [
         title: "BEKKENLOSNING",
         size: 100,
         position: {
-            x: 3100,
-            y: 150,
-            z: 700
+            x: 3000,
+            y: 280,
+            z: 800
         },
         rotation: Math.PI/3,
         initAsHidden: true,
@@ -172,7 +172,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1100,
-            y: 280,
+            y: 550,
             z: 200
         },
         rotation: -Math.PI/2 - .7,
@@ -186,7 +186,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 650,
-            y: 290,
+            y: 700,
             z: -150
         },
         rotation: -Math.PI/2,
@@ -200,7 +200,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1600,
-            y: 190,
+            y: 600,
             z: -350
         },
         rotation: -Math.PI/2 + 1,
@@ -214,7 +214,7 @@ var TEXTS = [
         size: 70,
         position: {
             x: 1750,
-            y: 290,
+            y: 550,
             z: 350
         },
         rotation: -Math.PI/2 - .5,
