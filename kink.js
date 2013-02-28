@@ -210,6 +210,12 @@ function init() {
         }
     }
 
+    /* STILL IN BETA
+    var name1Light = new THREE.DirectionalLight(0xffffff, 0.5);
+    name1Light.position.set(1600,640,-350);
+    scene.add(name1Light);
+    */
+
     cameraskip = false;
 
     bg.init();

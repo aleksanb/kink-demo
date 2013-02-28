@@ -59,9 +59,9 @@ var TEXTS = [
         title: "HELP, I'M TRAPPED",
         size: 100,
         position: {
-            x: 850,
+            x: 840,
             y: 850,
-            z: -400
+            z: -300
         },
         rotation: Math.PI/2,
         visibleToggle: [
@@ -72,9 +72,9 @@ var TEXTS = [
         title: "IN A .JS LIBRARY!",
         size: 100,
         position: {
-            x: 850,
+            x: 840,
             y: 700,
-            z: -400
+            z: -300
         },
         rotation: Math.PI/2,
         visibleToggle: [
