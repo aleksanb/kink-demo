@@ -17,14 +17,14 @@ var CAMERA_POSITIONS = {
     }),
     12000: new TrackingCamera({
         "position": {
-            "x": -200,
-            "y": 230,
-            "z": 250
+            "x": 20,
+            "y": 50,
+            "z": 30
         },
         "startposition": {
-            "x": 80,
-            "y": 80,
-            "z": 80
+            "x": -20,
+            "y": 70,
+            "z": 50
         },
         "animate": true,
         "duration": 8000
