@@ -249,7 +249,7 @@ function init() {
     scene.add(apple.mesh);
 
     var jsonLoader = new THREE.JSONLoader();
-    jsonLoader.load( "sunglasses.js", function( geometry, materials ) { snake.attachGlasses( geometry, materials ) } );
+    jsonLoader.load( "sweet_glasses.js", function( geometry, materials ) { snake.attachGlasses( geometry, materials ) } );
     //jsonLoader.load( "sunglasses.js", function( geometry ) { snake.attatchGlasses( geometry ) } );
     
     /*function createScene( geometry, materials ) {
