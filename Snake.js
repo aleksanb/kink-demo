@@ -26,11 +26,12 @@ Snake.prototype.setPrevious = function( previousSnake ) {
 }
 
 Snake.prototype.getPosition = function( previousSnake ) {
-	return this.mesh.position;
+	return this.mesh.position.clone();
 }
 
 Snake.prototype.update = function( newPos) {
 	
+
 	if ( this.previousSnake != null ) {
 		this.previousSnake.update( this.mesh.position );
 	}

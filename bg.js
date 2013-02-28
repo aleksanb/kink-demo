@@ -4,7 +4,7 @@ function BG() {
     this.colors = [];
     this.texture = new THREE.Texture(this.generateSprite());
     this.texture.needsUpdate = true;
-    this.NUM_PARTICLES = 5000;
+    this.NUM_PARTICLES = 2000;
     this.material;
     this.particleSystem;
     this.attributes = [];
