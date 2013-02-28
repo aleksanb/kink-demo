@@ -29,9 +29,10 @@ function update() {
     }
 
     bg.update();
+    /*
     for ( var i=0; i < lightCarpets.length; i++ ) {
         lightCarpets[i].update();
-    }
+    }*/
     
     for ( var i=0; i < SNAKE_TRACK.length; i++ ) {
         if ( SNAKE_TRACK[i].startTime < t &&
@@ -213,6 +214,7 @@ function init() {
 
     bg.init();
 
+    /*
     for ( var i=0; i < 10; i++ ) {
         var lightCarpet = new LightCarpet( scene );
         lightCarpet.setPosition(new THREE.Vector3( 3800, 1200-i*100, 800));
@@ -230,6 +232,7 @@ function init() {
         lightCarpets.push( lightCarpet);
 
     }
+    */
 
     currentSnakeMove = SNAKE_TRACK[0];
     currentSnakeMoveInitTime = t;

@@ -114,7 +114,7 @@ var TEXTS = [
         size:30,
         position: {
             x: -1600,
-            y: 680,
+            y: 690,
             z: 1100
         },
         rotation: -Math.PI/2
