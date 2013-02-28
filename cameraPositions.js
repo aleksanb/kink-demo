@@ -130,8 +130,8 @@ var CAMERA_POSITIONS = {
     57000: new FixedCamera({
         "position": {
             "x": -250,
-            "y": 500,
-            "z": 600
+            "y": 1000,
+            "z": -400
         },
         "startposition": {
             "x": -1000,
@@ -149,7 +149,7 @@ var CAMERA_POSITIONS = {
         },
         "startposition": {
             "x": -250,
-            "y": 500,
+            "y": 1000,
             "z": 600
         },
         "animate": true,
