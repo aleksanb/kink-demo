@@ -262,11 +262,11 @@ function init() {
                 radius: 50
             },
             {
-                position: new THREE.Vector3( 2900, terrain.getYValue( 2900, 0 ) + 30, 0),
+                position: new THREE.Vector3( 3000, terrain.getYValue( 3000, 100 ) + 30, 100),
                 radius: 50
             },
             {
-                position: new THREE.Vector3( 2600, terrain.getYValue( 2600, 1000 ) + 30, 1000),
+                position: new THREE.Vector3( 3600, terrain.getYValue( 3600, 900 ) + 30, 900),
                 radius: 50
             },
             {

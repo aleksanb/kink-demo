@@ -36,9 +36,9 @@ var CAMERA_POSITIONS = {
             "z": 350
         },
         "startposition": {
-            "x": 3600,
-            "y": 250,
-            "z": 250
+            "x": 3800,
+            "y": 150,
+            "z": 800
         },
         "animate": true,
         "duration": 6000
