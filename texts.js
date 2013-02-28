@@ -4,7 +4,7 @@ var TEXTS = [
         size: 100,
         position: {
             x: -1100,
-            y: 500,
+            y: 610,
             z: -100
         },
         visibleToggle: [
@@ -19,28 +19,29 @@ var TEXTS = [
             54950
 
         ],
-        initAsHidden: true
+        rotation: Math.PI/4,
+        initAsHidden: true,
     },
     {
         title: "IS NOT KINECT",
-        size: 100,
+        size: 90,
         position: {
-            x: -800,
-            y: 300,
-            z: -100
+            x: -680,
+            y: 610,
+            z: -320
         },
         visibleToggle: [
-            45000,
+            43000,
 
         ],
-        initAsHidden: true
+        initAsHidden: true,
     },
     {
         title: "KIDS",
         size: 100,
         position: {
             x: -1100,
-            y: 500,
+            y: 610,
             z: -100
         },
         visibleToggle: [
@@ -53,6 +54,7 @@ var TEXTS = [
             54400,
             54950
         ],
+        rotation: Math.PI/4,
         initAsHidden: true
     },
     {
@@ -117,7 +119,11 @@ var TEXTS = [
             y: 690,
             z: 1100
         },
-        rotation: -Math.PI/2
+        rotation: -Math.PI/2,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
     },
     {
         title: "CLOUD",
@@ -127,7 +133,12 @@ var TEXTS = [
             y: 580,
             z: 1100
         },
-        rotation: -Math.PI/2
+        rotation: -Math.PI/2,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
+
     },
     {
         title: "AGILE",
@@ -137,7 +148,12 @@ var TEXTS = [
             y: 530,
             z: 1160
         },
-        rotation: -Math.PI/2+.5
+        rotation: -Math.PI/2+.5,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
+
     },
     {
         title: "VALUE-ADDED",
@@ -147,7 +163,12 @@ var TEXTS = [
             y: 480,
             z: 1300
         },
-        rotation: -Math.PI/2-.3
+        rotation: -Math.PI/2-.3,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
+
     },
     {
         title: "WORKFLOW",
@@ -157,7 +178,11 @@ var TEXTS = [
             y: 440,
             z: 950
         },
-        rotation: -Math.PI/2+.2
+        rotation: -Math.PI/2+.2,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
     },
     {
         title: "SCALABILITY",
@@ -167,7 +192,12 @@ var TEXTS = [
             y: 440,
             z: 1190
         },
-        rotation: -Math.PI/2
+        rotation: -Math.PI/2,
+        visibleToggle: [
+            25000
+        ],
+        initAsHidden: true,
+
     },
     {
         title: "ROBOCUP",
