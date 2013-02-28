@@ -248,6 +248,19 @@ function init() {
     apple = new Apple(apples[currentApple]);
     scene.add(apple.mesh);
 
+    var jsonLoader = new THREE.JSONLoader();
+    jsonLoader.load( "sunglasses.js", function( geometry ) { createScene( geometry) } );
+    //jsonLoader.load( "sunglasses.js", function( geometry ) { snake.attatchGlasses( geometry ) } );
+    
+    function createScene( geometry ) {
+        var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xbbbbbb}) );
+        //mesh.scale.set(.1, .1, .1);
+        mesh.position.y = 1200;
+        mesh.position.x = -3000;
+        mesh.position.z = -2000;
+        scene.add(mesh);
+    }
+
     var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
     oslash = new THREE.Mesh( oslashCube, materials.textTexture );
     oslash.rotation.z = Math.PI/3;
