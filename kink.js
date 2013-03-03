@@ -72,11 +72,11 @@ function update() {
 
     apple.update();
 
-    if ( t > 25500 && t < 45500 ) {
+/*    if ( t > 25500 && t < 45500 ) {
         oslash.visible = true;
     } else {
         oslash.visible = false;
-    }
+    }*/
 
     if ( t > 14000 && t < 16000) {
         snake.headBob = true;

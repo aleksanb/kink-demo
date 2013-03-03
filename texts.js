@@ -95,7 +95,7 @@ var TEXTS = [
             25500
         ]
     },
-    {
+ /*   {
         title: "BEKKENLOSNING",
         size: 100,
         position: {
@@ -109,7 +109,7 @@ var TEXTS = [
             25500,
             45000
         ]  
-    },
+    },*/
     {
         title: "KNOWLEDGE ECONOMY",
         size:30,
