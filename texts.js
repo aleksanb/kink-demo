@@ -92,7 +92,7 @@ var TEXTS = [
         },
         rotation: Math.PI/3,
         visibleToggle: [
-            25500
+            45000
         ]
     },
  /*   {

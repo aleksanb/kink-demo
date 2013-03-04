@@ -7,7 +7,6 @@ var apple, apples, currentApple, numberOfApples;
 var materials, light, cameraskip, fadeStartTime, fadeGoalTime, fadeStart, fadeGoal, fadeFn;
 var currentSnakeMove, currentSnakeMoveInitTime;
 var skybox, lightCarpets = [];
-var oslash;
 
 /* smoothstep interpolaties between a and b, at time t from 0 to 1 */
 function smoothstep(a, b, t) {
@@ -72,11 +71,6 @@ function update() {
 
     apple.update();
 
-/*    if ( t > 25500 && t < 45500 ) {
-        oslash.visible = true;
-    } else {
-        oslash.visible = false;
-    }*/
 
     if ( t > 14000 && t < 16000) {
         snake.headBob = true;
@@ -267,16 +261,6 @@ function init() {
         scene.add(mesh);
     }
 */
-    var oslashCube = new THREE.CubeGeometry( 125, 10, 15, 1, 1, 1 );
-    oslash = new THREE.Mesh( oslashCube, materials.textTexture );
-    oslash.rotation.z = Math.PI/3;
-    oslash.rotation.x = -Math.PI/4;
-    oslash.position = {
-            x: 3327,
-            y: 328,
-            z: 207
-    };
-    scene.add(oslash);
 
     setLoadingBar(1, function(){});
 
